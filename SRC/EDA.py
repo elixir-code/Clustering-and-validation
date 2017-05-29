@@ -1,5 +1,7 @@
 """Exploratory Data Analysis (EDA) - Clustering Toolkit
 Authors : R.Mukesh, Nitin Shravan (BuddiHealth Technologies)
+
+Dependencies: numpy, sklearn, matplotlib, hdbscan, seaborn, gapkmean
 """
 
 import numpy as np
@@ -12,7 +14,12 @@ from sklearn.cluster import DBSCAN
 from hdbscan import HDBSCAN
 from sklearn.cluster import KMeans
 
+from sklearn.cluster import SpectralClustering
+
 from math import pow
+
+#downloaded source -- pip didn't work 
+from GAP import gap
 
 class EDA:
 
@@ -95,7 +102,7 @@ class EDA:
 
 		self.dbscan_params={"min_samples":min_samples,"eps":eps}
 
-	def gap_inertia_stat(self,k_min,k_max):
+	def wk_inertia_stat(self,k_min,k_max):
 
 		Wk_array=np.empty(k_max-k_min+1,dtype=np.float64)
 		inertia_array=np.empty(k_max-k_min+1,dtype=np.float64)
@@ -121,7 +128,7 @@ class EDA:
 
 			del kmeans_clusterer,Dr,Nr,Wk
 
-		plt.title("GAP STATISTICS")
+		plt.title("Wk vs n_clusters")
 		plt.xlabel("n_clusters")
 		plt.ylabel("Wk")
 		plt.grid(True)
@@ -136,6 +143,19 @@ class EDA:
 		plt.plot(np.arange(k_min,k_max+1),inertia_array,"k")
 		plt.show()
 
+	#find no. of clusters - gap statistics
+	def gap_statistics(self,k_max,k_min=1):
+
+		#refs=None, B=10
+		gaps,sk,K = gap.gap_statistic(self.data,refs=None,B=10,K=range(k_min,k_max+1),N_init = 10)
+		
+		plt.title("GAP STATISTICS")
+		plt.xlabel("n_clusters")
+		plt.ylabel("gap")
+
+		plt.plot(K,gaps,"k",linewidth=2)
+		plt.show()
+
 	#gather results  by performing dbscan
 	def perform_dbscan(self):
 		dbscan_clusterer=DBSCAN(**self.dbscan_params,metric="precomputed")
@@ -147,11 +167,27 @@ class EDA:
 	def perform_hdbscan(self,min_cluster_size=15):
 		hdbscan_clusterer=HDBSCAN(min_cluster_size,metric="precomputed")
 		hdbscan_clusterer.fit(self.distance_matrix)
-		self.hdbscan_results={"parameters":hdbscan_clusterer.get_params,"labels":hdbscan_clusterer.labels_,"probabilities":hdbscan_clusterer.probabilities_,"n_clusters":np.unique(hdbscan_clusterer.labels_).max()+1,'clusters':label_cnt_dict(hdbscan_clusterer.labels_)}
+		self.hdbscan_results={"parameters":hdbscan_clusterer.get_params(),"labels":hdbscan_clusterer.labels_,"probabilities":hdbscan_clusterer.probabilities_,"n_clusters":np.unique(hdbscan_clusterer.labels_).max()+1,'clusters':label_cnt_dict(hdbscan_clusterer.labels_)}
 
 		print_dict(self.hdbscan_results)
 
-		
+	def perform_spectral_clustering(self,no_clusters):
+		spectral_clusterer=SpectralClustering(n_clusters=no_clusters)
+		spectral_clusterer.fit(self.distance_matrix)
+		self.spectral_results={"parameters":spectral_clusterer.get_params(),"labels":spectral_clusterer.labels_,"n_clusters":np.unique(spectral_clusterer.labels_).max()+1,"clusters":label_cnt_dict(spectral_clusterer.labels_)}
+
+		print_dict(self.spectral_results)
+
+		#gaussian kernel affinity matrix
+		self.affinity_matrix = spectral_clusterer.affinity_matrix_
+
+	def perform_kmeans(self,no_clusters):
+		kmeans_clusterer=KMeans(n_clusters=no_clusters)
+		kmeans_clusterer.fit(self.data)
+		self.kmeans_results={"parameters":kmeans_clusterer.get_params(),"labels":kmeans_clusterer.labels_,"n_clusters":no_clusters,'clusters':label_cnt_dict(kmeans_clusterer.labels_),"cluster_centers":kmeans_clusterer.cluster_centers_,"inertia":kmeans_clusterer.inertia_}     
+
+		print_dict(self.kmeans_results)
+
 def label_cnt_dict(labels):
 	unique, counts = np.unique(labels, return_counts=True)
 	return dict(zip(unique, counts))
