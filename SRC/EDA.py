@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.cluster import DBSCAN
+from hdbscan import HDBSCAN
+from sklearn.cluster import KMeans
+
+from math import pow
 
 class EDA:
 
@@ -91,15 +95,63 @@ class EDA:
 
 		self.dbscan_params={"min_samples":min_samples,"eps":eps}
 
+	def gap_inertia_stat(self,k_min,k_max):
+
+		Wk_array=np.empty(k_max-k_min+1,dtype=np.float64)
+		inertia_array=np.empty(k_max-k_min+1,dtype=np.float64)
+
+		#run kmeans and compute log(wk) for all n_clusters
+		for no_clusters in range(k_min,k_max+1):
+
+			kmeans_clusterer=KMeans(n_clusters=no_clusters)
+			kmeans_clusterer.fit(self.data)
+
+			Dr=np.zeros(no_clusters)
+			unique,Nr=np.unique(kmeans_clusterer.labels_,return_counts=True)
+			del unique
+
+			for i in range(self.n_samples-1):
+				for j in range(i+1,self.n_samples):
+					if kmeans_clusterer.labels_[i]==kmeans_clusterer.labels_[j]:
+						Dr[kmeans_clusterer.labels_[i]] += pow(self.distance_matrix[i][j],2)
+
+			Wk=np.sum(Dr/(2*Nr))
+			Wk_array[no_clusters-k_min]=Wk
+			inertia_array[no_clusters-k_min]=kmeans_clusterer.inertia_*100
+
+			del kmeans_clusterer,Dr,Nr,Wk
+
+		plt.title("GAP STATISTICS")
+		plt.xlabel("n_clusters")
+		plt.ylabel("Wk")
+		plt.grid(True)
+
+		plt.plot(np.arange(k_min,k_max+1),Wk_array,"k")
+		plt.show()
+
+		plt.title("INTERIA TO FIND NUMBER OF CLUSTERS")
+		plt.xlabel("n_clusters")
+		plt.ylabel("inertia")
+
+		plt.plot(np.arange(k_min,k_max+1),inertia_array,"k")
+		plt.show()
 
 	#gather results  by performing dbscan
 	def perform_dbscan(self):
 		dbscan_clusterer=DBSCAN(**self.dbscan_params,metric="precomputed")
 		dbscan_clusterer.fit(self.distance_matrix)
-		self.dbscan_results={"parameters":dbscan_clusterer.get_params(),"n_clusters":np.unique(dbscan_clusterer.labels_).max()+1,'clusters':label_cnt_dict(dbscan_clusterer.labels_)}		
+		self.dbscan_results={"parameters":dbscan_clusterer.get_params(),"labels":dbscan_clusterer.labels_,"n_clusters":np.unique(dbscan_clusterer.labels_).max()+1,'clusters':label_cnt_dict(dbscan_clusterer.labels_)}		
 
 		print_dict(self.dbscan_results)
 
+	def perform_hdbscan(self,min_cluster_size=15):
+		hdbscan_clusterer=HDBSCAN(min_cluster_size,metric="precomputed")
+		hdbscan_clusterer.fit(self.distance_matrix)
+		self.hdbscan_results={"parameters":hdbscan_clusterer.get_params,"labels":hdbscan_clusterer.labels_,"probabilities":hdbscan_clusterer.probabilities_,"n_clusters":np.unique(hdbscan_clusterer.labels_).max()+1,'clusters':label_cnt_dict(hdbscan_clusterer.labels_)}
+
+		print_dict(self.hdbscan_results)
+
+		
 def label_cnt_dict(labels):
 	unique, counts = np.unique(labels, return_counts=True)
 	return dict(zip(unique, counts))
@@ -114,6 +166,19 @@ def visualise_2D(x_values,y_values,labels=None):
 	sns.set_style('white')
 	sns.set_context('poster')
 	sns.set_color_codes()
+
 	plot_kwds = {'alpha' : 0.5, 's' : 80, 'linewidths':0}
 
-	palette = sns.color_palette()
+	frame = plt.gca()
+	frame.axes.get_xaxis().set_visible(False)
+	frame.axes.get_yaxis().set_visible(False)
+
+	if labels is None:
+		plt.scatter(x_values,y_values,c='b',**plot_kwds)
+
+	else:
+		pallete=sns.color_palette('deep',np.unique(labels).max()+1)
+		colors=[pallete[x] if x>=0 else (0.0,0.0,0.0) for x in labels]
+		plt.scatter(x_values,y_values,c=colors,**plot_kwds)
+
+	plt.show()
