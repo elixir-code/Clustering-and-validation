@@ -87,3 +87,75 @@ def scatter_matrices(data,labels):
 	
 	return St,Sw,Sb
 ''' Partitional Clustering validation --end '''
+
+
+
+def Compute_adjusted_rand_index(labels_true ,labels_pred):
+	"""Adjusted Rand Index (SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/clustering.html#adjusted-rand-index 
+	"""
+	return metrics.adjusted_rand_score(labels_true, labels_pred) 
+
+
+def Compute_adjusted_mutual_information(labels_true,labels_pred):
+	"""Adjusted Mutual information(SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.adjusted_mutual_info_score.html#sklearn.metrics.adjusted_mutual_info_score
+	"""
+	return metrics.adjusted_mutual_info_score(labels_true, labels_pred)  
+
+
+def Compute_normalized_mutual_information(labels_true,labels_pred):
+	"""normalized Mutual information(SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.normalized_mutual_info_score.html#sklearn.metrics.normalized_mutual_info_score
+	"""
+	return metrics.normalized_mutual_info_score(labels_true, labels_pred) 
+
+
+def Compute_homogeneity_score(labels_true,labels_pred):
+	"""homogeneity_score(SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.homogeneity_score.html#sklearn.metrics.homogeneity_score
+	"""
+	return metrics.homogeneity_score(labels_true, labels_pred) 
+
+
+def Compute_completness_score(labels_true,labels_pred):
+	"""completeness_score(SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.completeness_score.html#sklearn.metrics.completeness_score
+	"""
+	return metrics.completeness_score(labels_true, labels_pred) 
+
+def Compute_v_measure_score(labels_true, labels_pred):
+	"""v_measure_score(SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.v_measure_score.html#sklearn.metrics.v_measure_score
+	"""
+	return metrics.v_measure_score(labels_true, labels_pred) 
+
+
+def Compute_fowlkes_mallows_score(labels_true, labels_pred):
+	"""fowlkes_mallows_score(SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.fowlkes_mallows_score.html#sklearn.metrics.fowlkes_mallows_score
+	"""	
+	return metrics.fowlkes_mallows_score(labels_true, labels_pred) 
+
+
+def Compute_silhouette_score(data,labels_pred):
+	"""silhouette_score(SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score	
+	"""	
+	return metrics.silhouette_score(data,labels_pred, metric='euclidean')
+
+def Compute_calinski_harabaz_score(data, labels_pred) :
+	"""silhouette_score(SKLEARN)
+	Reference:
+	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score	
+	"""	
+	return metrics.calinski_harabaz_score(data, labels_pred) 
+
