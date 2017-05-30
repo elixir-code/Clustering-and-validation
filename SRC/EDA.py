@@ -2,6 +2,7 @@
 Authors : R.Mukesh, Nitin Shravan (BuddiHealth Technologies)
 
 Dependencies: numpy, sklearn, matplotlib, hdbscan, seaborn, gapkmean
+version : Python 3.0
 """
 
 import numpy as np
