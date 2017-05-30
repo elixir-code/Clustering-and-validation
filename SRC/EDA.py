@@ -24,6 +24,8 @@ from GAP import gap
 
 class EDA:
 
+	#TODO: create a function that makes use of pandas library to read data
+
 	#reads data matrix
 	def read_data(self,filename,offset_top=1,offset_left=1,sep='\t'):
 
@@ -197,6 +199,7 @@ def print_dict(dictionary):
 	for key,value in dictionary.items():
 		print(key,value,sep=" : ")
 
+#TODO: add class labels as legends
 def visualise_2D(x_values,y_values,labels=None):
 	"""Visualise clusters of selected 2 features"""
 
@@ -216,6 +219,6 @@ def visualise_2D(x_values,y_values,labels=None):
 	else:
 		pallete=sns.color_palette('deep',np.unique(labels).max()+1)
 		colors=[pallete[x] if x>=0 else (0.0,0.0,0.0) for x in labels]
-		plt.scatter(x_values,y_values,c=colors,**plot_kwds)
+		plt.scatter(x_values,y_values,c=colors,**plot_kwds,s=80,alpha=0.75,linewidths=0)
 
 	plt.show()

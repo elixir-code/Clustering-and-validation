@@ -19,6 +19,7 @@ def euclidean_distance(vector1,vector2,squared=False):
 
 	return euclidean_distance
 
+
 def compute_cluster_centers(data,labels,return_counts=False):
 	"""Computes mean center of points in a cluster
 
@@ -35,7 +36,7 @@ def compute_cluster_centers(data,labels,return_counts=False):
 		#to avoid noise points (labels=-1)
 		if labels[point_index]>=0:
 			cluster_counts[labels[point_index]] += 1
-			cluster_centers[labels[point_index]] += data[point_index]
+			cluster_centers[labels[point_index]] = cluster_centers[labels[point_index]] + data[point_index]
 
 	for index in range(n_clusters):
 		cluster_centers[index]=cluster_centers[index]/cluster_counts[index]
