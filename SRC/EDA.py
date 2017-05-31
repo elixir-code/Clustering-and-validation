@@ -45,6 +45,7 @@ class EDA:
 	def comp_distance_matrix(self):
 		self.distance_matrix=pairwise_distances(self.data)
 
+	#TODO : arrange k-dist in increasing order and plot
 	#determines dbscan parameters
 	def det_dbscan_params(self,min_samples=None,plot_scale=0.02):
 		
