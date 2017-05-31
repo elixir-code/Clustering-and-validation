@@ -152,45 +152,47 @@ def Compute_purity(labels_true,labels_pred):
 	"""	
 	A = np.c_[(labels_pred,labels_true)]
 	n_accurate = 0.
-    for j in np.unique(A[:,0]):
+	for j in np.unique(A[:,0]):
 		z = A[A[:,0] == j, 1]
 		x = np.argmax(np.bincount(z))
 		n_accurate += len(z[z == x])
 
-    return n_accurate / A.shape[0]
+	return n_accurate / A.shape[0]
 
 def Compute_jaccard_co_eff(labels_true, labels_pred):
-    """jaccard co-eff
-    chapter 10 -bible of clustering
+	"""jaccard co-eff
+	chapter 10 -bible of clustering
 
 	Case a: x i and x j belong to the same clusters of C and the same category 	  of P .
 	Case b: x i and x j belong to the same clusters of C but different categories of P .
 	Case c: x i and x j belong to different clusters of C but the same category   of P .
-    j=a/(a+b+c)
-    """
-    a = b= c = 0
-    n = len(labels_true)
-    for i, j in itertools.combinations(xrange(n), 2):
-        comembership1 = labels_true[i] == labels_true[j]
-        comembership2 = labels_pred[i] == labels_pred[j]
-        if comembership1 and comembership2:
-            a += 1
-        elif comembership1 and not comembership2:
-            b += 1
-        elif not comembership1 and comembership2:
-            c += 1
-    return float(a) / (a+b+c)
+	j=a/(a+b+c)
+	"""
+	a,b,c=0,0,0
+	
+	n=len(labels_true)
+	
+	for i, j in itertools.combinations(xrange(n), 2):
+		comembership1 = labels_true[i] == labels_true[j]
+		comembership2 = labels_pred[i] == labels_pred[j]
+		if comembership1 and comembership2:
+			a += 1
+		elif comembership1 and not comembership2:
+			b += 1
+		elif not comembership1 and comembership2:
+			c += 1
+	return float(a) / (a+b+c)
 
 
 def Compute_gamma_statistics(labels_true, labels_pred):
-    """gamma statistics
-    chapter 10 -bible of clustering
+	"""gamma statistics
+	chapter 10 -bible of clustering
 
 	Case a: x i and x j belong to the same clusters of C and the same category 	  of P .
 	Case b: x i and x j belong to the same clusters of C but different categories of P .
 	Case c: x i and x j belong to different clusters of C but the same category   of P .
-    """
-    a = b= c = d = 0
+	"""
+	a = b= c = d = 0
 
 	n = len(labels_true)
 	for i, j in itertools.combinations(xrange(n), 2):
@@ -203,22 +205,13 @@ def Compute_gamma_statistics(labels_true, labels_pred):
 		elif not comembership1 and comembership2:
 			c += 1
 		elif not comembership1 and comembership2:
-			d ++=1	
+			d +=1	
 	M = a + b + c + d
 	m1 = a + b
 	m2 = a + c
 	numerator = (M*a) - (m1*m2)
 	denominator = sqrt(m1 * m2 * (M - m1 ) * (M - m2))
-    return numerator/denominator
-
-
-def Compute_matthews_corrcoef(labels_true, labels_pred) :
-	"""matthews_corrcoef (SKLEARN)
-	Reference:
-	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.matthews_corrcoef.html
-	"""
-	return metrics.matthews_corrcoef(labels_true, labels_pred)
-
+	return numerator/denominator
 
 def Compute_silhouette_score(data,labels_pred):
 	"""silhouette_score(SKLEARN)
@@ -232,5 +225,4 @@ def Compute_calinski_harabaz_score(data, labels_pred) :
 	Reference:
 	http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score	
 	"""	
-	return metrics.calinski_harabaz_score(data, labels_pred) 
-
+	return metrics.calinski_harabaz_score(data, labels_pred)
