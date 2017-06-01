@@ -33,6 +33,52 @@ class external_indices:
 				TN += 1
 		self.TP,self.FN,self.FP,self.TN = TP,FN,FP,TN
 
+
+	""" Classification Oriented Measures -- start """
+
+	def entropy(self,average=True):
+		"""Entropy : degree to which each cluster contains objects of a single class.
+
+		References : Chapter 8 Cluster Analysis: Basic Concepts and Algorithms
+		range : 0 (cluster labels and class labels match) to 1 (randomness in cluster and class labels)
+		"""
+		'''
+		#removing noise points from data : copy code to __init__
+		selected_pts=(self.cluster_labels>=0)
+
+		cluster_labels=self.cluster_labels[selected_pts]
+		class_labels=self.class_labels[selected_pts]
+		'''
+
+		#TODO: if cluster labels allow noise (label = -1), cast to np.array internally
+		n_clusters=np.unique(self.cluster_labels).max()+1
+
+		cluster_entropies=np.zeros(n_clusters)
+		cluster_sizes=np.zeros(n_clusters)
+
+		A=np.c_[(self.cluster_labels,self.class_labels)]
+
+		for cluster_i in np.unique(A[:,0]):
+			corres_class_labels=A[(A[:,0]==cluster_i),1]
+
+			cluster_i_size=corres_class_labels.shape[0]
+			class_dist=np.bincount(corres_class_labels)
+
+			valid_class_indices=(class_dist>0)
+			class_dist_fraction=class_dist[valid_class_indices]/cluster_i_size
+
+			entropy_i = -1*np.sum(class_dist_fraction*np.log2(class_dist_fraction))
+
+			cluster_entropies[cluster_i] = entropy_i
+			cluster_sizes[cluster_i] = cluster_i_size
+
+		if average is False:
+			return cluster_entropies
+
+		else:
+			return np.sum(cluster_sizes*cluster_entropies)/self.n_samples
+
+
 	def precision_coefficient(self):
 		""" *Precision coefficient : fraction of pairs of points correctly grouped together to total pair of point grouped together
 		
@@ -41,6 +87,7 @@ class external_indices:
 		range : 0 (worst) to 1 (best)
 		"""
 		return self.TP/(self.TP+self.FP)
+
 
 	def recall_coefficient(self):
 		""" *Recall Coefficient : fraction of pairs of points that were correctly grouped togther to that supposed to grouped together according to class labels.
@@ -70,6 +117,22 @@ class external_indices:
 		range : 0 (worst) to 1 (best)
 		"""
 		return ((1+beta*beta)*self.TP)/((1+beta*beta)*self.TP+beta*beta*self.FN+self.FP)
+
+	def purity(labels_true,labels_pred):
+		""" * Purity
+		Reference: http://www.caner.io/purity-in-python.html
+		""" 
+		A = np.c_[(self.cluster_labels,self.class_labels)]
+		n_accurate = 0.
+		for j in np.unique(A[:,0]):
+			z = A[A[:,0] == j, 1]
+			x = np.argmax(np.bincount(z))
+			n_accurate += len(z[z == x])
+
+		return n_accurate / A.shape[0]
+
+
+	""" Classification Oriented Measures -- end """
 
 	#TODO : May remove sklearn implementation after check
 	def folkes_mallows_index(self):
@@ -151,19 +214,6 @@ class external_indices:
 		"""
 		return metrics.v_measure_score(self.class_labels,self.cluster_labels)  
 
-
-	def purity(labels_true,labels_pred):
-		""" * Purity
-		Reference: http://www.caner.io/purity-in-python.html
-		""" 
-		A = np.c_[(self.cluster_labels,self.class_labels)]
-		n_accurate = 0.
-		for j in np.unique(A[:,0]):
-			z = A[A[:,0] == j, 1]
-			x = np.argmax(np.bincount(z))
-			n_accurate += len(z[z == x])
-
-		return n_accurate / A.shape[0]
 
 	def jaccard_co_eff(self):
 		"""Jaccard's coefficient
