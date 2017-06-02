@@ -20,8 +20,8 @@ class external_indices:
 		TP, FN, FP, TN = 0,0,0,0
 
 		for i,j in combinations(range(self.n_samples),2):
-			same_class = class_labels[i]==class_labels[j]
-			same_cluster = cluster_labels[i]==cluster_labels[j]
+			same_class = (self.class_labels[i]==self.class_labels[j])
+			same_cluster = (self.cluster_labels[i]==self.cluster_labels[j])
 
 			if same_class and same_cluster:
 				TP += 1
