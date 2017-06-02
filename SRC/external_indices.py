@@ -12,9 +12,9 @@ class external_indices:
 		if len(class_labels)!=len(cluster_labels):
 			raise Exception("length of class and cluster labels don't match")
 
-		self.class_labels=class_labels
-		self.cluster_labels=cluster_labels
-		self.n_samples=len(class_labels)
+		self.class_labels=np.array(class_labels)
+		self.cluster_labels=np.array(cluster_labels)
+		self.n_samples=self.class_labels.shape[0]
 
 		#compute TP (True-positive:yy,a), FN (False-negative:yn,c), FP (False-Positive:ny,b),TN (True-negative:nn,d)
 		TP, FN, FP, TN = 0,0,0,0
@@ -118,7 +118,7 @@ class external_indices:
 		"""
 		return ((1+beta*beta)*self.TP)/((1+beta*beta)*self.TP+beta*beta*self.FN+self.FP)
 
-	def purity(labels_true,labels_pred):
+	def purity(self):
 		""" * Purity
 		Reference: http://www.caner.io/purity-in-python.html
 		""" 
@@ -135,6 +135,7 @@ class external_indices:
 	""" Classification Oriented Measures -- end """
 
 	#TODO : May remove sklearn implementation after check
+	#TODO : Check range, giving value > 1
 	def folkes_mallows_index(self):
 		"""Folkes-Mallows (FM) index is the geometric mean of precision and recall
 		
@@ -142,8 +143,8 @@ class external_indices:
 		
 		range : 0 (low similarity) to 1 (high similarity)
 		"""
-		return self.TP/sqrt((self.TP+self.FN)+(self.TP+self.FP))
-		#return metrics.fowlkes_mallows_score(self.class_labels, self.cluster_labels)
+		#return self.TP/sqrt((self.TP+self.FN)+(self.TP+self.FP))
+		return metrics.fowlkes_mallows_score(self.class_labels, self.cluster_labels)
 
 
 	'''More cluster indices -- start'''

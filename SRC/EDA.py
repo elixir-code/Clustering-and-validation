@@ -24,6 +24,11 @@ from GAP import gap
 
 class EDA:
 
+	def load_data(self,data):
+		self.data=data
+		self.n_samples=self.data.shape[0]
+		self.n_features=self.data.shape[1]
+
 	#reads data matrix
 	def read_data(self,filename,offset_top=1,offset_left=1,sep='\t'):
 
@@ -183,8 +188,8 @@ class EDA:
 		#gaussian kernel affinity matrix
 		self.affinity_matrix = spectral_clusterer.affinity_matrix_
 
-	def perform_kmeans(self,no_clusters):
-		kmeans_clusterer=KMeans(n_clusters=no_clusters)
+	def perform_kmeans(self,no_clusters,params={}):
+		kmeans_clusterer=KMeans(n_clusters=no_clusters,**params)
 		kmeans_clusterer.fit(self.data)
 		self.kmeans_results={"parameters":kmeans_clusterer.get_params(),"labels":kmeans_clusterer.labels_,"n_clusters":no_clusters,'clusters':label_cnt_dict(kmeans_clusterer.labels_),"cluster_centers":kmeans_clusterer.cluster_centers_,"inertia":kmeans_clusterer.inertia_}     
 
