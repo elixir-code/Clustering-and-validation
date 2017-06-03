@@ -2,27 +2,36 @@
 
 1.  Within-class and between-class scatter values
 2.  The Ball-Hall index
-3.  The Banfeld-Raftery index
+3.  The Banfeld-Raftery index (min)
 4.  The Calinski-Harabasz index
+
 5.  The Det Ratio index
 6.  The Ksq DetW index
 7.  The Log Det Ratio index
 8.  The Log SS Ratio index
-9.  The Scott-Symons index
+
+9.  The Scott-Symons index (min)
 10. The Silhouette index
 11. The Trace WiB index
 
 12. C-index
 13. Dunn-index
 
-14. Davies-Bouldin index (*)
+14. Davies-Bouldin index (min)
+15. Ray-Turi index (min)
+
+Future Implementation
+
+1. CPCC (Heirarchial classification)
 """
 from sklearn import metrics
 
 import numpy as np
-from math import sqrt
+from math import sqrt,log
 
 from sklearn.preprocessing import LabelEncoder
+from itertools import combinations
+
 class internal_indices:
 
 	def __init__(self,data,labels):
@@ -143,7 +152,7 @@ class internal_indices:
 		"""
 		scott_symons_index = 0.
 		for i in range(self.n_clusters):
-			scott_symons_index += self.clusters_size[i]*log(np.linalg.det(self.WG_clusters[i]/self.clusters_size[i]))
+			scott_symons_index += self.clusters_size[i]*np.log(np.linalg.det(self.WG_clusters[i]/self.clusters_size[i]))
 
 		return scott_symons_index
 
@@ -229,7 +238,7 @@ class internal_indices:
 		total_clusters_dispersion = np.zeros(self.n_clusters)
 
 		for data_index in range(self.n_samples):
-			total_clusters_dispersion[self.labels[data_index]] = euclidean_distance(self.data[data_index],self.clusters_mean[self.labels[data_index]])
+			total_clusters_dispersion[self.labels[data_index]] += euclidean_distance(self.data[data_index],self.clusters_mean[self.labels[data_index]])
 
 		mean_clusters_dispersion = total_clusters_dispersion / self.clusters_size
 
@@ -242,10 +251,24 @@ class internal_indices:
 					Mk = (mean_clusters_dispersion[cluster_i] + mean_clusters_dispersion[cluster_j])/euclidean_distance(self.clusters_mean[cluster_i],self.clusters_mean[cluster_j])
 					if Mk > max_Mk :
 						max_Mk = Mk
+			
 			sum_Mk += max_Mk
 
 		return sum_Mk/self.n_clusters
-		
+	
+	def ray_turi_index(self):
+		"""
+		Ray-Turi Index
+		References 	:	[1] Clustering Indices, Bernard Desgraupes (April 2013)
+		"""	
+		min_cluster_mean_diff = euclidean_distance(self.clusters_mean[0],self.clusters_mean[1],squared=True)
+		for cluster_mean1,cluster_mean2 in combinations(self.clusters_mean,2):
+			mean_diff = euclidean_distance(cluster_mean1,cluster_mean2,squared=True)
+			if mean_diff < min_cluster_mean_diff:
+				min_cluster_mean_diff = mean_diff
+
+		return self.WGSS/(min_cluster_mean_diff*self.n_samples)
+
 	# internal indices -- end
 
 # helper functions -- start

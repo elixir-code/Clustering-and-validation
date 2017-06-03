@@ -22,6 +22,8 @@ from math import pow
 #downloaded source -- pip didn't work 
 from GAP import gap
 
+import pandas as pd
+
 class EDA:
 
 	def load_data(self,data):
@@ -29,6 +31,7 @@ class EDA:
 		self.n_samples=self.data.shape[0]
 		self.n_features=self.data.shape[1]
 
+	'''
 	#reads data matrix
 	def read_data(self,filename,offset_top=1,offset_left=1,sep='\t'):
 
@@ -41,6 +44,24 @@ class EDA:
 				if line_number > offset_top:
 					data.append([float(x) for x in line.strip().split(sep)[offset_left:]])
 		self.data=np.array(data)
+
+		self.n_samples=self.data.shape[0]
+		self.n_features=self.data.shape[1]
+	'''
+
+	def read_data(self,file_path,sep=',',header=None,label_cols=-1,normalize_labels=False):
+
+		data_frame = pd.read_csv(filepath_or_buffer=file_path,sep=sep,header=header,index_col=label_cols)
+
+		self.data = data_frame.values
+		self.class_labels = data_frame.index
+
+		if normalize_labels is True:
+			from sklearn.preprocessing import LabelEncoder
+
+			enc = LabelEncoder()
+			label_encoder = enc.fit(self.class_labels)
+			self.class_labels = label_encoder.transform(self.class_labels)
 
 		self.n_samples=self.data.shape[0]
 		self.n_features=self.data.shape[1]
@@ -178,8 +199,8 @@ class EDA:
 
 		print_dict(self.hdbscan_results)
 
-	def perform_spectral_clustering(self,no_clusters):
-		spectral_clusterer=SpectralClustering(n_clusters=no_clusters)
+	def perform_spectral_clustering(self,no_clusters,params={}):
+		spectral_clusterer=SpectralClustering(n_clusters=no_clusters,**params)
 		spectral_clusterer.fit(self.distance_matrix)
 		self.spectral_results={"parameters":spectral_clusterer.get_params(),"labels":spectral_clusterer.labels_,"n_clusters":np.unique(spectral_clusterer.labels_).max()+1,"clusters":label_cnt_dict(spectral_clusterer.labels_)}
 

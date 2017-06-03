@@ -1,0 +1,158 @@
+Test 1 :
+
+References : [1] 	Computational Intelligence in Data Mining - Volume 3 -- Abonyi, Janos Feil, Balazs Abraham, Ajith (DOI : 10.1007/978-81-322-2202-6)
+					Page No. 509 - 517
+
+
+Iris dataset
++----------+
+
+Metric, Our value , Expected value
+
+Internal
+
+Banfeld Raftery : -104.50713167074683,−104.8013
+Davies-Bouldin  : 0.6623228649898697,0.6206659
+Ray-Turi		: 0.16293953364745936,0.162755
+Scott-Symons	: -1602.9186608646799,−1604.542
+
+External
+
+Jaccard index 	: 0.6958587915818059,0.6958588
+Folkes-Mallows	: 0.82080807291141533,0.8208081
+Rand Index 		: 0.8797315436241611,0.8797315
+Rogers-Tanimoto : 0.7852863647256171,0.8037773
+Kulczynski		: 0.8209596485884221,0.8209596
+
+Wine dataset
++----------+
+
+Metric, Our value, Expected value
+
+Internal
+
+Banfeld Raftery : 1653.274726650506,1653.275
+Davies-Bouldin  : 0.53424317754362771,0.5342432
+Ray-Turi		: 0.18222580730674071,0.1822258
+Scott-Symons	: -916.24913525354737,−916.249
+
+External
+
+Jaccard index 	: 0.4119676263765424,0.4119676
+Folkes-Mallows	: 0.58353702189449763,0.583537
+Rand Index 		: 0.718656763791024,0.7186568
+Rogers-Tanimoto : 0.5608620262571217,0.5605288
+Kulczynski		: 0.5835371146403536,0.5835371
+
+Seed dataset
++----------+
+
+Metric, Our value, Expected value
+
+Internal
+
+Banfeld Raftery : 215.42270204725844,215.4227
+Davies-Bouldin  : 0.7533139698796415,0.8025661 (check)
+Ray-Turi		: 0.20945184608710454,0.2094518
+Scott-Symons	: -7023.1065402682043,NaN (check)
+
+External
+
+Jaccard index 	: 0.6815293981748873,0.6815294
+Folkes-Mallows	: 0.81061516706559322,0.8106152
+Rand Index 		: 0.8743677375256322,0.8743677
+Rogers-Tanimoto : 0.7767792081612825,0.781016
+Kulczynski		: 0.8106237531958206,0.8106238
+
+Flame dataset
++-----------+
+
+Metric, Our value, Expected value
+
+Internal
+
+Banfeld Raftery : 615.69405998101979,617.6787
+Davies-Bouldin  : 1.1154144997224922,1.121857
+Ray-Turi		: 0.37753756230822894,0.38538
+Scott-Symons	: 787.13266459947408,788.2648
+
+External
+
+Jaccard index 	: 0.5821874000639591,0.6104777
+Folkes-Mallows	: 0.73639068034268729,0.7586289
+Rand Index 		: 0.726673640167364,0.7498257
+Rogers-Tanimoto : 0.5706892302636983,0.6379602
+Kulczynski		: 0.7368544165580369,0.7591257
+
+Conclusions : Roy-Turi Index is affected by dimensionality of the feature space
+
+All pass, Check Davis-Bouldin, Scott-Symons (NaN cases)
+
+========================================================================================================================
+
+
+Test 2:
+
+Performance Evaluation of Spectral Clustering Algorithm using Various Clustering Validity Indices
+References [1] : http://eprints-bangaloreuniversity.in/5393/1/IJECCE_2998_Final.pdf
+
+Algorithm : KMeans (no. clusters = 3)
++-----------------------------------+
+
+Metric, Our value, Expected value
+
+* Rand Index 			:	0.8797315436241611,0.87973
+* Adjusted Rand Index 	:	0.73023827228346971,0.73024
+
+* Hubert Index 			:	0.730543478881229,0.75946 (check)
+* Silhouette Index 		:	0.55259194454997573,0.55259
+
+* Davies-Bouldin (DB)	:	0.6623228649898697,0.58785 (check)
+* Calinski-Harabasz		:	560.39992424664024,560.4
+
+* normalised_mutual		:	0.75820572781941964,0.75821
+
+
+Algorithm : KMeans (no. clusters = 2)
++-----------------------------------+
+
+Metric, Our value, Expected value
+
+* Rand Index 			:	0.763668903803132,0.76367
+* Adjusted Rand Index 	:	0.53992182942071232,0.53992
+
+* Hubert Index 			:	0.5922423205508607,0.52734 (check)
+* Silhouette Index 		:	0.68081362029368164,0.68081
+
+* Davies-Bouldin (DB)	:	0.40483413639182914,0.40483
+* Calinski-Harabasz		:	513.30384335175677,513.3
+
+* normalised_mutual		:	0.67932270111579207,0.67932
+
+Algorithm : KMeans (no. clusters = 4)
++-----------------------------------+
+
+Metric, Our value, Expected value
+
+* Rand Index 			:	0.8475167785234899,0.83919
+* Adjusted Rand Index 	:	0.63490474875759251,0.61625
+
+* Hubert Index 			:	0.6438665535533009,0.67839
+* Silhouette Index 		:	0.49699284998335724,0.49629
+
+* Davies-Bouldin (DB)	:	0.77799057800559779,0.58207 (check)
+* Calinski-Harabasz		:	529.12561087456788,529.02
+
+* normalised_mutual		:	0.71808455937252125,0.70796
+
+Indices can be implemented
++------------------------+
+
+1. Mirkin index
+2. Hartigan Index
+3. Krzanowski-Lai (KL) index
+
+Conclusion : All pass, Check Hubert (Gamma) Index, Davies-Bouldin index
+(homogenity v/s homogenity seperation interpretations)
+
+============================================================================================================================

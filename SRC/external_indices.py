@@ -1,3 +1,29 @@
+"""EXTERNAL CLUSTERING INDICES
+
+1.  Entropy
+2.  Precision
+3.  Recall
+4.  F-measure
+5. 	F-measure(beta)
+6.  Purity
+7.  Folkes-Mallows index (max,[0,1])
+8.  Rand Index (max,[0,1])
+9.  Adjusted Rand Index
+10. Adjusted Mutual Information
+11. Normalized Mutual Information
+12. Homogenity
+13. Completeness
+14. V-measure
+15. Jaccard Index (max,[0,1])
+16. Gamma statistics
+17. Kulczynski Index (max,[0,1])
+18. McNemar Index
+19. Phi Index
+20. Rogers-Tanimoto index (max,[0,1])
+21. Russel-Rao index
+22. Sokal-Sneath index (type 1)
+23. Sokal-Sneath index (type 2)
+"""
 from itertools import combinations
 from math import sqrt
 
@@ -23,14 +49,22 @@ class external_indices:
 			same_class = (self.class_labels[i]==self.class_labels[j])
 			same_cluster = (self.cluster_labels[i]==self.cluster_labels[j])
 
+			#print(self.class_labels[i],self.class_labels[j])
+			#print(self.cluster_labels[i],self.cluster_labels[j])
+
 			if same_class and same_cluster:
 				TP += 1
+				#print("TP")
 			elif same_class and not same_cluster:
 				FN += 1
+				#print("FN")
 			elif not same_class and same_cluster:
 				FP += 1
+				#print("FP")				
 			else:
 				TN += 1
+				#print("TN")
+			#print()
 		self.TP,self.FN,self.FP,self.TN = TP,FN,FP,TN
 
 
@@ -143,8 +177,8 @@ class external_indices:
 		
 		range : 0 (low similarity) to 1 (high similarity)
 		"""
-		#return self.TP/sqrt((self.TP+self.FN)+(self.TP+self.FP))
-		return metrics.fowlkes_mallows_score(self.class_labels, self.cluster_labels)
+		return np.true_divide(self.TP,sqrt((self.TP+self.FP)*(self.TP+self.FN)))
+		#metrics.fowlkes_mallows_score(self.class_labels, self.cluster_labels)
 
 
 	'''More cluster indices -- start'''
@@ -221,7 +255,9 @@ class external_indices:
 		References:	Chapter 10 - Bible of clustering
 					Clustering Indices, Bernard Desgraupes (April 2013)
 		"""
+		#sklearn testing failed
 		return self.TP / (self.TP+self.FN+self.FP)
+		#return metrics.jaccard_similarity_score(self.class_labels,self.cluster_labels)
 
 	def gamma_statistics(self):
 		"""Gamma (Hubert) statistics : correlation coefficient of the indicator variables
@@ -289,7 +325,7 @@ class external_indices:
 		RT = (yy + nn)/(yy + nn + 2(yn+ny))
 		"""
 		numerator = self.TP + self.TN
-		denominator= self.TP + self.TN + 2*(self.FN+self.FP)
+		denominator= numerator + 2*(self.FN+self.FP)
 		return numerator/denominator
 
 	def russel_rao_index(self):

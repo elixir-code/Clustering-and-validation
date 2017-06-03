@@ -14,5 +14,24 @@ main.comp_distance_matrix()
 main.perform_kmeans(3,{"random_state":1})
 
 val_int=intval.internal_indices(main.data,main.kmeans_results['labels'])
-
 val_ext=extval.external_indices(class_labels,main.kmeans_results['labels'])
+
+==========================================================================================================
+
+import SRC.EDA as EDA
+
+main = EDA.EDA()
+main.read_data("SAMPLES/STANDARD/iris.data",label_cols=-1,normalize_labels=True)
+main.comp_distance_matrix()
+main.perform_kmeans(no_clusters=3)
+
+import SRC.internal_indices as intval
+import SRC.external_indices as extval
+
+val_int = intval.internal_indices(main.data,main.kmeans_results['labels'])
+
+val_ext = extval.external_indices(main.class_labels,main.kmeans_results['labels'])
+
+
+============================================================================================================
+
