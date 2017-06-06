@@ -129,6 +129,7 @@ class external_indices:
 
 		range : 0 (worst) to 1 (best)
 		"""
+		#return metrics.precision_score(self.class_labels,self.cluster_labels,average='samples')
 		return self.TP/(self.TP+self.FP)
 
 

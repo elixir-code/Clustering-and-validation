@@ -3,9 +3,10 @@ Notes :
 
 Recheck : Scott-Symons Index
 
+Iris dataset : 150 x 4
+Cancer data : 286 x 9
 
-
-========================================================================================================
+==========================================================================================================================
 
 Test 1 :
 
@@ -190,14 +191,52 @@ Metric, Our value, Expected
 Entropy	:	0.39388631839664878,0.41777
 Purity	:	0.8933333333333333,0.88667
 
-==================================================================================================================
+=========================================================================================================================
 
 Test 4	:
 
 References	[1]:	http://sebastianraschka.com/Articles/2014_python_lda.html
+					Linear Discriminatory Analysis
 
 Iris dataset
 +----------+
 
-Tested With-group scatter matrix, Between group Scatter matrix
+Compute Scatter matrices (WG,BG), assuming
+=> (labels from clustering) = (target labels from dataset)
 
+Tested Within-group scatter matrix, Between group Scatter matrix
+
+
+References [1] :	Data Mining with R: Learning with Case Studies, Second Edition
+By Luis Torgo
+
+Pg 123
+
+Within-cluster dispersion value for each cluster tested
+
+==========================================================================================================================
+
+Test 5	:
+
+References	[1]:	http://shodhganga.inflibnet.ac.in/bitstream/10603/37796/13/13_chapter8.pdf
+
+Iris dataset
++----------+
+
+Metric, Our value, Expected value
+
+Precision 	:	0.805184603299293,0.87
+Recall		:	0.8367346938775511,0.87
+F-measure 	:	0.8206565252201762,0.87
+
+
+Wine dataset
++----------+
+
+(Constant difference observed)
+
+Precision 	:	0.5838661150808575,0.65
+Recall		:	0.5832081141998497,0.65
+F-measure 	:	0.5835369291486563,0.65
+
+============================================================================================================================

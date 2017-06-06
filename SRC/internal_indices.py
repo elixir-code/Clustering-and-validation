@@ -1,6 +1,6 @@
 """INTERNAL CLUSTERING INDICES
 
-1.  Within-class and between-class scatter values
+1.  Within-class and between-class scatter values #
 2.  The Ball-Hall index
 
 3.  The Banfeld-Raftery index (min)	#
@@ -27,6 +27,7 @@
 Future Implementation
 
 1. CPCC (Heirarchial classification)
+2. CDV Index: A Validity Index for Better Clustering Quality Measurement
 
 # Tested
 """
@@ -42,7 +43,7 @@ from sklearn.cluster import KMeans
 
 class internal_indices:
 
-	def __init__(self,data,labels):
+	def __init__(self,data,labels,distance_matrix=None):
 		#TODO: preprocess to remove noise
 
 		#normalising labels
@@ -69,6 +70,9 @@ class internal_indices:
 			cluster_i_pts = (self.labels==cluster_label)
 			self.clusters_size[cluster_label] = np.sum(cluster_i_pts)
 			self.clusters_mean[cluster_label] = np.mean(self.data[cluster_i_pts],axis=0)
+
+		if distance_matrix is not None:
+			self.distance_matrix = distance_matrix
 
 		#print(self.clusters_mean)
 		self.compute_scatter_matrices()
@@ -124,7 +128,7 @@ class internal_indices:
 		sum_mean_disperions = 0.
 
 		for cluster_i in range(self.n_clusters): 
-			sum_mean_disperions += self.WGSS_clusters[i] / self.clusters_size[i]
+			sum_mean_disperions += self.WGSS_clusters[cluster_i] / self.clusters_size[cluster_i]
 		
 		return sum_mean_disperions/self.n_clusters
 
@@ -198,24 +202,31 @@ class internal_indices:
 						rule : min
 		"""
 		Sw = 0.
-		Nk = 0.5 * (np.sum(self.clusters_size**2) - self.n_samples)
+		Nk = int((np.sum(self.clusters_size**2) - self.n_samples)//2)
 
-		s_min_max_array = get_k_largest_smallest(int(Nk))
+		Tk = int(self.n_samples*(self.n_samples-1)//2)
+
+		s_min_max_array = np.empty(Tk)
 
 		#parse through all pair of points
-		for data1_index in range(self.n_samples-1):
-			for data2_index in range(data1_index+1,self.n_samples):
-				distance = euclidean_distance(self.data[data1_index],self.data[data2_index])
+		index = 0
+		for data1_index, data2_index in combinations(range(self.n_samples),2):
+			#pre-computing distances
+			distance = self.distance_matrix[data1_index][data2_index]
 
-				if self.labels[data1_index] == self.labels[data2_index]:
-					Sw += distance
+			if self.labels[data1_index] == self.labels[data2_index]:
+				Sw += distance
 
-				s_min_max_array.insert(distance)
+			s_min_max_array[index] = distance
+			index += 1		
+			
+			#print(str(data1_index)+"  "+str(data2_index	)+"completed")
+		s_min_max_array.sort()
 
-		s_min = np.sum(s_min_max_array.k_smallest)
-		s_max = np.sum(s_min_max_array.k_largest)
+		s_min = np.sum(s_min_max_array[:Nk])
+		s_max = np.sum(s_min_max_array[Tk-Nk:])
 
-		print(Sw,s_min_max_array.k_largest,s_min_max_array.k_smallest)
+		#print(Sw,s_min_max_array.k_largest,s_min_max_array.k_smallest)
 		return (Sw - s_min)/(s_max - s_min)
 
 	def dunn_index(self):
@@ -229,16 +240,15 @@ class internal_indices:
 		max_intra_cluster = min_inter_cluster = euclidean_distance(self.data[0],self.data[1])
 
 		#parse through all pair of points
-		for data1_index in range(self.n_samples-1):
-			for data2_index in range(data1_index+1,self.n_samples):
-				distance = euclidean_distance(self.data[data1_index],self.data[data2_index])
+		for data1_index,data2_index in combinations(range(self.n_samples),2):
+			distance = self.distance_matrix[data1_index][data2_index]
 
-				#both are same index
-				if (self.labels[data1_index] == self.labels[data2_index]) and (distance > max_intra_cluster):
-					max_intra_cluster = distance
+			#both are same cluster
+			if (self.labels[data1_index] == self.labels[data2_index]) and (distance > max_intra_cluster):
+				max_intra_cluster = distance
 
-				elif (self.labels[data1_index] != self.labels[data2_index]) and (distance < min_inter_cluster):
-					min_inter_cluster = distance
+			elif (self.labels[data1_index] != self.labels[data2_index]) and (distance < min_inter_cluster):
+				min_inter_cluster = distance
 
 		return min_inter_cluster/max_intra_cluster
 
@@ -311,7 +321,7 @@ class internal_indices:
 			cluster_i_dispersion = np.sum((cluster_i_pts - cluster_i_mean)**2)
 			total_dispersion += cluster_i_dispersion
 
-		return (self.n_samples-self.n_clusters-1)*(self.WGSS-self.total_dispersion)/self.total_dispersion
+		return (self.n_samples-self.n_clusters-1)*(self.WGSS-total_dispersion)/total_dispersion
 
 	def pbm_index(self,p=2):
 		"""Maulik-Bandyopadhyay index (aka. I-index, PBM Index)
@@ -346,14 +356,14 @@ class internal_indices:
 		#is centroid of all clusters = data_mean
 		bcd = np.sum(np.sqrt(np.sum((self.clusters_mean - self.data_mean)**2,axis=1))*self.clusters_size)/(self.n_clusters*self.n_samples)
 
-		print(bcd)
+		#print(bcd)
 
 		clusters_dispersion = np.zeros(self.n_clusters)
 		for data_index in range(self.n_samples):
 			clusters_dispersion[self.labels[data_index]] += euclidean_distance(self.data[data_index],self.clusters_mean[self.labels[data_index]])
 
 		wcd = np.sum(clusters_dispersion / self.clusters_size)
-		print(wcd)
+		#print(wcd)
 		return (1 - 1/np.exp(np.exp(bcd - wcd)))
 
 
@@ -390,6 +400,7 @@ def euclidean_distance(vector1,vector2,squared=False):
 
 # helper functions -- end
 
+'''
 class get_k_largest_smallest:
 
 	def __init__(self,k):
@@ -452,3 +463,5 @@ class get_k_largest_smallest:
 						break
 
 				self.k_largest[index+1] = value
+'''
+	
