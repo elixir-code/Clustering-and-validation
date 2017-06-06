@@ -2,27 +2,33 @@
 
 1.  Within-class and between-class scatter values
 2.  The Ball-Hall index
-3.  The Banfeld-Raftery index (min)
-4.  The Calinski-Harabasz index
+
+3.  The Banfeld-Raftery index (min)	#
+4.  The Calinski-Harabasz index 	#
 
 5.  The Det Ratio index
 6.  The Ksq DetW index
 7.  The Log Det Ratio index
 8.  The Log SS Ratio index
 
-9.  The Scott-Symons index (min)
-10. The Silhouette index
+9.  The Scott-Symons index (min)	#
+10. The Silhouette index 	#
 11. The Trace WiB index
 
 12. C-index
 13. Dunn-index
 
-14. Davies-Bouldin index (min)
-15. Ray-Turi index (min)
+14. Davies-Bouldin index (min)	# (Recheck -- small differences)
+15. Ray-Turi index (min)	#
+
+16. Maulik-Bandyopadhyay index
+17. Score Function
 
 Future Implementation
 
 1. CPCC (Heirarchial classification)
+
+# Tested
 """
 from sklearn import metrics
 
@@ -31,6 +37,8 @@ from math import sqrt,log
 
 from sklearn.preprocessing import LabelEncoder
 from itertools import combinations
+
+from sklearn.cluster import KMeans
 
 class internal_indices:
 
@@ -62,6 +70,7 @@ class internal_indices:
 			self.clusters_size[cluster_label] = np.sum(cluster_i_pts)
 			self.clusters_mean[cluster_label] = np.mean(self.data[cluster_i_pts],axis=0)
 
+		#print(self.clusters_mean)
 		self.compute_scatter_matrices()
 
 	def compute_scatter_matrices(self):
@@ -93,9 +102,13 @@ class internal_indices:
 			#self.BG = self.BG + self.clusters_size[i]*np.dot(cluster_data_mean_diff.T,cluster_data_mean_diff)
 
 		self.WG = np.sum(self.WG_clusters,axis=0)
+		#print(self.WG)
+
 		self.WGSS = np.trace(self.WG)
 
 		self.BG = self.T - self.WG
+		#print(self.BG)
+
 		self.BGSS = np.trace(self.BG)
 
 		self.det_WG = np.linalg.det(self.WG)
@@ -152,7 +165,7 @@ class internal_indices:
 		"""
 		scott_symons_index = 0.
 		for i in range(self.n_clusters):
-			scott_symons_index += self.clusters_size[i]*np.log(np.linalg.det(self.WG_clusters[i]/self.clusters_size[i]))
+			scott_symons_index += self.clusters_size[i]*np.log(np.linalg.det(np.true_divide(self.WG_clusters[i],self.clusters_size[i])))
 
 		return scott_symons_index
 
@@ -207,7 +220,8 @@ class internal_indices:
 
 	def dunn_index(self):
 		"""Dunn index -- ratio between the minimal intracluster distance to maximal intercluster distance
-		
+		Note : computationally expensive and sensitive to noisy data
+
 		References :	[1] https://www.biomedcentral.com/content/supplementary/1471-2105-9-90-S2.pdf
 
 		range : [0,infinity) | rule : max
@@ -234,13 +248,18 @@ class internal_indices:
 
 			References :	[1] https://www.biomedcentral.com/content/supplementary/1471-2105-9-90-S2.pdf
 							[2] https://en.wikipedia.org/wiki/Davies%E2%80%93Bouldin_index
+							[3] https://pdfs.semanticscholar.org/9701/405b0d601e169636a2541940a070087acd5b.pdf
 		"""
+
 		total_clusters_dispersion = np.zeros(self.n_clusters)
 
 		for data_index in range(self.n_samples):
+
 			total_clusters_dispersion[self.labels[data_index]] += euclidean_distance(self.data[data_index],self.clusters_mean[self.labels[data_index]])
 
+
 		mean_clusters_dispersion = total_clusters_dispersion / self.clusters_size
+		#mean_clusters_dispersion = np.sqrt(self.WGSS_clusters/self.clusters_size)
 
 		sum_Mk = 0.
 
@@ -268,6 +287,75 @@ class internal_indices:
 				min_cluster_mean_diff = mean_diff
 
 		return self.WGSS/(min_cluster_mean_diff*self.n_samples)
+
+	def hartigan_index(self):
+		"""
+		Hartigan Index : generally used to find no. cluster in a dataset (used only for K-Means Algorithm)
+		Optimum number of clusters : K for which Hartigan(K) <= n (usually, n=10)
+
+		References :	[1]	http://suendermann.com/su/pdf/ijcbs2009.pdf
+		"""
+		
+		no_clusters = self.n_clusters+1
+
+		#perfrom Kmeans of the data with K+1 clusters
+		kmeans_clusterer=KMeans(n_clusters=no_clusters)
+		labels = kmeans_clusterer.fit_predict(self.data)
+
+		total_dispersion = 0.
+
+		for cluster_i in range(no_clusters):
+			cluster_i_pts = self.data[(labels==cluster_i)]
+			cluster_i_mean = np.mean(cluster_i_pts)
+
+			cluster_i_dispersion = np.sum((cluster_i_pts - cluster_i_mean)**2)
+			total_dispersion += cluster_i_dispersion
+
+		return (self.n_samples-self.n_clusters-1)*(self.WGSS-self.total_dispersion)/self.total_dispersion
+
+	def pbm_index(self,p=2):
+		"""Maulik-Bandyopadhyay index (aka. I-index, PBM Index)
+
+		References	:	[1] https://pdfs.semanticscholar.org/9701/405b0d601e169636a2541940a070087acd5b.PDF
+						[2] Clustering Indices, Bernard Desgraupes (April 2013)
+
+		Maulik, U., Bandyopadhyay, S.: Performance evaluation of some clustering algorithms and validity indices. IEEE Transactions Pattern Analysis Machine Intelligence 24(12) (2002) 1650–1654
+
+		rule : max
+		"""
+		max_DB = 0.
+		for cluster_i,cluster_j in combinations(range(self.n_clusters),2):
+			DB = euclidean_distance(self.clusters_mean[cluster_i],self.clusters_mean[cluster_j])
+			if DB > max_DB:
+				max_DB = DB
+
+		Ew,Et = 0.,0.
+		for data_index in range(self.n_samples):
+			Ew += euclidean_distance(self.data[data_index],self.clusters_mean[self.labels[data_index]])
+			Et += euclidean_distance(self.data[data_index],self.data_mean)
+
+		return np.power((Et * max_DB)/(self.n_clusters * Ew),p)
+
+	def score_function(self):
+		"""Score Function - SF : works good for hyper-speriodal data
+
+		References :	[1]	https://pdfs.semanticscholar.org/9701/405b0d601e169636a2541940a070087acd5b.PDF
+
+		range : ]0,1[ | rule : max
+		"""
+		#is centroid of all clusters = data_mean
+		bcd = np.sum(np.sqrt(np.sum((self.clusters_mean - self.data_mean)**2,axis=1))*self.clusters_size)/(self.n_clusters*self.n_samples)
+
+		print(bcd)
+
+		clusters_dispersion = np.zeros(self.n_clusters)
+		for data_index in range(self.n_samples):
+			clusters_dispersion[self.labels[data_index]] += euclidean_distance(self.data[data_index],self.clusters_mean[self.labels[data_index]])
+
+		wcd = np.sum(clusters_dispersion / self.clusters_size)
+		print(wcd)
+		return (1 - 1/np.exp(np.exp(bcd - wcd)))
+
 
 	# internal indices -- end
 

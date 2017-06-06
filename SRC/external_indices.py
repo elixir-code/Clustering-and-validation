@@ -1,28 +1,37 @@
 """EXTERNAL CLUSTERING INDICES
 
-1.  Entropy
-2.  Precision
-3.  Recall
-4.  F-measure
-5. 	F-measure(beta)
-6.  Purity
-7.  Folkes-Mallows index (max,[0,1])
-8.  Rand Index (max,[0,1])
-9.  Adjusted Rand Index
+1.  Entropy #
+2.  Purity 	#
+
+3.  Precision
+4.  Recall
+5.  F-measure
+6. 	F-measure(beta)
+
+7.  Folkes-Mallows index (max,[0,1])	#
+8.  Rand Index (max,[0,1])	#
+9.  Adjusted Rand Index 	#
+
 10. Adjusted Mutual Information
-11. Normalized Mutual Information
+11. Normalized Mutual Information 	#
+
 12. Homogenity
 13. Completeness
 14. V-measure
-15. Jaccard Index (max,[0,1])
-16. Gamma statistics
-17. Kulczynski Index (max,[0,1])
+
+15. Jaccard Index (max,[0,1])	#
+16. Gamma statistics 	#
+17. Kulczynski Index (max,[0,1])	#
+
 18. McNemar Index
 19. Phi Index
-20. Rogers-Tanimoto index (max,[0,1])
+20. Rogers-Tanimoto index (max,[0,1])	#
 21. Russel-Rao index
+
 22. Sokal-Sneath index (type 1)
 23. Sokal-Sneath index (type 2)
+
+# - teseted
 """
 from itertools import combinations
 from math import sqrt

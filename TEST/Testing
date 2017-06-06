@@ -1,3 +1,12 @@
+
+Notes :
+
+Recheck : Scott-Symons Index
+
+
+
+========================================================================================================
+
 Test 1 :
 
 References : [1] 	Computational Intelligence in Data Mining - Volume 3 -- Abonyi, Janos Feil, Balazs Abraham, Ajith (DOI : 10.1007/978-81-322-2202-6)
@@ -88,7 +97,7 @@ Conclusions : Roy-Turi Index is affected by dimensionality of the feature space
 
 All pass, Check Davis-Bouldin, Scott-Symons (NaN cases)
 
-========================================================================================================================
+=================================================================================================================
 
 
 Test 2:
@@ -155,4 +164,40 @@ Indices can be implemented
 Conclusion : All pass, Check Hubert (Gamma) Index, Davies-Bouldin index
 (homogenity v/s homogenity seperation interpretations)
 
-============================================================================================================================
+===================================================================================================================
+
+Test 3 :
+
+References [1]:	http://scholarworks.sjsu.edu/cgi/viewcontent.cgi?article=1429&context=etd_projects
+				(Page 35)
+
+Algorithm : K-Means
+
+Flame dataset
++-----------+
+
+Metric, Our value, Expected
+
+Entropy	:	0.55732178885807215,0.55669
+Purity	:	0.8375,0.8333 
+
+
+Iris dataset
++----------+
+
+Metric, Our value, Expected
+
+Entropy	:	0.39388631839664878,0.41777
+Purity	:	0.8933333333333333,0.88667
+
+==================================================================================================================
+
+Test 4	:
+
+References	[1]:	http://sebastianraschka.com/Articles/2014_python_lda.html
+
+Iris dataset
++----------+
+
+Tested With-group scatter matrix, Between group Scatter matrix
+

@@ -3,6 +3,8 @@ Authors : R.Mukesh, Nitin Shravan (BuddiHealth Technologies)
 
 Dependencies: numpy, sklearn, matplotlib, hdbscan, seaborn, gapkmean
 version : Python 3.0
+
+TODO : Hierarchial Clustering Techniques and associated metrics
 """
 
 import numpy as np
@@ -23,13 +25,17 @@ from math import pow
 from GAP import gap
 
 import pandas as pd
+from sklearn import preprocessing
 
 class EDA:
 
-	def load_data(self,data):
+	def load_data(self,data,labels=None):
 		self.data=data
 		self.n_samples=self.data.shape[0]
 		self.n_features=self.data.shape[1]
+
+		if labels is not None:
+			self.class_labels = labels
 
 	'''
 	#reads data matrix
@@ -49,11 +55,19 @@ class EDA:
 		self.n_features=self.data.shape[1]
 	'''
 
-	def read_data(self,file_path,sep=',',header=None,label_cols=-1,normalize_labels=False):
-
+	def read_data(self,file_path,sep=',',header=None,label_cols=-1,normalize_data=False,normalize_labels=False):
+		"""Read data as matrix from a file"""
 		data_frame = pd.read_csv(filepath_or_buffer=file_path,sep=sep,header=header,index_col=label_cols)
 
 		self.data = data_frame.values
+
+		if normalize_data is True:
+			"""Normalisation of data
+			Reference :	[1] https://7264-843222-gh.circle-artifacts.com/0/home/ubuntu/scikit-learn/doc/_build/html/stable/auto_examples/preprocessing/plot_scaling_importance.html
+			"""
+			std_scale = preprocessing.StandardScaler().fit(self.data)
+			self.data = std_scale.transform(self.data)
+
 		self.class_labels = data_frame.index
 
 		if normalize_labels is True:
