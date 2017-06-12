@@ -20,7 +20,7 @@
 14. V-measure
 
 15. Jaccard Index (max,[0,1])	#
-16. Gamma statistics 	#
+16. Hubert T statistics 	#
 17. Kulczynski Index (max,[0,1])	#
 
 18. McNemar Index
@@ -269,8 +269,8 @@ class external_indices:
 		return self.TP / (self.TP+self.FN+self.FP)
 		#return metrics.jaccard_similarity_score(self.class_labels,self.cluster_labels)
 
-	def gamma_statistics(self):
-		"""Gamma (Hubert) statistics : correlation coefficient of the indicator variables
+	def hubert_T_index(self):
+		"""Hubert T statistics : correlation coefficient of the indicator variables
 		
 		References: Chapter 10 -bible of clustering
 					Clustering Indices, Bernard Desgraupes (April 2013)
@@ -279,8 +279,8 @@ class external_indices:
 		range : -1 to 1
 		"""
 		M = self.TP +self.FN + self.FP +self.TN
-		m1 = self.TP + self.FN
-		m2 = self.TP + self.FP
+		m1 = self.TP + self.FP
+		m2 = self.TP + self.FN
 
 		numerator = (M*self.TP) - (m1*m2)
 		denominator = sqrt(m1 * m2 * (M - m1 ) * (M - m2))

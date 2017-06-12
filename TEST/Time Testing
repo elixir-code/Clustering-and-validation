@@ -1,0 +1,16 @@
+Test 1:
+
+Dataset : Turkiye Student Evaluation
+No. Samples 	: 5820
+No. Features	: 33
+
+Pass
+
+===============================================================================================
+
+Test 2:
+
+Dataset : 3D Road Network (North Jutland, Denmark) Data Set
+No. Samples		: 434874
+No. Features	: 4
+

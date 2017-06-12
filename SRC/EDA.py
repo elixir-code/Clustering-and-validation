@@ -24,13 +24,22 @@ from math import pow
 #downloaded source -- pip didn't work 
 from GAP import gap
 
-import pandas as pd
-from sklearn import preprocessing
+import pandas.io.parsers as pd
+from sklearn.preprocessing import LabelEncoder,StandardScaler
+
+from itertools import combinations
+import matplotlib.patches as mpatches
 
 class EDA:
 
 	def load_data(self,data,labels=None):
-		self.data=data
+		"""Load data externally processed in python into the EDA object
+		
+		keyword arguments --
+		data -- Data matrix (dtype : np.array)
+		labels -- Ground Truth Labels (if available)
+		"""
+		self.data=np.array(data)
 		self.n_samples=self.data.shape[0]
 		self.n_features=self.data.shape[1]
 
@@ -55,35 +64,58 @@ class EDA:
 		self.n_features=self.data.shape[1]
 	'''
 
-	def read_data(self,file_path,sep=',',header=None,label_cols=-1,normalize_data=False,normalize_labels=False):
-		"""Read data as matrix from a file"""
-		data_frame = pd.read_csv(filepath_or_buffer=file_path,sep=sep,header=header,index_col=label_cols)
+	def read_data(self,file_path,sep=',',header=None,label_cols=-1,normalize_labels=False,na_values=None):
+		"""Read data and ground truth labels as an array from a file
+
+		Keyword arguments -- 
+		file_path -- corresponds to 'filepath_or_buffer' argument of pandas.read_csv()
+		sep -- corresponds to 'sep' argument of pandas.read_csv() (default : ',')
+		header -- corresponds to 'header' argument of pandas.read_csv() (default : None)
+		label_cols -- an array of integer of 'ground truth' label columns in the file
+
+		Note : By default drops all data points with attributes 'NA'
+		"""
+		data_frame = pd.read_csv(filepath_or_buffer=file_path,sep=sep,header=header,index_col=label_cols,na_values=na_values)
+		data_frame.dropna(inplace=True)
+		#May need drop na function from pandas
 
 		self.data = data_frame.values
-
-		if normalize_data is True:
-			"""Normalisation of data
-			Reference :	[1] https://7264-843222-gh.circle-artifacts.com/0/home/ubuntu/scikit-learn/doc/_build/html/stable/auto_examples/preprocessing/plot_scaling_importance.html
-			"""
-			std_scale = preprocessing.StandardScaler().fit(self.data)
-			self.data = std_scale.transform(self.data)
-
 		self.class_labels = data_frame.index
 
 		if normalize_labels is True:
-			from sklearn.preprocessing import LabelEncoder
 
 			enc = LabelEncoder()
 			label_encoder = enc.fit(self.class_labels)
+			#original class names
+			self.class_names = label_encoder.classes_
 			self.class_labels = label_encoder.transform(self.class_labels)
 
 		self.n_samples=self.data.shape[0]
 		self.n_features=self.data.shape[1]
 
+		del data_frame
+	
+
+	def standardize_data(self):
+		"""Standardization of data
+		Reference :	[1] https://7264-843222-gh.circle-artifacts.com/0/home/ubuntu/scikit-learn/doc/_build/html/stable/auto_examples/preprocessing/plot_scaling_importance.html
+					[2] Standarisation v/s Normalization : http://www.dataminingblog.com/standardization-vs-normalization/
+		
+		Tested : Mean and variance of data
+		"""
+		self.std_scale = StandardScaler().fit(self.data)
+		self.std_scale.transform(self.data,copy=False)
+
+	#code to destandardise the dataset for visulisation/ metric evaluation
+	def destandardize_data(self):
+		self.std_scale.inverse_transform(self.data,copy=False)
 
 	#computes euclidean distance matrix (for all pairs of data points)
 	def comp_distance_matrix(self):
 		self.distance_matrix=pairwise_distances(self.data)
+		#self.distance_matrix = np.zeros((self.n_samples,self.n_samples),dtype=np.float32)
+		#for data1_index,data2_index in combinations(range(self.n_samples),2):
+		#	self.distance_matrix[data1_index][data2_index] = self.distance_matrix[data2_index][data1_index] = euclidean_distance(self.data[data1_index],self.data[data2_index])
 
 	#TODO : arrange k-dist in increasing order and plot
 	#determines dbscan parameters
@@ -125,8 +157,7 @@ class EDA:
 			kdist.append(kmin_sorted[min_samples-1])
 			del kmin_sorted
 
-			self.kdist=np.copy(kdist)
-		
+		self.kdist=np.copy(kdist)
 		kdist.sort(reverse=True)
 		
 		#plot point vs k-dist
@@ -144,7 +175,7 @@ class EDA:
 
 		self.dbscan_params={"min_samples":min_samples,"eps":eps}
 
-	def wk_inertia_stat(self,k_min,k_max):
+	def wk_inertia_stat(self,k_max,k_min=1):
 
 		Wk_array=np.empty(k_max-k_min+1,dtype=np.float64)
 		inertia_array=np.empty(k_max-k_min+1,dtype=np.float64)
@@ -187,7 +218,7 @@ class EDA:
 
 	#find no. of clusters - gap statistics
 	def gap_statistics(self,k_max,k_min=1):
-
+		"""Library used : gapkmeans (downloaded source : https://github.com/minddrummer/gap)"""
 		#refs=None, B=10
 		gaps,sk,K = gap.gap_statistic(self.data,refs=None,B=10,K=range(k_min,k_max+1),N_init = 10)
 		
@@ -238,14 +269,14 @@ def print_dict(dictionary):
 	for key,value in dictionary.items():
 		print(key,value,sep=" : ")
 
-def visualise_2D(x_values,y_values,labels=None):
+def visualise_2D(x_values,y_values,labels=None,class_names=None):
 	"""Visualise clusters of selected 2 features"""
 
 	sns.set_style('white')
 	sns.set_context('poster')
 	sns.set_color_codes()
 
-	plot_kwds = {'alpha' : 0.5, 's' : 80, 'linewidths':0}
+	plot_kwds = {'alpha' : 0.5, 's' : 30, 'linewidths':0}
 
 	frame = plt.gca()
 	frame.axes.get_xaxis().set_visible(False)
@@ -255,8 +286,33 @@ def visualise_2D(x_values,y_values,labels=None):
 		plt.scatter(x_values,y_values,c='b',**plot_kwds)
 
 	else:
-		pallete=sns.color_palette('deep',np.unique(labels).max()+1)
+		pallete=sns.color_palette('dark',np.unique(labels).max()+1)
 		colors=[pallete[x] if x>=0 else (0.0,0.0,0.0) for x in labels]
 		plt.scatter(x_values,y_values,c=colors,**plot_kwds)
+		legend_entries = [mpatches.Circle((0,0),1,color=x,alpha=0.5) for x in pallete]
 
+		if class_names is None:
+			legend_labels = range(len(pallete))
+
+		else:
+			legend_labels = ["class "+str(label)+" ( "+str(name)+" )" for label,name in enumerate(class_names)]
+
+		plt.legend(legend_entries,legend_labels,loc='best')
+		
 	plt.show()
+
+
+def euclidean_distance(vector1,vector2,squared=False):
+	"""calculates euclidean distance between two vectors
+	
+	Keyword arguments:
+	vector1 -- first data point (type: numpy array)
+	vector2 -- second data point (type: numpy array)
+	squared -- return square of euclidean distance (default: False)
+	"""
+	euclidean_distance=np.sum((vector1-vector2)**2,dtype=np.float32)
+
+	if squared is False:
+		euclidean_distance=np.sqrt(euclidean_distance,dtype=np.float32)
+
+	return euclidean_distance

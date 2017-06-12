@@ -1,35 +1,40 @@
 """INTERNAL CLUSTERING INDICES
 
 1.  Within-class and between-class scatter values #
-2.  The Ball-Hall index
+2.  The Ball-Hall index ~
 
-3.  The Banfeld-Raftery index (min)	#
+3.  The Banfeld-Raftery index (min)	~#
 4.  The Calinski-Harabasz index 	#
 
-5.  The Det Ratio index
-6.  The Ksq DetW index
-7.  The Log Det Ratio index
-8.  The Log SS Ratio index
+5.  The Det Ratio index 	~
+6.  The Ksq DetW index 	~
+7.  The Log Det Ratio index 	~
+8.  The Log SS Ratio index 		~
 
 9.  The Scott-Symons index (min)	#
 10. The Silhouette index 	#
-11. The Trace WiB index
+11. The Trace WiB index 	~
 
-12. C-index
-13. Dunn-index
+12. C-index	~
+13. Dunn-index ~
 
 14. Davies-Bouldin index (min)	# (Recheck -- small differences)
 15. Ray-Turi index (min)	#
 
-16. Maulik-Bandyopadhyay index
-17. Score Function
+16. Maulik-Bandyopadhyay index (PBM Index) 	~
+17. Score Function 	~
+
+18. Hartigan Index 	~
 
 Future Implementation
+
+The Ratkowsky-Lance index
 
 1. CPCC (Heirarchial classification)
 2. CDV Index: A Validity Index for Better Clustering Quality Measurement
 
 # Tested
+~ Code re-read for testing (unavailabilty of research papers for Testing)
 """
 from sklearn import metrics
 
@@ -203,7 +208,7 @@ class internal_indices:
 		"""
 		Sw = 0.
 		Nk = int((np.sum(self.clusters_size**2) - self.n_samples)//2)
-
+		
 		Tk = int(self.n_samples*(self.n_samples-1)//2)
 
 		s_min_max_array = np.empty(Tk)
@@ -212,7 +217,7 @@ class internal_indices:
 		index = 0
 		for data1_index, data2_index in combinations(range(self.n_samples),2):
 			#pre-computing distances
-			distance = self.distance_matrix[data1_index][data2_index]
+			distance = euclidean_distance(self.data[data1_index],self.data[data2_index])
 
 			if self.labels[data1_index] == self.labels[data2_index]:
 				Sw += distance
@@ -241,7 +246,7 @@ class internal_indices:
 
 		#parse through all pair of points
 		for data1_index,data2_index in combinations(range(self.n_samples),2):
-			distance = self.distance_matrix[data1_index][data2_index]
+			distance = euclidean_distance(self.data[data1_index],self.data[data2_index])
 
 			#both are same cluster
 			if (self.labels[data1_index] == self.labels[data2_index]) and (distance > max_intra_cluster):
