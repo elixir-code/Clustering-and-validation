@@ -4,7 +4,8 @@ Authors : R.Mukesh, Nitin Shravan (BuddiHealth Technologies)
 Dependencies: numpy, sklearn, matplotlib, hdbscan, seaborn, gapkmean
 version : Python 3.0
 
-TODO : Hierarchial Clustering Techniques and associated metrics
+TODO : 	[1]	Hierarchial Clustering Techniques and associated metrics
+		[2]	Check consistency of formula with use euclidean_distance(squared=True/False) 
 """
 
 import numpy as np
@@ -19,7 +20,7 @@ from sklearn.cluster import KMeans
 
 from sklearn.cluster import SpectralClustering
 
-from math import pow
+from math import pow,floor
 
 #downloaded source -- pip didn't work 
 from GAP import gap
@@ -29,6 +30,8 @@ from sklearn.preprocessing import LabelEncoder,StandardScaler
 
 from itertools import combinations
 import matplotlib.patches as mpatches
+
+import h5py
 
 class EDA:
 
@@ -112,7 +115,34 @@ class EDA:
 
 	#computes euclidean distance matrix (for all pairs of data points)
 	def comp_distance_matrix(self):
-		self.distance_matrix=pairwise_distances(self.data)
+		try:
+			self.distance_matrix=pairwise_distances(self.data)
+			#raise MemoryError('Just Debugging ...')
+
+		except MemoryError:
+			print("Memory Error Encountered, using HDF5 for distance matrix ...")
+			
+			#use different file name each time (for reusability of matrices)
+			print("Enter filename (without .hdf5)")
+			filename = "HOOD/" + input().strip() + ".hdf5"
+
+			print("\nEnter 'r' to read existing distance matrix"
+				  "\n      'w' to compute distance matrix from data"
+				  "\nMode : ",end='')
+			mode = input().strip()
+
+			f = h5py.File(filename,mode,libver='latest')
+
+			if mode == 'r':
+				self.distance_matrix = f['distance_matrix']
+
+			elif mode == 'w':
+				self.distance_matrix = f.create_dataset("distance_matrix",(self.n_samples,self.n_samples),dtype='d')
+
+				for data_index,data_point in enumerate(self.data):
+					print(data_index)
+					self.distance_matrix[data_index] = pairwise_distances([data_point],self.data)			
+
 		#self.distance_matrix = np.zeros((self.n_samples,self.n_samples),dtype=np.float32)
 		#for data1_index,data2_index in combinations(range(self.n_samples),2):
 		#	self.distance_matrix[data1_index][data2_index] = self.distance_matrix[data2_index][data1_index] = euclidean_distance(self.data[data1_index],self.data[data2_index])
@@ -120,16 +150,27 @@ class EDA:
 	#TODO : arrange k-dist in increasing order and plot
 	#determines dbscan parameters
 	def det_dbscan_params(self,min_samples=None,plot_scale=0.02):
+		"""Heuristically determine min_sample and eps value for DBSCAN algorithm by visual inspection
+	
+		Keyword arguments --
+		min_samples - minimum number of points in a pts. esp neighbourhood to be called a core point
+		plot_scale - scale to compress the x-axis of plot (points v/s kdist plot)
 		
+		Note: Modified to work for large and small datasets
+		"""
 		if min_samples is None:
 			if 2*self.n_features <= self.n_samples:
 				min_samples=2*self.n_features
 			else:
-				raise Exception("please choice a value of min_samples <= no_samples")
+				raise Exception("please choose a value of min_samples <= no_samples")
 
-		kdist=[]
+		kdist=np.empty(self.n_samples,dtype=np.float64)
+		data_index = 0
 
 		for src_distances in self.distance_matrix:
+
+			print(data_index)
+			
 			kmin_distances=np.copy(src_distances[:min_samples])
 			kmin_sorted=np.sort(kmin_distances)
 			del kmin_distances
@@ -154,10 +195,12 @@ class EDA:
 
 			#print(kmin_sorted,end="\n\n")
 
-			kdist.append(kmin_sorted[min_samples-1])
+			kdist[data_index] = kmin_sorted[min_samples-1]
+			data_index += 1
 			del kmin_sorted
-
-		self.kdist=np.copy(kdist)
+		
+		del data_index
+		#self.kdist=np.copy(kdist)
 		kdist.sort(reverse=True)
 		
 		#plot point vs k-dist
@@ -175,29 +218,43 @@ class EDA:
 
 		self.dbscan_params={"min_samples":min_samples,"eps":eps}
 
-	def wk_inertia_stat(self,k_max,k_min=1):
-
-		Wk_array=np.empty(k_max-k_min+1,dtype=np.float64)
-		inertia_array=np.empty(k_max-k_min+1,dtype=np.float64)
+	def wk_inertia_stat(self,k_max,k_min=1,step=1):
+		"""Estimate number of clusters by ELBOW METHOD
+		
+		References	:	[1]	Estimating the number of clusters in a data set via the gap statistic
+							Tibshirani, Robert Walther, Guenther Hastie, Trevor
+						[2] 'ClusterCrit' for R library Documentation
+		"""
+		Wk_array = np.empty( floor((k_max-k_min)/step)+1 , dtype=np.float64 )
+		inertia_array = np.empty( floor((k_max-k_min)/step) , dtype=np.float64)
 
 		#run kmeans and compute log(wk) for all n_clusters
-		for no_clusters in range(k_min,k_max+1):
+		index = 0
+		for no_clusters in range(k_min,k_max+1,step):
 
 			kmeans_clusterer=KMeans(n_clusters=no_clusters)
 			kmeans_clusterer.fit(self.data)
 
 			Dr=np.zeros(no_clusters)
-			unique,Nr=np.unique(kmeans_clusterer.labels_,return_counts=True)
-			del unique
+			#unique,Nr=np.unique(kmeans_clusterer.labels_,return_counts=True)
+			#del unique
 
+			#TODO: ensure that no cluster has zero points
+			Nr = np.bincount(kmeans_clusterer.labels_)
+			'''
 			for i in range(self.n_samples-1):
 				for j in range(i+1,self.n_samples):
 					if kmeans_clusterer.labels_[i]==kmeans_clusterer.labels_[j]:
 						Dr[kmeans_clusterer.labels_[i]] += pow(self.distance_matrix[i][j],2)
+			'''
+			for data_index in range(self.n_samples):
+				data_cluster = kmeans_clusterer.labels_[data_index]
+				Dr[data_cluster] += euclidean_distance(self.data[data_index],kmeans_clusterer.cluster_centers_[data_cluster],squared=True) 
 
-			Wk=np.sum(Dr/(2*Nr))
-			Wk_array[no_clusters-k_min]=Wk
-			inertia_array[no_clusters-k_min]=kmeans_clusterer.inertia_*100
+			Wk=np.sum(Dr/2)
+			Wk_array[index]=Wk
+			inertia_array[index]=kmeans_clusterer.inertia_*100
+			index += 1
 
 			del kmeans_clusterer,Dr,Nr,Wk
 
@@ -206,19 +263,21 @@ class EDA:
 		plt.ylabel("Wk")
 		plt.grid(True)
 
-		plt.plot(np.arange(k_min,k_max+1),Wk_array,"k")
+		plt.plot(np.arange(k_min,k_max+1,step),Wk_array,"k")
 		plt.show()
 
 		plt.title("INTERIA TO FIND NUMBER OF CLUSTERS")
 		plt.xlabel("n_clusters")
 		plt.ylabel("inertia")
 
-		plt.plot(np.arange(k_min,k_max+1),inertia_array,"k")
+		plt.plot(np.arange(k_min,k_max+1,step),inertia_array,"k")
 		plt.show()
 
 	#find no. of clusters - gap statistics
 	def gap_statistics(self,k_max,k_min=1):
-		"""Library used : gapkmeans (downloaded source : https://github.com/minddrummer/gap)"""
+		"""Library used : gapkmeans (downloaded source : https://github.com/minddrummer/gap)
+		GAP_STATISTICS : Correctness to be checked ...
+		"""
 		#refs=None, B=10
 		gaps,sk,K = gap.gap_statistic(self.data,refs=None,B=10,K=range(k_min,k_max+1),N_init = 10)
 		
