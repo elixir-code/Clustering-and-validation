@@ -117,7 +117,7 @@ class EDA:
 	def comp_distance_matrix(self):
 		try:
 			self.distance_matrix=pairwise_distances(self.data)
-			#raise MemoryError('Just Debugging ...')
+			raise MemoryError('Just Debugging ...')
 
 		except MemoryError:
 			print("Memory Error Encountered, using HDF5 for distance matrix ...")
@@ -173,6 +173,8 @@ class EDA:
 			
 			kmin_distances=np.copy(src_distances[:min_samples])
 			kmin_sorted=np.sort(kmin_distances)
+			#print(kmin_distances.dtype,kmin_sorted.dtype)
+
 			del kmin_distances
 
 			#print(kmin_sorted)
@@ -200,9 +202,13 @@ class EDA:
 			del kmin_sorted
 		
 		del data_index
-		#self.kdist=np.copy(kdist)
-		kdist.sort(reverse=True)
 		
+		#sort in order
+		kdist.sort()	
+		
+		#to avoid recomputation due to improper scale 
+		self.kdist=np.copy(kdist)	
+	
 		#plot point vs k-dist
 		plt.title("Finding DBSCAN parameters (min_samples, epsilon)")
 		plt.xlabel("Points ====>> ")
@@ -215,15 +221,16 @@ class EDA:
 
 		print("Enter estimated value of eps : ")
 		eps=float(input().strip())
-
+		
+		#f['dbscan_params'] = {'min_samples':min_samples,'eps':eps,'kdist':kdist}
 		self.dbscan_params={"min_samples":min_samples,"eps":eps}
 
 	def wk_inertia_stat(self,k_max,k_min=1,step=1):
 		"""Estimate number of clusters by ELBOW METHOD
 		
-		References	:	[1]	Estimating the number of clusters in a data set via the gap statistic
-							Tibshirani, Robert Walther, Guenther Hastie, Trevor
-						[2] 'ClusterCrit' for R library Documentation
+		References: 	[1]	Estimating the number of clusters in a data set via the gap statistic
+					Tibshirani, Robert Walther, Guenther Hastie, Trevor
+			    	[2] 	'ClusterCrit' for R library Documentation
 		"""
 		Wk_array = np.empty( floor((k_max-k_min)/step)+1 , dtype=np.float64 )
 		inertia_array = np.empty( floor((k_max-k_min)/step) , dtype=np.float64)
@@ -303,6 +310,7 @@ class EDA:
 
 		print_dict(self.hdbscan_results)
 
+	#TODO : needs to be corrected
 	def perform_spectral_clustering(self,no_clusters,params={}):
 		spectral_clusterer=SpectralClustering(n_clusters=no_clusters,**params)
 		spectral_clusterer.fit(self.distance_matrix)

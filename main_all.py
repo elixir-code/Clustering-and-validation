@@ -25,22 +25,23 @@ import SRC.EDA as EDA
 main = EDA.EDA()
 
 #60021 x 281
-main.read_data("SAMPLES/STANDARD/blogData_train.csv",header=None,label_cols=None)
-#main.read_data("SAMPLES/STANDARD/iris.data",header=None,label_cols=-1,normalize_labels=True)
+#main.read_data("SAMPLES/STANDARD/blogData_train.csv",header=None,label_cols=None)
+main.read_data("SAMPLES/STANDARD/iris.data",header=None,label_cols=-1,normalize_labels=True)
 #main.read_data("SAMPLES/STANDARD/blogData_train.csv",header=None,label_cols=None)
 #main.read_data("SAMPLES/STANDARD/hepatitis.data",header=None,label_cols=0,normalize_labels=True,na_values="?")
 
-print("Finished Reading Data ...")
+#print("Finished Reading Data ...")
 
 main.comp_distance_matrix()
-print("Computed distance matrix ...")
+#print("Computed distance matrix ...")
 
+main.det_dbscan_params(min_samples=None)
 # main.perform_kmeans(no_clusters=20)
 
-# import SRC.internal_indices as intval
+import SRC.internal_indices as intval
 # import SRC.external_indices as extval
 
-# val_int = intval.internal_indices(main.data,main.kmeans_results['labels'])#,main.distance_matrix)
+val_int = intval.internal_indices(main.data,main.kmeans_results['labels'])#,main.distance_matrix)
 # #val_int = intval.internal_indices(main.data,main.class_labels)
 
 # print("Completed generating Internal Indices Object ...")
