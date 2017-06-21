@@ -144,6 +144,8 @@ def gap_statistic(X, refs=None, B=10, K=range(1,11), N_init = 10):
             classfication_result_b = k_means.labels_
             Wkbs[indk,i] = compute_Wk(Xb,classfication_result_b)
 
+        print("completed for K=",k)
+
     #compute gaps and sk
     gaps = (np.log(Wkbs)).mean(axis = 1) - np.log(Wks)        
     sd_ks = np.std(np.log(Wkbs), axis=1)

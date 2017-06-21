@@ -8,7 +8,7 @@ cimport cython
 from libcpp.vector cimport vector
 cimport numpy as np
 import numpy as np
-
+import h5py
 
 # Work around Cython bug: C++ exceptions are not caught unless thrown within
 # a cdef function with an "except +" declaration.
@@ -21,7 +21,7 @@ cdef inline void push(vector[np.npy_intp] &stack, np.npy_intp i) except +:
 @cython.wraparound(False)
 
 def dbscan_inner(np.ndarray[np.uint8_t, ndim=1, mode='c'] is_core,
-                 np.ndarray[object, ndim=1] neighborhoods,
+                 neighborhoods,
                  np.ndarray[np.npy_intp, ndim=1, mode='c'] labels):
     cdef np.npy_intp i, label_num = 0, v, cnt = 0
     cdef np.ndarray[np.npy_intp, ndim=1] neighb

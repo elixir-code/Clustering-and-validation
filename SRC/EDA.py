@@ -36,17 +36,18 @@ import h5py
 from time import time
 
 class EDA:
-	# def __init__(self,force_file=True):
-	# 	self.hdf5_file = None
+	def __init__(self,force_file=True,location="HOOD/"):
+		"""
+		Note: Don't miss '/' at the end of location string
+		"""
+		self.hdf5_file = None
 
-	# 	if force_file:
-	# 		print("Enter filename (without .hdf5)")
-	# 		filename = input().strip()+".hdf5"
+		if force_file:
+			print("Enter filename (without .hdf5)")
+			self.filename = location+input().strip()+".hdf5"
 
-	# 		self.hdf5_file = h5py.File("HOOD/"+filename,)
-
-
-
+			#Note: default file mode : 'a' (Read/write if exists, create otherwise)
+			self.hdf5_file = h5py.File(self.filename,libver='latest')
 
 	def load_data(self,data,labels=None):
 		"""Load data externally processed in python into the EDA object
@@ -133,30 +134,27 @@ class EDA:
 		scipy.spatial distances : ['braycurtis', 'canberra', 'chebyshev', 'correlation', 'dice', 'hamming', 'jaccard', 'kulsinski', 'mahalanobis',
         'matching', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean',' sokalmichener', 'sokalsneath', 'sqeuclidean', 'yule']
 		"""
-		try:
+		if self.hdf5_file is None:
+			#if force_file is True and hdf5 file was successfully opened ...
 			self.distance_matrix=pairwise_distances(self.data,metric=metric)
-			raise MemoryError('Just Debugging ...')
+			#raise MemoryError('Just Debugging ...')
 
-		except MemoryError:
-			print("Memory Error Encountered, using HDF5 for distance matrix ...")
-			
-			#use different file name each time (for reusability of matrices)
-			print("Enter filename (without .hdf5)")
-			filename = "HOOD/" + input().strip() + ".hdf5"
+		else:
+			print("\nForce File is enabled, using HDF5 for distance matrix ...")
 
-			print("\nEnter 'r' to read existing distance matrix"
-				  "\n      'w' to compute distance matrix from data"
+			print("\nEnter 'r' to read distance matrix"
+				  "\nEnter 'w' to write distance matrix"
 				  "\nMode : ",end='')
-			mode = input().strip()
-
-			f = h5py.File(filename,mode,libver='latest')
-			self.hdf5_file = f
+			mode=input().strip()
 
 			if mode == 'r':
-				self.distance_matrix = f['distance_matrix']
+				self.distance_matrix = self.hdf5_file['distance_matrix']
 
 			elif mode == 'w':
-				self.distance_matrix = f.create_dataset("distance_matrix",(self.n_samples,self.n_samples),dtype='d')
+				if 'distance_matrix' in self.hdf5_file:
+					del self.hdf5_file['distance_matrix']
+
+				self.distance_matrix = self.hdf5_file.create_dataset("distance_matrix",(self.n_samples,self.n_samples),dtype='d')
 
 				for data_index,data_point in enumerate(self.data):
 					print(data_index)

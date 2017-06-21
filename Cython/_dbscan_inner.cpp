@@ -1071,13 +1071,35 @@ static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
                               __Pyx_TypeInfo* type); // PROTO
 
 #define __Pyx_BufPtrCContig1d(type, buf, i0, s0) ((type)buf + i0)
-#define __Pyx_BufPtrStrided1d(type, buf, i0, s0) (type)((char*)buf + i0 * s0)
+/* GetItemInt.proto */
+#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
+               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
+#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
+                                                     int is_list, int wraparound, int boundscheck);
+
 /* ExtTypeTest.proto */
 static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 /* BufferFallbackError.proto */
 static void __Pyx_RaiseBufferFallbackError(void);
 
+#define __Pyx_BufPtrStrided1d(type, buf, i0, s0) (type)((char*)buf + i0 * s0)
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
@@ -1447,8 +1469,8 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, cha
 /* Module declarations from '_dbscan_inner' */
 static CYTHON_INLINE void __pyx_f_13_dbscan_inner_push(std::vector<npy_intp>  &, npy_intp); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_uint8_t = { "uint8_t", NULL, sizeof(__pyx_t_5numpy_uint8_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_uint8_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_uint8_t), 0 };
-static __Pyx_TypeInfo __Pyx_TypeInfo_object = { "Python object", NULL, sizeof(PyObject *), { 0 }, 0, 'O', 0, 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn_npy_intp = { "npy_intp", NULL, sizeof(npy_intp), { 0 }, 0, IS_UNSIGNED(npy_intp) ? 'U' : 'I', IS_UNSIGNED(npy_intp), 0 };
+static __Pyx_TypeInfo __Pyx_TypeInfo_object = { "int object", NULL, sizeof(PyObject *), { 0 }, 0, 'O', 0, 0 };
 #define __Pyx_MODULE_NAME "_dbscan_inner"
 int __pyx_module_is_main__dbscan_inner = 0;
 
@@ -1463,6 +1485,7 @@ static const char __pyx_k_np[] = "np";
 static const char __pyx_k_cnt[] = "cnt";
 static const char __pyx_k_end[] = "end";
 static const char __pyx_k_file[] = "file";
+static const char __pyx_k_h5py[] = "h5py";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_numpy[] = "numpy";
@@ -1501,6 +1524,7 @@ static PyObject *__pyx_n_s_dbscan_inner;
 static PyObject *__pyx_n_s_dbscan_inner_2;
 static PyObject *__pyx_n_s_end;
 static PyObject *__pyx_n_s_file;
+static PyObject *__pyx_n_s_h5py;
 static PyObject *__pyx_kp_s_home_mukesh_Documents_Clusterin;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
@@ -1523,7 +1547,7 @@ static PyObject *__pyx_kp_s_stack_size;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_v;
-static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_is_core, PyArrayObject *__pyx_v_neighborhoods, PyArrayObject *__pyx_v_labels); /* proto */
+static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_is_core, PyObject *__pyx_v_neighborhoods, PyArrayObject *__pyx_v_labels); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple_;
@@ -1584,7 +1608,7 @@ static CYTHON_INLINE void __pyx_f_13_dbscan_inner_push(std::vector<npy_intp>  &_
  * @cython.wraparound(False)
  * 
  * def dbscan_inner(np.ndarray[np.uint8_t, ndim=1, mode='c'] is_core,             # <<<<<<<<<<<<<<
- *                  np.ndarray[object, ndim=1] neighborhoods,
+ *                  neighborhoods,
  *                  np.ndarray[np.npy_intp, ndim=1, mode='c'] labels):
  */
 
@@ -1593,7 +1617,7 @@ static PyObject *__pyx_pw_13_dbscan_inner_1dbscan_inner(PyObject *__pyx_self, Py
 static PyMethodDef __pyx_mdef_13_dbscan_inner_1dbscan_inner = {"dbscan_inner", (PyCFunction)__pyx_pw_13_dbscan_inner_1dbscan_inner, METH_VARARGS|METH_KEYWORDS, 0};
 static PyObject *__pyx_pw_13_dbscan_inner_1dbscan_inner(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_is_core = 0;
-  PyArrayObject *__pyx_v_neighborhoods = 0;
+  PyObject *__pyx_v_neighborhoods = 0;
   PyArrayObject *__pyx_v_labels = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -1638,7 +1662,7 @@ static PyObject *__pyx_pw_13_dbscan_inner_1dbscan_inner(PyObject *__pyx_self, Py
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
     __pyx_v_is_core = ((PyArrayObject *)values[0]);
-    __pyx_v_neighborhoods = ((PyArrayObject *)values[1]);
+    __pyx_v_neighborhoods = values[1];
     __pyx_v_labels = ((PyArrayObject *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
@@ -1650,7 +1674,6 @@ static PyObject *__pyx_pw_13_dbscan_inner_1dbscan_inner(PyObject *__pyx_self, Py
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_is_core), __pyx_ptype_5numpy_ndarray, 1, "is_core", 0))) __PYX_ERR(0, 23, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_neighborhoods), __pyx_ptype_5numpy_ndarray, 1, "neighborhoods", 0))) __PYX_ERR(0, 24, __pyx_L1_error)
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_labels), __pyx_ptype_5numpy_ndarray, 1, "labels", 0))) __PYX_ERR(0, 25, __pyx_L1_error)
   __pyx_r = __pyx_pf_13_dbscan_inner_dbscan_inner(__pyx_self, __pyx_v_is_core, __pyx_v_neighborhoods, __pyx_v_labels);
 
@@ -1663,7 +1686,7 @@ static PyObject *__pyx_pw_13_dbscan_inner_1dbscan_inner(PyObject *__pyx_self, Py
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_is_core, PyArrayObject *__pyx_v_neighborhoods, PyArrayObject *__pyx_v_labels) {
+static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_is_core, PyObject *__pyx_v_neighborhoods, PyArrayObject *__pyx_v_labels) {
   npy_intp __pyx_v_i;
   npy_intp __pyx_v_label_num;
   npy_intp __pyx_v_v;
@@ -1676,8 +1699,6 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
   __Pyx_Buffer __pyx_pybuffer_labels;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_neighb;
   __Pyx_Buffer __pyx_pybuffer_neighb;
-  __Pyx_LocalBuf_ND __pyx_pybuffernd_neighborhoods;
-  __Pyx_Buffer __pyx_pybuffer_neighborhoods;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   npy_intp __pyx_t_1;
@@ -1692,15 +1713,15 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
   PyObject *__pyx_t_10 = NULL;
   PyObject *__pyx_t_11 = NULL;
   Py_ssize_t __pyx_t_12;
-  Py_ssize_t __pyx_t_13;
-  PyArrayObject *__pyx_t_14 = NULL;
-  int __pyx_t_15;
+  PyArrayObject *__pyx_t_13 = NULL;
+  int __pyx_t_14;
+  PyObject *__pyx_t_15 = NULL;
   PyObject *__pyx_t_16 = NULL;
   PyObject *__pyx_t_17 = NULL;
-  PyObject *__pyx_t_18 = NULL;
+  npy_intp __pyx_t_18;
   npy_intp __pyx_t_19;
-  npy_intp __pyx_t_20;
-  Py_ssize_t __pyx_t_21;
+  Py_ssize_t __pyx_t_20;
+  npy_intp __pyx_t_21;
   Py_ssize_t __pyx_t_22;
   __Pyx_RefNannySetupContext("dbscan_inner", 0);
   __pyx_pybuffer_neighb.pybuffer.buf = NULL;
@@ -1711,10 +1732,6 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
   __pyx_pybuffer_is_core.refcount = 0;
   __pyx_pybuffernd_is_core.data = NULL;
   __pyx_pybuffernd_is_core.rcbuffer = &__pyx_pybuffer_is_core;
-  __pyx_pybuffer_neighborhoods.pybuffer.buf = NULL;
-  __pyx_pybuffer_neighborhoods.refcount = 0;
-  __pyx_pybuffernd_neighborhoods.data = NULL;
-  __pyx_pybuffernd_neighborhoods.rcbuffer = &__pyx_pybuffer_neighborhoods;
   __pyx_pybuffer_labels.pybuffer.buf = NULL;
   __pyx_pybuffer_labels.refcount = 0;
   __pyx_pybuffernd_labels.data = NULL;
@@ -1726,20 +1743,15 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
   __pyx_pybuffernd_is_core.diminfo[0].strides = __pyx_pybuffernd_is_core.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_is_core.diminfo[0].shape = __pyx_pybuffernd_is_core.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighborhoods.rcbuffer->pybuffer, (PyObject*)__pyx_v_neighborhoods, &__Pyx_TypeInfo_object, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
-  }
-  __pyx_pybuffernd_neighborhoods.diminfo[0].strides = __pyx_pybuffernd_neighborhoods.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_neighborhoods.diminfo[0].shape = __pyx_pybuffernd_neighborhoods.rcbuffer->pybuffer.shape[0];
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_labels.rcbuffer->pybuffer, (PyObject*)__pyx_v_labels, &__Pyx_TypeInfo_nn_npy_intp, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
   }
   __pyx_pybuffernd_labels.diminfo[0].strides = __pyx_pybuffernd_labels.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_labels.diminfo[0].shape = __pyx_pybuffernd_labels.rcbuffer->pybuffer.shape[0];
 
   /* "_dbscan_inner.pyx":26
- *                  np.ndarray[object, ndim=1] neighborhoods,
+ *                  neighborhoods,
  *                  np.ndarray[np.npy_intp, ndim=1, mode='c'] labels):
  *     cdef np.npy_intp i, label_num = 0, v, cnt = 0             # <<<<<<<<<<<<<<
- *     cdef np.ndarray[np.npy_intp, ndim=1] neighb
+ *     cdef np.ndarray[np.int, ndim=1] neighb
  *     cdef vector[np.npy_intp] stack
  */
   __pyx_v_label_num = 0;
@@ -1876,28 +1888,27 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
  *                     for i in range(neighb.shape[0]):
  *                         v = neighb[i]
  */
-          __pyx_t_13 = __pyx_v_i;
-          __pyx_t_11 = (PyObject *) *__Pyx_BufPtrStrided1d(PyObject **, __pyx_pybuffernd_neighborhoods.rcbuffer->pybuffer.buf, __pyx_t_13, __pyx_pybuffernd_neighborhoods.diminfo[0].strides);
-          __Pyx_INCREF((PyObject*)__pyx_t_11);
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_neighborhoods, __pyx_v_i, npy_intp, 1, __Pyx_PyInt_From_Py_intptr_t, 0, 0, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 48, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_11);
           if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 48, __pyx_L1_error)
-          __pyx_t_14 = ((PyArrayObject *)__pyx_t_11);
+          __pyx_t_13 = ((PyArrayObject *)__pyx_t_11);
           {
             __Pyx_BufFmt_StackElem __pyx_stack[1];
             __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer);
-            __pyx_t_15 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer, (PyObject*)__pyx_t_14, &__Pyx_TypeInfo_nn_npy_intp, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
-            if (unlikely(__pyx_t_15 < 0)) {
-              PyErr_Fetch(&__pyx_t_16, &__pyx_t_17, &__pyx_t_18);
-              if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer, (PyObject*)__pyx_v_neighb, &__Pyx_TypeInfo_nn_npy_intp, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-                Py_XDECREF(__pyx_t_16); Py_XDECREF(__pyx_t_17); Py_XDECREF(__pyx_t_18);
+            __pyx_t_14 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer, (PyObject*)__pyx_t_13, &__Pyx_TypeInfo_object, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
+            if (unlikely(__pyx_t_14 < 0)) {
+              PyErr_Fetch(&__pyx_t_15, &__pyx_t_16, &__pyx_t_17);
+              if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer, (PyObject*)__pyx_v_neighb, &__Pyx_TypeInfo_object, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+                Py_XDECREF(__pyx_t_15); Py_XDECREF(__pyx_t_16); Py_XDECREF(__pyx_t_17);
                 __Pyx_RaiseBufferFallbackError();
               } else {
-                PyErr_Restore(__pyx_t_16, __pyx_t_17, __pyx_t_18);
+                PyErr_Restore(__pyx_t_15, __pyx_t_16, __pyx_t_17);
               }
             }
             __pyx_pybuffernd_neighb.diminfo[0].strides = __pyx_pybuffernd_neighb.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_neighb.diminfo[0].shape = __pyx_pybuffernd_neighb.rcbuffer->pybuffer.shape[0];
-            if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 48, __pyx_L1_error)
+            if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 48, __pyx_L1_error)
           }
-          __pyx_t_14 = 0;
+          __pyx_t_13 = 0;
           __Pyx_XDECREF_SET(__pyx_v_neighb, ((PyArrayObject *)__pyx_t_11));
           __pyx_t_11 = 0;
 
@@ -1908,9 +1919,9 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
  *                         v = neighb[i]
  *                         if labels[v] == -1:
  */
-          __pyx_t_19 = (__pyx_v_neighb->dimensions[0]);
-          for (__pyx_t_20 = 0; __pyx_t_20 < __pyx_t_19; __pyx_t_20+=1) {
-            __pyx_v_i = __pyx_t_20;
+          __pyx_t_18 = (__pyx_v_neighb->dimensions[0]);
+          for (__pyx_t_19 = 0; __pyx_t_19 < __pyx_t_18; __pyx_t_19+=1) {
+            __pyx_v_i = __pyx_t_19;
 
             /* "_dbscan_inner.pyx":50
  *                     neighb = neighborhoods[i]
@@ -1919,8 +1930,12 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
  *                         if labels[v] == -1:
  *                             push(stack, v)
  */
-            __pyx_t_21 = __pyx_v_i;
-            __pyx_v_v = (*__Pyx_BufPtrStrided1d(npy_intp *, __pyx_pybuffernd_neighb.rcbuffer->pybuffer.buf, __pyx_t_21, __pyx_pybuffernd_neighb.diminfo[0].strides));
+            __pyx_t_20 = __pyx_v_i;
+            __pyx_t_11 = (PyObject *) *__Pyx_BufPtrStrided1d(PyObject **, __pyx_pybuffernd_neighb.rcbuffer->pybuffer.buf, __pyx_t_20, __pyx_pybuffernd_neighb.diminfo[0].strides);
+            __Pyx_INCREF((PyObject*)__pyx_t_11);
+            __pyx_t_21 = __Pyx_PyInt_As_Py_intptr_t(__pyx_t_11); if (unlikely((__pyx_t_21 == ((npy_intp)-1)) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+            __pyx_v_v = __pyx_t_21;
 
             /* "_dbscan_inner.pyx":51
  *                     for i in range(neighb.shape[0]):
@@ -2036,7 +2051,7 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
  * @cython.wraparound(False)
  * 
  * def dbscan_inner(np.ndarray[np.uint8_t, ndim=1, mode='c'] is_core,             # <<<<<<<<<<<<<<
- *                  np.ndarray[object, ndim=1] neighborhoods,
+ *                  neighborhoods,
  *                  np.ndarray[np.npy_intp, ndim=1, mode='c'] labels):
  */
 
@@ -2054,7 +2069,6 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_is_core.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_labels.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_neighborhoods.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
   __Pyx_AddTraceback("_dbscan_inner.dbscan_inner", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
@@ -2063,7 +2077,6 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_is_core.rcbuffer->pybuffer);
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_labels.rcbuffer->pybuffer);
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer);
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_neighborhoods.rcbuffer->pybuffer);
   __pyx_L2:;
   __Pyx_XDECREF((PyObject *)__pyx_v_neighb);
   __Pyx_XGIVEREF(__pyx_r);
@@ -4619,6 +4632,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_dbscan_inner_2, __pyx_k_dbscan_inner_2, sizeof(__pyx_k_dbscan_inner_2), 0, 0, 1, 1},
   {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
+  {&__pyx_n_s_h5py, __pyx_k_h5py, sizeof(__pyx_k_h5py), 0, 0, 1, 1},
   {&__pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_k_home_mukesh_Documents_Clusterin, sizeof(__pyx_k_home_mukesh_Documents_Clusterin), 0, 0, 1, 0},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -4758,7 +4772,7 @@ static int __Pyx_InitCachedConstants(void) {
  * @cython.wraparound(False)
  * 
  * def dbscan_inner(np.ndarray[np.uint8_t, ndim=1, mode='c'] is_core,             # <<<<<<<<<<<<<<
- *                  np.ndarray[object, ndim=1] neighborhoods,
+ *                  neighborhoods,
  *                  np.ndarray[np.npy_intp, ndim=1, mode='c'] labels):
  */
   __pyx_tuple__10 = PyTuple_Pack(9, __pyx_n_s_is_core, __pyx_n_s_neighborhoods, __pyx_n_s_labels, __pyx_n_s_i, __pyx_n_s_label_num, __pyx_n_s_v, __pyx_n_s_cnt, __pyx_n_s_neighb, __pyx_n_s_stack); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 23, __pyx_L1_error)
@@ -4887,7 +4901,7 @@ PyMODINIT_FUNC PyInit__dbscan_inner(void)
  * from libcpp.vector cimport vector
  * cimport numpy as np
  * import numpy as np             # <<<<<<<<<<<<<<
- * 
+ * import h5py
  * 
  */
   __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
@@ -4895,11 +4909,23 @@ PyMODINIT_FUNC PyInit__dbscan_inner(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+  /* "_dbscan_inner.pyx":11
+ * cimport numpy as np
+ * import numpy as np
+ * import h5py             # <<<<<<<<<<<<<<
+ * 
+ * # Work around Cython bug: C++ exceptions are not caught unless thrown within
+ */
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_h5py, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_h5py, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
   /* "_dbscan_inner.pyx":23
  * @cython.wraparound(False)
  * 
  * def dbscan_inner(np.ndarray[np.uint8_t, ndim=1, mode='c'] is_core,             # <<<<<<<<<<<<<<
- *                  np.ndarray[object, ndim=1] neighborhoods,
+ *                  neighborhoods,
  *                  np.ndarray[np.npy_intp, ndim=1, mode='c'] labels):
  */
   __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_13_dbscan_inner_1dbscan_inner, NULL, __pyx_n_s_dbscan_inner_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
@@ -5696,6 +5722,87 @@ static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info) {
   if (info->buf == NULL) return;
   if (info->suboffsets == __Pyx_minusones) info->suboffsets = NULL;
   __Pyx_ReleaseBuffer(info);
+}
+
+/* GetItemInt */
+  static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    if (wraparound & unlikely(i < 0)) i += PyList_GET_SIZE(o);
+    if ((!boundscheck) || likely((0 <= i) & (i < PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    if (wraparound & unlikely(i < 0)) i += PyTuple_GET_SIZE(o);
+    if ((!boundscheck) || likely((0 <= i) & (i < PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely((n >= 0) & (n < PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely((n >= 0) & (n < PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return NULL;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
 }
 
 /* ExtTypeTest */
