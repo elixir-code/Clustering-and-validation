@@ -1,7 +1,7 @@
 """Exploratory Data Analysis (EDA) - Clustering Toolkit
 Authors : R.Mukesh, Nitin Shravan (BuddiHealth Technologies)
 
-Dependencies: numpy, sklearn, matplotlib, hdbscan, seaborn, gapkmean
+Dependencies: numpy, sklearn, pandas, matplotlib, hdbscan, seaborn, gapkmean(source included), h5py
 version : Python 3.0
 
 TODO : 	[1]	Hierarchial Clustering Techniques and associated metrics
@@ -33,7 +33,20 @@ import matplotlib.patches as mpatches
 
 import h5py
 
+from time import time
+
 class EDA:
+	# def __init__(self,force_file=True):
+	# 	self.hdf5_file = None
+
+	# 	if force_file:
+	# 		print("Enter filename (without .hdf5)")
+	# 		filename = input().strip()+".hdf5"
+
+	# 		self.hdf5_file = h5py.File("HOOD/"+filename,)
+
+
+
 
 	def load_data(self,data,labels=None):
 		"""Load data externally processed in python into the EDA object
@@ -82,7 +95,7 @@ class EDA:
 		data_frame.dropna(inplace=True)
 		#May need drop na function from pandas
 
-		self.data = data_frame.values
+		self.data = np.array(data_frame.values)
 		self.class_labels = data_frame.index
 
 		if normalize_labels is True:
@@ -114,9 +127,14 @@ class EDA:
 		self.std_scale.inverse_transform(self.data,copy=False)
 
 	#computes euclidean distance matrix (for all pairs of data points)
-	def comp_distance_matrix(self):
+	def comp_distance_matrix(self,metric='euclidean'):
+		"""TODO : Metrics to be supported:
+		sklearn native : ['cityblock', 'cosine', 'euclidean', 'l1', 'l2','manhattan']
+		scipy.spatial distances : ['braycurtis', 'canberra', 'chebyshev', 'correlation', 'dice', 'hamming', 'jaccard', 'kulsinski', 'mahalanobis',
+        'matching', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean',' sokalmichener', 'sokalsneath', 'sqeuclidean', 'yule']
+		"""
 		try:
-			self.distance_matrix=pairwise_distances(self.data)
+			self.distance_matrix=pairwise_distances(self.data,metric=metric)
 			raise MemoryError('Just Debugging ...')
 
 		except MemoryError:
@@ -132,6 +150,7 @@ class EDA:
 			mode = input().strip()
 
 			f = h5py.File(filename,mode,libver='latest')
+			self.hdf5_file = f
 
 			if mode == 'r':
 				self.distance_matrix = f['distance_matrix']
@@ -141,7 +160,7 @@ class EDA:
 
 				for data_index,data_point in enumerate(self.data):
 					print(data_index)
-					self.distance_matrix[data_index] = pairwise_distances([data_point],self.data)			
+					self.distance_matrix[data_index] = pairwise_distances([data_point],self.data,metric=metric)
 
 		#self.distance_matrix = np.zeros((self.n_samples,self.n_samples),dtype=np.float32)
 		#for data1_index,data2_index in combinations(range(self.n_samples),2):
@@ -168,8 +187,8 @@ class EDA:
 		data_index = 0
 
 		for src_distances in self.distance_matrix:
-
 			print(data_index)
+			'''
 			
 			kmin_distances=np.copy(src_distances[:min_samples])
 			kmin_sorted=np.sort(kmin_distances)
@@ -194,11 +213,12 @@ class EDA:
 					kmin_sorted[index+1]=distance
 
 				#print(kmin_sorted)
-
+			'''
 			#print(kmin_sorted,end="\n\n")
-
+			kmin_sorted = np.sort(src_distances)
 			kdist[data_index] = kmin_sorted[min_samples-1]
 			data_index += 1
+
 			del kmin_sorted
 		
 		del data_index
@@ -233,7 +253,7 @@ class EDA:
 			    	[2] 	'ClusterCrit' for R library Documentation
 		"""
 		Wk_array = np.empty( floor((k_max-k_min)/step)+1 , dtype=np.float64 )
-		inertia_array = np.empty( floor((k_max-k_min)/step) , dtype=np.float64)
+		inertia_array = np.empty( floor((k_max-k_min)/step)+1 , dtype=np.float64)
 
 		#run kmeans and compute log(wk) for all n_clusters
 		index = 0
@@ -264,6 +284,8 @@ class EDA:
 			index += 1
 
 			del kmeans_clusterer,Dr,Nr,Wk
+
+			print("completed for K=",no_clusters)
 
 		plt.title("Wk vs n_clusters")
 		plt.xlabel("n_clusters")
@@ -297,15 +319,19 @@ class EDA:
 
 	#gather results  by performing dbscan
 	def perform_dbscan(self):
+		'''
+		TODO : use ELKI's DBSCAN algorithm instead of scikit learns algorithm
+		Reference : https://stackoverflow.com/questions/16381577/scikit-learn-dbscan-memory-usage
+		'''
 		dbscan_clusterer=DBSCAN(**self.dbscan_params,metric="precomputed")
-		dbscan_clusterer.fit(self.distance_matrix)
+		dbscan_clusterer.fit(self.distance_matrix,hdf5_file=self.hdf5_file)
 		self.dbscan_results={"parameters":dbscan_clusterer.get_params(),"labels":dbscan_clusterer.labels_,"n_clusters":np.unique(dbscan_clusterer.labels_).max()+1,'clusters':label_cnt_dict(dbscan_clusterer.labels_)}		
 
 		print_dict(self.dbscan_results)
 
 	def perform_hdbscan(self,min_cluster_size=15):
-		hdbscan_clusterer=HDBSCAN(min_cluster_size,metric="precomputed")
-		hdbscan_clusterer.fit(self.distance_matrix)
+		hdbscan_clusterer=HDBSCAN(min_cluster_size)#,metric="precomputed")
+		hdbscan_clusterer.fit(self.data)
 		self.hdbscan_results={"parameters":hdbscan_clusterer.get_params(),"labels":hdbscan_clusterer.labels_,"probabilities":hdbscan_clusterer.probabilities_,"n_clusters":np.unique(hdbscan_clusterer.labels_).max()+1,'clusters':label_cnt_dict(hdbscan_clusterer.labels_)}
 
 		print_dict(self.hdbscan_results)
@@ -321,9 +347,12 @@ class EDA:
 		#gaussian kernel affinity matrix
 		self.affinity_matrix = spectral_clusterer.affinity_matrix_
 
-	def perform_kmeans(self,no_clusters,params={}):
+	def perform_kmeans(self,no_clusters,params={'n_jobs':-1}):
+		#start_time = time()
 		kmeans_clusterer=KMeans(n_clusters=no_clusters,**params)
 		kmeans_clusterer.fit(self.data)
+		#print("-- %s seconds --"%(time()-start_time))
+
 		self.kmeans_results={"parameters":kmeans_clusterer.get_params(),"labels":kmeans_clusterer.labels_,"n_clusters":no_clusters,'clusters':label_cnt_dict(kmeans_clusterer.labels_),"cluster_centers":kmeans_clusterer.cluster_centers_,"inertia":kmeans_clusterer.inertia_}     
 
 		print_dict(self.kmeans_results)
@@ -371,15 +400,12 @@ def visualise_2D(x_values,y_values,labels=None,class_names=None):
 
 def euclidean_distance(vector1,vector2,squared=False):
 	"""calculates euclidean distance between two vectors
-	
 	Keyword arguments:
 	vector1 -- first data point (type: numpy array)
 	vector2 -- second data point (type: numpy array)
 	squared -- return square of euclidean distance (default: False)
 	"""
-	euclidean_distance=np.sum((vector1-vector2)**2,dtype=np.float32)
-
+	euclidean_distance=np.sum((vector1-vector2)**2,dtype=np.float64)
 	if squared is False:
-		euclidean_distance=np.sqrt(euclidean_distance,dtype=np.float32)
-
+		euclidean_distance=np.sqrt(euclidean_distance,dtype=np.float64)
 	return euclidean_distance

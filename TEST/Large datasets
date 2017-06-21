@@ -1,0 +1,44 @@
+Running large datasets
++--------------------+
+
+I. KEGG Metabolic Relation Network (Directed) Data Set
+------------------------------------------------------
+
+Reference : https://archive.ics.uci.edu/ml/datasets/KEGG+Metabolic+Relation+Network+(Directed)
+
+No. of samples : 53414
+No. of attributes : 24
+
+Loading data : Done
+Computing distance matrix : Done (with HDF5 library)
+
+Determining number of clusters --
+
+Wk and Inertia : Done
+Gap statistics : Done (Doubts in correctness -- showing different result than Wk,inertia elbow method)
+
+Determing DBSCAN parameters : Done
+
+
+Clustering algorithms :
++---------------------+
+
+1. K-Means : Done
+2. DBSCAN : 
+
+Initial Error
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/home/mukesh/Documents/Clustering and Validation/SRC/EDA.py", line 308, in perform_dbscan
+    dbscan_clusterer.fit(self.distance_matrix)
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/cluster/dbscan_.py", line 264, in fit
+    X = check_array(X, accept_sparse='csr')
+  File "/usr/local/lib/python3.5/dist-packages/sklearn/utils/validation.py", line 382, in check_array
+    array = np.array(array, dtype=dtype, order=order, copy=copy)
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper (/tmp/pip-huypgcah-build/h5py/_objects.c:2840)
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper (/tmp/pip-huypgcah-build/h5py/_objects.c:2798)
+  File "/usr/local/lib/python3.5/dist-packages/h5py/_hl/dataset.py", line 688, in __array__
+    arr = numpy.empty(self.shape, dtype=self.dtype if dtype is None else dtype)
+MemoryError
+
