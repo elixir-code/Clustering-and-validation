@@ -429,8 +429,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #define __Pyx_PyNumber_Divide(x,y)         PyNumber_TrueDivide(x,y)
   #define __Pyx_PyNumber_InPlaceDivide(x,y)  PyNumber_InPlaceTrueDivide(x,y)
 #else
-  #define __Pyx_PyNumber_Divide(x,y)         PyNumber_Divide(x,y)
-  #define __Pyx_PyNumber_InPlaceDivide(x,y)  PyNumber_InPlaceDivide(x,y)
+  #define __Pyx_PyNumber_Divide(x,y)         PyNumber_TrueDivide(x,y)
+  #define __Pyx_PyNumber_InPlaceDivide(x,y)  PyNumber_InPlaceTrueDivide(x,y)
 #endif
 
 #ifndef __PYX_EXTERN_C
@@ -1070,6 +1070,13 @@ static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
                               __Pyx_BufFmt_StackElem* stack,
                               __Pyx_TypeInfo* type); // PROTO
 
+/* PyObjectCall.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
+#endif
+
 #define __Pyx_BufPtrCContig1d(type, buf, i0, s0) ((type)buf + i0)
 /* GetItemInt.proto */
 #define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
@@ -1099,7 +1106,6 @@ static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 /* BufferFallbackError.proto */
 static void __Pyx_RaiseBufferFallbackError(void);
 
-#define __Pyx_BufPtrStrided1d(type, buf, i0, s0) (type)((char*)buf + i0 * s0)
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
@@ -1122,13 +1128,6 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 #define __Pyx_ErrFetchWithState(type, value, tb)  PyErr_Fetch(type, value, tb)
 #define __Pyx_ErrRestore(type, value, tb)  PyErr_Restore(type, value, tb)
 #define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
-#endif
-
-/* PyObjectCall.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
-#else
-#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
 /* RaiseException.proto */
@@ -1285,13 +1284,6 @@ static void __Pyx_CppExn2PyErr() {
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_Py_intptr_t(Py_intptr_t value);
 
-/* Print.proto */
-static int __Pyx_Print(PyObject*, PyObject *, int);
-#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
-static PyObject* __pyx_print = 0;
-static PyObject* __pyx_print_kwargs = 0;
-#endif
-
 /* RealImag.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1399,9 +1391,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES v
 /* CIntFromPy.proto */
 static CYTHON_INLINE Py_intptr_t __Pyx_PyInt_As_Py_intptr_t(PyObject *);
 
-/* PrintOne.proto */
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
-
 /* CIntFromPy.proto */
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
@@ -1470,24 +1459,25 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, cha
 static CYTHON_INLINE void __pyx_f_13_dbscan_inner_push(std::vector<npy_intp>  &, npy_intp); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_uint8_t = { "uint8_t", NULL, sizeof(__pyx_t_5numpy_uint8_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_uint8_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_uint8_t), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn_npy_intp = { "npy_intp", NULL, sizeof(npy_intp), { 0 }, 0, IS_UNSIGNED(npy_intp) ? 'U' : 'I', IS_UNSIGNED(npy_intp), 0 };
-static __Pyx_TypeInfo __Pyx_TypeInfo_object = { "int object", NULL, sizeof(PyObject *), { 0 }, 0, 'O', 0, 0 };
 #define __Pyx_MODULE_NAME "_dbscan_inner"
 int __pyx_module_is_main__dbscan_inner = 0;
 
 /* Implementation of '_dbscan_inner' */
 static PyObject *__pyx_builtin_range;
+static PyObject *__pyx_builtin_print;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
-static const char __pyx_k_i[] = "i";
-static const char __pyx_k_v[] = "v";
+static const char __pyx_k_[] = "--";
+static const char __pyx_k_i[] = "-- i = ";
 static const char __pyx_k_np[] = "np";
-static const char __pyx_k_cnt[] = "cnt";
-static const char __pyx_k_end[] = "end";
-static const char __pyx_k_file[] = "file";
+static const char __pyx_k_cnt[] = " cnt = ";
+static const char __pyx_k_i_2[] = "i=";
+static const char __pyx_k_i_3[] = "i";
 static const char __pyx_k_h5py[] = "h5py";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_cnt_2[] = "cnt";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
@@ -1495,13 +1485,16 @@ static const char __pyx_k_stack[] = "stack";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_labels[] = "labels";
 static const char __pyx_k_neighb[] = "neighb";
+static const char __pyx_k_sample[] = "sample";
 static const char __pyx_k_is_core[] = "is_core";
 static const char __pyx_k_label_num[] = "label_num";
 static const char __pyx_k_ValueError[] = "ValueError";
-static const char __pyx_k_stack_size[] = " stack size : ";
+static const char __pyx_k_cur_sample[] = "cur_sample";
+static const char __pyx_k_stack_size[] = " stack size = ";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_dbscan_inner[] = "dbscan_inner";
+static const char __pyx_k_stack_size_2[] = "stack size  = ";
 static const char __pyx_k_neighborhoods[] = "neighborhoods";
 static const char __pyx_k_dbscan_inner_2[] = "_dbscan_inner";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
@@ -1513,20 +1506,23 @@ static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte 
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
+static PyObject *__pyx_kp_u_;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RuntimeError;
 static PyObject *__pyx_n_s_ValueError;
-static PyObject *__pyx_n_s_cnt;
+static PyObject *__pyx_kp_u_cnt;
+static PyObject *__pyx_n_s_cnt_2;
+static PyObject *__pyx_n_s_cur_sample;
 static PyObject *__pyx_n_s_dbscan_inner;
 static PyObject *__pyx_n_s_dbscan_inner_2;
-static PyObject *__pyx_n_s_end;
-static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_h5py;
 static PyObject *__pyx_kp_s_home_mukesh_Documents_Clusterin;
-static PyObject *__pyx_n_s_i;
+static PyObject *__pyx_kp_u_i;
+static PyObject *__pyx_kp_u_i_2;
+static PyObject *__pyx_n_s_i_3;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_is_core;
 static PyObject *__pyx_n_s_label_num;
@@ -1538,19 +1534,19 @@ static PyObject *__pyx_n_s_neighb;
 static PyObject *__pyx_n_s_neighborhoods;
 static PyObject *__pyx_n_s_np;
 static PyObject *__pyx_n_s_numpy;
-static PyObject *__pyx_kp_s_numpy_core_multiarray_failed_to;
-static PyObject *__pyx_kp_s_numpy_core_umath_failed_to_impor;
+static PyObject *__pyx_kp_u_numpy_core_multiarray_failed_to;
+static PyObject *__pyx_kp_u_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_sample;
 static PyObject *__pyx_n_s_stack;
-static PyObject *__pyx_kp_s_stack_size;
+static PyObject *__pyx_kp_u_stack_size;
+static PyObject *__pyx_kp_u_stack_size_2;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
-static PyObject *__pyx_n_s_v;
 static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_is_core, PyObject *__pyx_v_neighborhoods, PyArrayObject *__pyx_v_labels); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
-static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__4;
@@ -1560,7 +1556,8 @@ static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_tuple__10;
-static PyObject *__pyx_codeobj__11;
+static PyObject *__pyx_tuple__11;
+static PyObject *__pyx_codeobj__12;
 
 /* "_dbscan_inner.pyx":15
  * # Work around Cython bug: C++ exceptions are not caught unless thrown within
@@ -1689,7 +1686,8 @@ static PyObject *__pyx_pw_13_dbscan_inner_1dbscan_inner(PyObject *__pyx_self, Py
 static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_is_core, PyObject *__pyx_v_neighborhoods, PyArrayObject *__pyx_v_labels) {
   npy_intp __pyx_v_i;
   npy_intp __pyx_v_label_num;
-  npy_intp __pyx_v_v;
+  npy_intp __pyx_v_cur_sample;
+  npy_intp __pyx_v_sample;
   npy_intp __pyx_v_cnt;
   PyArrayObject *__pyx_v_neighb = 0;
   std::vector<npy_intp>  __pyx_v_stack;
@@ -1703,26 +1701,27 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
   __Pyx_RefNannyDeclarations
   npy_intp __pyx_t_1;
   npy_intp __pyx_t_2;
-  int __pyx_t_3;
-  Py_ssize_t __pyx_t_4;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
   int __pyx_t_5;
   Py_ssize_t __pyx_t_6;
-  Py_ssize_t __pyx_t_7;
+  int __pyx_t_7;
   Py_ssize_t __pyx_t_8;
-  PyObject *__pyx_t_9 = NULL;
+  Py_ssize_t __pyx_t_9;
   PyObject *__pyx_t_10 = NULL;
   PyObject *__pyx_t_11 = NULL;
-  Py_ssize_t __pyx_t_12;
-  PyArrayObject *__pyx_t_13 = NULL;
-  int __pyx_t_14;
+  PyArrayObject *__pyx_t_12 = NULL;
+  int __pyx_t_13;
+  PyObject *__pyx_t_14 = NULL;
   PyObject *__pyx_t_15 = NULL;
   PyObject *__pyx_t_16 = NULL;
-  PyObject *__pyx_t_17 = NULL;
-  npy_intp __pyx_t_18;
+  Py_ssize_t __pyx_t_17;
+  PyObject *(*__pyx_t_18)(PyObject *);
   npy_intp __pyx_t_19;
   Py_ssize_t __pyx_t_20;
-  npy_intp __pyx_t_21;
-  Py_ssize_t __pyx_t_22;
+  Py_ssize_t __pyx_t_21;
+  PyObject *__pyx_t_22 = NULL;
+  Py_ssize_t __pyx_t_23;
   __Pyx_RefNannySetupContext("dbscan_inner", 0);
   __pyx_pybuffer_neighb.pybuffer.buf = NULL;
   __pyx_pybuffer_neighb.refcount = 0;
@@ -1750,8 +1749,8 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
   /* "_dbscan_inner.pyx":26
  *                  neighborhoods,
  *                  np.ndarray[np.npy_intp, ndim=1, mode='c'] labels):
- *     cdef np.npy_intp i, label_num = 0, v, cnt = 0             # <<<<<<<<<<<<<<
- *     cdef np.ndarray[np.int, ndim=1] neighb
+ *     cdef np.npy_intp i, label_num = 0, cur_sample, sample, cnt = 0             # <<<<<<<<<<<<<<
+ *     cdef np.ndarray[np.npy_intp, ndim=1] neighb
  *     cdef vector[np.npy_intp] stack
  */
   __pyx_v_label_num = 0;
@@ -1762,43 +1761,68 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
  * 
  *     for i in range(labels.shape[0]):             # <<<<<<<<<<<<<<
  * 
- *         #if already label assigned or is not a core point
+ *         print("-- i = ",i,"--")
  */
   __pyx_t_1 = (__pyx_v_labels->dimensions[0]);
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "_dbscan_inner.pyx":33
+    /* "_dbscan_inner.pyx":32
+ *     for i in range(labels.shape[0]):
  * 
+ *         print("-- i = ",i,"--")             # <<<<<<<<<<<<<<
+ *         #if already label assigned or is not a core point
+ *         if labels[i] != -1 or not is_core[i]:
+ */
+    __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t(__pyx_v_i); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 32, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 32, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_INCREF(__pyx_kp_u_i);
+    __Pyx_GIVEREF(__pyx_kp_u_i);
+    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_kp_u_i);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
+    __Pyx_INCREF(__pyx_kp_u_);
+    __Pyx_GIVEREF(__pyx_kp_u_);
+    PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_kp_u_);
+    __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 32, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "_dbscan_inner.pyx":34
+ *         print("-- i = ",i,"--")
  *         #if already label assigned or is not a core point
  *         if labels[i] != -1 or not is_core[i]:             # <<<<<<<<<<<<<<
  *             continue
  * 
  */
-    __pyx_t_4 = __pyx_v_i;
-    __pyx_t_5 = (((*__Pyx_BufPtrCContig1d(npy_intp *, __pyx_pybuffernd_labels.rcbuffer->pybuffer.buf, __pyx_t_4, __pyx_pybuffernd_labels.diminfo[0].strides)) != -1L) != 0);
-    if (!__pyx_t_5) {
+    __pyx_t_6 = __pyx_v_i;
+    __pyx_t_7 = (((*__Pyx_BufPtrCContig1d(npy_intp *, __pyx_pybuffernd_labels.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_labels.diminfo[0].strides)) != -1L) != 0);
+    if (!__pyx_t_7) {
     } else {
-      __pyx_t_3 = __pyx_t_5;
+      __pyx_t_5 = __pyx_t_7;
       goto __pyx_L6_bool_binop_done;
     }
-    __pyx_t_6 = __pyx_v_i;
-    __pyx_t_5 = ((!((*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_uint8_t *, __pyx_pybuffernd_is_core.rcbuffer->pybuffer.buf, __pyx_t_6, __pyx_pybuffernd_is_core.diminfo[0].strides)) != 0)) != 0);
-    __pyx_t_3 = __pyx_t_5;
+    __pyx_t_8 = __pyx_v_i;
+    __pyx_t_7 = ((!((*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_uint8_t *, __pyx_pybuffernd_is_core.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_is_core.diminfo[0].strides)) != 0)) != 0);
+    __pyx_t_5 = __pyx_t_7;
     __pyx_L6_bool_binop_done:;
-    if (__pyx_t_3) {
+    if (__pyx_t_5) {
 
-      /* "_dbscan_inner.pyx":34
+      /* "_dbscan_inner.pyx":35
  *         #if already label assigned or is not a core point
  *         if labels[i] != -1 or not is_core[i]:
  *             continue             # <<<<<<<<<<<<<<
  * 
- *         # Depth-first search starting from i, ending at the non-core points.
+ *         # # Depth-first search starting from i, ending at the non-core points.
  */
       goto __pyx_L3_continue;
 
-      /* "_dbscan_inner.pyx":33
- * 
+      /* "_dbscan_inner.pyx":34
+ *         print("-- i = ",i,"--")
  *         #if already label assigned or is not a core point
  *         if labels[i] != -1 or not is_core[i]:             # <<<<<<<<<<<<<<
  *             continue
@@ -1806,230 +1830,336 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
  */
     }
 
-    /* "_dbscan_inner.pyx":40
- *         # components, the difference being that we label non-core points as
- *         # part of a cluster (component), but don't expand their neighborhoods.
+    /* "_dbscan_inner.pyx":63
+ * 
+ *         #sklearn_large optimisations
+ *         cur_sample = i             # <<<<<<<<<<<<<<
+ *         labels[cur_sample] = label_num
+ *         print("i=",i," cnt = ",cnt," stack size = ",stack.size())
+ */
+    __pyx_v_cur_sample = __pyx_v_i;
+
+    /* "_dbscan_inner.pyx":64
+ *         #sklearn_large optimisations
+ *         cur_sample = i
+ *         labels[cur_sample] = label_num             # <<<<<<<<<<<<<<
+ *         print("i=",i," cnt = ",cnt," stack size = ",stack.size())
+ * 
+ */
+    __pyx_t_9 = __pyx_v_cur_sample;
+    *__Pyx_BufPtrCContig1d(npy_intp *, __pyx_pybuffernd_labels.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_labels.diminfo[0].strides) = __pyx_v_label_num;
+
+    /* "_dbscan_inner.pyx":65
+ *         cur_sample = i
+ *         labels[cur_sample] = label_num
+ *         print("i=",i," cnt = ",cnt," stack size = ",stack.size())             # <<<<<<<<<<<<<<
+ * 
+ *         while True:
+ */
+    __pyx_t_3 = __Pyx_PyInt_From_Py_intptr_t(__pyx_v_i); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_4 = __Pyx_PyInt_From_Py_intptr_t(__pyx_v_cnt); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_10 = __Pyx_PyInt_FromSize_t(__pyx_v_stack.size()); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_11 = PyTuple_New(6); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_11);
+    __Pyx_INCREF(__pyx_kp_u_i_2);
+    __Pyx_GIVEREF(__pyx_kp_u_i_2);
+    PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_kp_u_i_2);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_3);
+    __Pyx_INCREF(__pyx_kp_u_cnt);
+    __Pyx_GIVEREF(__pyx_kp_u_cnt);
+    PyTuple_SET_ITEM(__pyx_t_11, 2, __pyx_kp_u_cnt);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_11, 3, __pyx_t_4);
+    __Pyx_INCREF(__pyx_kp_u_stack_size);
+    __Pyx_GIVEREF(__pyx_kp_u_stack_size);
+    PyTuple_SET_ITEM(__pyx_t_11, 4, __pyx_kp_u_stack_size);
+    __Pyx_GIVEREF(__pyx_t_10);
+    PyTuple_SET_ITEM(__pyx_t_11, 5, __pyx_t_10);
+    __pyx_t_3 = 0;
+    __pyx_t_4 = 0;
+    __pyx_t_10 = 0;
+    __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_11, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+
+    /* "_dbscan_inner.pyx":67
+ *         print("i=",i," cnt = ",cnt," stack size = ",stack.size())
+ * 
  *         while True:             # <<<<<<<<<<<<<<
- *             if labels[i] == -1:
- *                 labels[i] = label_num
+ *             print("stack size  = ",stack.size())
+ *             neighb = neighborhoods[cur_sample]
  */
     while (1) {
 
-      /* "_dbscan_inner.pyx":41
- *         # part of a cluster (component), but don't expand their neighborhoods.
+      /* "_dbscan_inner.pyx":68
+ * 
  *         while True:
- *             if labels[i] == -1:             # <<<<<<<<<<<<<<
- *                 labels[i] = label_num
+ *             print("stack size  = ",stack.size())             # <<<<<<<<<<<<<<
+ *             neighb = neighborhoods[cur_sample]
  * 
  */
-      __pyx_t_7 = __pyx_v_i;
-      __pyx_t_3 = (((*__Pyx_BufPtrCContig1d(npy_intp *, __pyx_pybuffernd_labels.rcbuffer->pybuffer.buf, __pyx_t_7, __pyx_pybuffernd_labels.diminfo[0].strides)) == -1L) != 0);
-      if (__pyx_t_3) {
+      __pyx_t_10 = __Pyx_PyInt_FromSize_t(__pyx_v_stack.size()); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 68, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __pyx_t_11 = PyTuple_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 68, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_11);
+      __Pyx_INCREF(__pyx_kp_u_stack_size_2);
+      __Pyx_GIVEREF(__pyx_kp_u_stack_size_2);
+      PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_kp_u_stack_size_2);
+      __Pyx_GIVEREF(__pyx_t_10);
+      PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_t_10);
+      __pyx_t_10 = 0;
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_11, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 68, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-        /* "_dbscan_inner.pyx":42
+      /* "_dbscan_inner.pyx":69
  *         while True:
- *             if labels[i] == -1:
- *                 labels[i] = label_num             # <<<<<<<<<<<<<<
+ *             print("stack size  = ",stack.size())
+ *             neighb = neighborhoods[cur_sample]             # <<<<<<<<<<<<<<
  * 
- *                 print(cnt," stack size : ",stack.size())
+ *             for sample in neighb:
  */
-        __pyx_t_8 = __pyx_v_i;
-        *__Pyx_BufPtrCContig1d(npy_intp *, __pyx_pybuffernd_labels.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_labels.diminfo[0].strides) = __pyx_v_label_num;
-
-        /* "_dbscan_inner.pyx":44
- *                 labels[i] = label_num
- * 
- *                 print(cnt," stack size : ",stack.size())             # <<<<<<<<<<<<<<
- *                 cnt += 1
- * 
- */
-        __pyx_t_9 = __Pyx_PyInt_From_Py_intptr_t(__pyx_v_cnt); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 44, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_10 = __Pyx_PyInt_FromSize_t(__pyx_v_stack.size()); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 44, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_11 = PyTuple_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 44, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
-        __Pyx_GIVEREF(__pyx_t_9);
-        PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9);
-        __Pyx_INCREF(__pyx_kp_s_stack_size);
-        __Pyx_GIVEREF(__pyx_kp_s_stack_size);
-        PyTuple_SET_ITEM(__pyx_t_11, 1, __pyx_kp_s_stack_size);
-        __Pyx_GIVEREF(__pyx_t_10);
-        PyTuple_SET_ITEM(__pyx_t_11, 2, __pyx_t_10);
-        __pyx_t_9 = 0;
-        __pyx_t_10 = 0;
-        if (__Pyx_PrintOne(0, __pyx_t_11) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-
-        /* "_dbscan_inner.pyx":45
- * 
- *                 print(cnt," stack size : ",stack.size())
- *                 cnt += 1             # <<<<<<<<<<<<<<
- * 
- *                 if is_core[i]:
- */
-        __pyx_v_cnt = (__pyx_v_cnt + 1);
-
-        /* "_dbscan_inner.pyx":47
- *                 cnt += 1
- * 
- *                 if is_core[i]:             # <<<<<<<<<<<<<<
- *                     neighb = neighborhoods[i]
- *                     for i in range(neighb.shape[0]):
- */
-        __pyx_t_12 = __pyx_v_i;
-        __pyx_t_3 = ((*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_uint8_t *, __pyx_pybuffernd_is_core.rcbuffer->pybuffer.buf, __pyx_t_12, __pyx_pybuffernd_is_core.diminfo[0].strides)) != 0);
-        if (__pyx_t_3) {
-
-          /* "_dbscan_inner.pyx":48
- * 
- *                 if is_core[i]:
- *                     neighb = neighborhoods[i]             # <<<<<<<<<<<<<<
- *                     for i in range(neighb.shape[0]):
- *                         v = neighb[i]
- */
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_neighborhoods, __pyx_v_i, npy_intp, 1, __Pyx_PyInt_From_Py_intptr_t, 0, 0, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 48, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_11);
-          if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 48, __pyx_L1_error)
-          __pyx_t_13 = ((PyArrayObject *)__pyx_t_11);
-          {
-            __Pyx_BufFmt_StackElem __pyx_stack[1];
-            __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer);
-            __pyx_t_14 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer, (PyObject*)__pyx_t_13, &__Pyx_TypeInfo_object, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
-            if (unlikely(__pyx_t_14 < 0)) {
-              PyErr_Fetch(&__pyx_t_15, &__pyx_t_16, &__pyx_t_17);
-              if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer, (PyObject*)__pyx_v_neighb, &__Pyx_TypeInfo_object, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-                Py_XDECREF(__pyx_t_15); Py_XDECREF(__pyx_t_16); Py_XDECREF(__pyx_t_17);
-                __Pyx_RaiseBufferFallbackError();
-              } else {
-                PyErr_Restore(__pyx_t_15, __pyx_t_16, __pyx_t_17);
-              }
-            }
-            __pyx_pybuffernd_neighb.diminfo[0].strides = __pyx_pybuffernd_neighb.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_neighb.diminfo[0].shape = __pyx_pybuffernd_neighb.rcbuffer->pybuffer.shape[0];
-            if (unlikely(__pyx_t_14 < 0)) __PYX_ERR(0, 48, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_GetItemInt(__pyx_v_neighborhoods, __pyx_v_cur_sample, npy_intp, 1, __Pyx_PyInt_From_Py_intptr_t, 0, 0, 0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 69, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_10);
+      if (!(likely(((__pyx_t_10) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_10, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 69, __pyx_L1_error)
+      __pyx_t_12 = ((PyArrayObject *)__pyx_t_10);
+      {
+        __Pyx_BufFmt_StackElem __pyx_stack[1];
+        __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer);
+        __pyx_t_13 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer, (PyObject*)__pyx_t_12, &__Pyx_TypeInfo_nn_npy_intp, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
+        if (unlikely(__pyx_t_13 < 0)) {
+          PyErr_Fetch(&__pyx_t_14, &__pyx_t_15, &__pyx_t_16);
+          if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighb.rcbuffer->pybuffer, (PyObject*)__pyx_v_neighb, &__Pyx_TypeInfo_nn_npy_intp, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+            Py_XDECREF(__pyx_t_14); Py_XDECREF(__pyx_t_15); Py_XDECREF(__pyx_t_16);
+            __Pyx_RaiseBufferFallbackError();
+          } else {
+            PyErr_Restore(__pyx_t_14, __pyx_t_15, __pyx_t_16);
           }
-          __pyx_t_13 = 0;
-          __Pyx_XDECREF_SET(__pyx_v_neighb, ((PyArrayObject *)__pyx_t_11));
-          __pyx_t_11 = 0;
+        }
+        __pyx_pybuffernd_neighb.diminfo[0].strides = __pyx_pybuffernd_neighb.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_neighb.diminfo[0].shape = __pyx_pybuffernd_neighb.rcbuffer->pybuffer.shape[0];
+        if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 69, __pyx_L1_error)
+      }
+      __pyx_t_12 = 0;
+      __Pyx_XDECREF_SET(__pyx_v_neighb, ((PyArrayObject *)__pyx_t_10));
+      __pyx_t_10 = 0;
 
-          /* "_dbscan_inner.pyx":49
- *                 if is_core[i]:
- *                     neighb = neighborhoods[i]
- *                     for i in range(neighb.shape[0]):             # <<<<<<<<<<<<<<
- *                         v = neighb[i]
- *                         if labels[v] == -1:
+      /* "_dbscan_inner.pyx":71
+ *             neighb = neighborhoods[cur_sample]
+ * 
+ *             for sample in neighb:             # <<<<<<<<<<<<<<
+ *                 if labels[sample] == -1:
+ *                     labels[sample] = label_num
  */
-          __pyx_t_18 = (__pyx_v_neighb->dimensions[0]);
-          for (__pyx_t_19 = 0; __pyx_t_19 < __pyx_t_18; __pyx_t_19+=1) {
-            __pyx_v_i = __pyx_t_19;
+      if (likely(PyList_CheckExact(((PyObject *)__pyx_v_neighb))) || PyTuple_CheckExact(((PyObject *)__pyx_v_neighb))) {
+        __pyx_t_10 = ((PyObject *)__pyx_v_neighb); __Pyx_INCREF(__pyx_t_10); __pyx_t_17 = 0;
+        __pyx_t_18 = NULL;
+      } else {
+        __pyx_t_17 = -1; __pyx_t_10 = PyObject_GetIter(((PyObject *)__pyx_v_neighb)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 71, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __pyx_t_18 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 71, __pyx_L1_error)
+      }
+      for (;;) {
+        if (likely(!__pyx_t_18)) {
+          if (likely(PyList_CheckExact(__pyx_t_10))) {
+            if (__pyx_t_17 >= PyList_GET_SIZE(__pyx_t_10)) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_11 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_17); __Pyx_INCREF(__pyx_t_11); __pyx_t_17++; if (unlikely(0 < 0)) __PYX_ERR(0, 71, __pyx_L1_error)
+            #else
+            __pyx_t_11 = PySequence_ITEM(__pyx_t_10, __pyx_t_17); __pyx_t_17++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 71, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_11);
+            #endif
+          } else {
+            if (__pyx_t_17 >= PyTuple_GET_SIZE(__pyx_t_10)) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_11 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_17); __Pyx_INCREF(__pyx_t_11); __pyx_t_17++; if (unlikely(0 < 0)) __PYX_ERR(0, 71, __pyx_L1_error)
+            #else
+            __pyx_t_11 = PySequence_ITEM(__pyx_t_10, __pyx_t_17); __pyx_t_17++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 71, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_11);
+            #endif
+          }
+        } else {
+          __pyx_t_11 = __pyx_t_18(__pyx_t_10);
+          if (unlikely(!__pyx_t_11)) {
+            PyObject* exc_type = PyErr_Occurred();
+            if (exc_type) {
+              if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+              else __PYX_ERR(0, 71, __pyx_L1_error)
+            }
+            break;
+          }
+          __Pyx_GOTREF(__pyx_t_11);
+        }
+        __pyx_t_19 = __Pyx_PyInt_As_Py_intptr_t(__pyx_t_11); if (unlikely((__pyx_t_19 == ((npy_intp)-1)) && PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __pyx_v_sample = __pyx_t_19;
 
-            /* "_dbscan_inner.pyx":50
- *                     neighb = neighborhoods[i]
- *                     for i in range(neighb.shape[0]):
- *                         v = neighb[i]             # <<<<<<<<<<<<<<
- *                         if labels[v] == -1:
- *                             push(stack, v)
+        /* "_dbscan_inner.pyx":72
+ * 
+ *             for sample in neighb:
+ *                 if labels[sample] == -1:             # <<<<<<<<<<<<<<
+ *                     labels[sample] = label_num
+ *                     cnt += 1
  */
-            __pyx_t_20 = __pyx_v_i;
-            __pyx_t_11 = (PyObject *) *__Pyx_BufPtrStrided1d(PyObject **, __pyx_pybuffernd_neighb.rcbuffer->pybuffer.buf, __pyx_t_20, __pyx_pybuffernd_neighb.diminfo[0].strides);
-            __Pyx_INCREF((PyObject*)__pyx_t_11);
-            __pyx_t_21 = __Pyx_PyInt_As_Py_intptr_t(__pyx_t_11); if (unlikely((__pyx_t_21 == ((npy_intp)-1)) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-            __pyx_v_v = __pyx_t_21;
+        __pyx_t_20 = __pyx_v_sample;
+        __pyx_t_5 = (((*__Pyx_BufPtrCContig1d(npy_intp *, __pyx_pybuffernd_labels.rcbuffer->pybuffer.buf, __pyx_t_20, __pyx_pybuffernd_labels.diminfo[0].strides)) == -1L) != 0);
+        if (__pyx_t_5) {
 
-            /* "_dbscan_inner.pyx":51
- *                     for i in range(neighb.shape[0]):
- *                         v = neighb[i]
- *                         if labels[v] == -1:             # <<<<<<<<<<<<<<
- *                             push(stack, v)
+          /* "_dbscan_inner.pyx":73
+ *             for sample in neighb:
+ *                 if labels[sample] == -1:
+ *                     labels[sample] = label_num             # <<<<<<<<<<<<<<
+ *                     cnt += 1
+ *                     print("i=",i," cnt = ",cnt," stack size = ",stack.size())
+ */
+          __pyx_t_21 = __pyx_v_sample;
+          *__Pyx_BufPtrCContig1d(npy_intp *, __pyx_pybuffernd_labels.rcbuffer->pybuffer.buf, __pyx_t_21, __pyx_pybuffernd_labels.diminfo[0].strides) = __pyx_v_label_num;
+
+          /* "_dbscan_inner.pyx":74
+ *                 if labels[sample] == -1:
+ *                     labels[sample] = label_num
+ *                     cnt += 1             # <<<<<<<<<<<<<<
+ *                     print("i=",i," cnt = ",cnt," stack size = ",stack.size())
  * 
  */
-            __pyx_t_22 = __pyx_v_v;
-            __pyx_t_3 = (((*__Pyx_BufPtrCContig1d(npy_intp *, __pyx_pybuffernd_labels.rcbuffer->pybuffer.buf, __pyx_t_22, __pyx_pybuffernd_labels.diminfo[0].strides)) == -1L) != 0);
-            if (__pyx_t_3) {
+          __pyx_v_cnt = (__pyx_v_cnt + 1);
 
-              /* "_dbscan_inner.pyx":52
- *                         v = neighb[i]
- *                         if labels[v] == -1:
- *                             push(stack, v)             # <<<<<<<<<<<<<<
+          /* "_dbscan_inner.pyx":75
+ *                     labels[sample] = label_num
+ *                     cnt += 1
+ *                     print("i=",i," cnt = ",cnt," stack size = ",stack.size())             # <<<<<<<<<<<<<<
+ * 
+ *                     if is_core[sample] == 1:
+ */
+          __pyx_t_11 = __Pyx_PyInt_From_Py_intptr_t(__pyx_v_i); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_11);
+          __pyx_t_4 = __Pyx_PyInt_From_Py_intptr_t(__pyx_v_cnt); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_4);
+          __pyx_t_3 = __Pyx_PyInt_FromSize_t(__pyx_v_stack.size()); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __pyx_t_22 = PyTuple_New(6); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_22);
+          __Pyx_INCREF(__pyx_kp_u_i_2);
+          __Pyx_GIVEREF(__pyx_kp_u_i_2);
+          PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_kp_u_i_2);
+          __Pyx_GIVEREF(__pyx_t_11);
+          PyTuple_SET_ITEM(__pyx_t_22, 1, __pyx_t_11);
+          __Pyx_INCREF(__pyx_kp_u_cnt);
+          __Pyx_GIVEREF(__pyx_kp_u_cnt);
+          PyTuple_SET_ITEM(__pyx_t_22, 2, __pyx_kp_u_cnt);
+          __Pyx_GIVEREF(__pyx_t_4);
+          PyTuple_SET_ITEM(__pyx_t_22, 3, __pyx_t_4);
+          __Pyx_INCREF(__pyx_kp_u_stack_size);
+          __Pyx_GIVEREF(__pyx_kp_u_stack_size);
+          PyTuple_SET_ITEM(__pyx_t_22, 4, __pyx_kp_u_stack_size);
+          __Pyx_GIVEREF(__pyx_t_3);
+          PyTuple_SET_ITEM(__pyx_t_22, 5, __pyx_t_3);
+          __pyx_t_11 = 0;
+          __pyx_t_4 = 0;
+          __pyx_t_3 = 0;
+          __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_22, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_3);
+          __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+          /* "_dbscan_inner.pyx":77
+ *                     print("i=",i," cnt = ",cnt," stack size = ",stack.size())
+ * 
+ *                     if is_core[sample] == 1:             # <<<<<<<<<<<<<<
+ *                         push(stack, sample)
+ * 
+ */
+          __pyx_t_23 = __pyx_v_sample;
+          __pyx_t_5 = (((*__Pyx_BufPtrCContig1d(__pyx_t_5numpy_uint8_t *, __pyx_pybuffernd_is_core.rcbuffer->pybuffer.buf, __pyx_t_23, __pyx_pybuffernd_is_core.diminfo[0].strides)) == 1) != 0);
+          if (__pyx_t_5) {
+
+            /* "_dbscan_inner.pyx":78
+ * 
+ *                     if is_core[sample] == 1:
+ *                         push(stack, sample)             # <<<<<<<<<<<<<<
  * 
  *             if stack.size() == 0:
  */
-              try {
-                __pyx_f_13_dbscan_inner_push(__pyx_v_stack, __pyx_v_v);
-              } catch(...) {
-                __Pyx_CppExn2PyErr();
-                __PYX_ERR(0, 52, __pyx_L1_error)
-              }
+            try {
+              __pyx_f_13_dbscan_inner_push(__pyx_v_stack, __pyx_v_sample);
+            } catch(...) {
+              __Pyx_CppExn2PyErr();
+              __PYX_ERR(0, 78, __pyx_L1_error)
+            }
 
-              /* "_dbscan_inner.pyx":51
- *                     for i in range(neighb.shape[0]):
- *                         v = neighb[i]
- *                         if labels[v] == -1:             # <<<<<<<<<<<<<<
- *                             push(stack, v)
+            /* "_dbscan_inner.pyx":77
+ *                     print("i=",i," cnt = ",cnt," stack size = ",stack.size())
+ * 
+ *                     if is_core[sample] == 1:             # <<<<<<<<<<<<<<
+ *                         push(stack, sample)
  * 
  */
-            }
           }
 
-          /* "_dbscan_inner.pyx":47
- *                 cnt += 1
+          /* "_dbscan_inner.pyx":72
  * 
- *                 if is_core[i]:             # <<<<<<<<<<<<<<
- *                     neighb = neighborhoods[i]
- *                     for i in range(neighb.shape[0]):
+ *             for sample in neighb:
+ *                 if labels[sample] == -1:             # <<<<<<<<<<<<<<
+ *                     labels[sample] = label_num
+ *                     cnt += 1
  */
         }
 
-        /* "_dbscan_inner.pyx":41
- *         # part of a cluster (component), but don't expand their neighborhoods.
- *         while True:
- *             if labels[i] == -1:             # <<<<<<<<<<<<<<
- *                 labels[i] = label_num
+        /* "_dbscan_inner.pyx":71
+ *             neighb = neighborhoods[cur_sample]
  * 
+ *             for sample in neighb:             # <<<<<<<<<<<<<<
+ *                 if labels[sample] == -1:
+ *                     labels[sample] = label_num
  */
       }
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-      /* "_dbscan_inner.pyx":54
- *                             push(stack, v)
+      /* "_dbscan_inner.pyx":80
+ *                         push(stack, sample)
  * 
  *             if stack.size() == 0:             # <<<<<<<<<<<<<<
  *                 break
- *             i = stack.back()
+ * 
  */
-      __pyx_t_3 = ((__pyx_v_stack.size() == 0) != 0);
-      if (__pyx_t_3) {
+      __pyx_t_5 = ((__pyx_v_stack.size() == 0) != 0);
+      if (__pyx_t_5) {
 
-        /* "_dbscan_inner.pyx":55
+        /* "_dbscan_inner.pyx":81
  * 
  *             if stack.size() == 0:
  *                 break             # <<<<<<<<<<<<<<
- *             i = stack.back()
- *             stack.pop_back()
+ * 
+ *             cur_sample = stack.back()
  */
         goto __pyx_L9_break;
 
-        /* "_dbscan_inner.pyx":54
- *                             push(stack, v)
+        /* "_dbscan_inner.pyx":80
+ *                         push(stack, sample)
  * 
  *             if stack.size() == 0:             # <<<<<<<<<<<<<<
  *                 break
- *             i = stack.back()
+ * 
  */
       }
 
-      /* "_dbscan_inner.pyx":56
- *             if stack.size() == 0:
+      /* "_dbscan_inner.pyx":83
  *                 break
- *             i = stack.back()             # <<<<<<<<<<<<<<
+ * 
+ *             cur_sample = stack.back()             # <<<<<<<<<<<<<<
  *             stack.pop_back()
  * 
  */
-      __pyx_v_i = __pyx_v_stack.back();
+      __pyx_v_cur_sample = __pyx_v_stack.back();
 
-      /* "_dbscan_inner.pyx":57
- *                 break
- *             i = stack.back()
+      /* "_dbscan_inner.pyx":84
+ * 
+ *             cur_sample = stack.back()
  *             stack.pop_back()             # <<<<<<<<<<<<<<
  * 
  *         label_num += 1
@@ -2038,7 +2168,7 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
     }
     __pyx_L9_break:;
 
-    /* "_dbscan_inner.pyx":59
+    /* "_dbscan_inner.pyx":86
  *             stack.pop_back()
  * 
  *         label_num += 1             # <<<<<<<<<<<<<<
@@ -2059,9 +2189,11 @@ static PyObject *__pyx_pf_13_dbscan_inner_dbscan_inner(CYTHON_UNUSED PyObject *_
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_10);
   __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_22);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
@@ -2253,7 +2385,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 218, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2309,7 +2441,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  * 
  *             info.buf = PyArray_DATA(self)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 222, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 222, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2618,7 +2750,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 259, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 259, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3433,7 +3565,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 799, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 799, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3501,7 +3633,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 803, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 803, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3610,7 +3742,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 823, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 823, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_Raise(__pyx_t_4, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4291,7 +4423,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 989, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 989, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -4422,7 +4554,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 995, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 995, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -4550,7 +4682,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1001, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 1001, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -4621,20 +4753,23 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
+  {&__pyx_kp_u_, __pyx_k_, sizeof(__pyx_k_), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
-  {&__pyx_n_s_cnt, __pyx_k_cnt, sizeof(__pyx_k_cnt), 0, 0, 1, 1},
+  {&__pyx_kp_u_cnt, __pyx_k_cnt, sizeof(__pyx_k_cnt), 0, 1, 0, 0},
+  {&__pyx_n_s_cnt_2, __pyx_k_cnt_2, sizeof(__pyx_k_cnt_2), 0, 0, 1, 1},
+  {&__pyx_n_s_cur_sample, __pyx_k_cur_sample, sizeof(__pyx_k_cur_sample), 0, 0, 1, 1},
   {&__pyx_n_s_dbscan_inner, __pyx_k_dbscan_inner, sizeof(__pyx_k_dbscan_inner), 0, 0, 1, 1},
   {&__pyx_n_s_dbscan_inner_2, __pyx_k_dbscan_inner_2, sizeof(__pyx_k_dbscan_inner_2), 0, 0, 1, 1},
-  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
-  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_h5py, __pyx_k_h5py, sizeof(__pyx_k_h5py), 0, 0, 1, 1},
   {&__pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_k_home_mukesh_Documents_Clusterin, sizeof(__pyx_k_home_mukesh_Documents_Clusterin), 0, 0, 1, 0},
-  {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
+  {&__pyx_kp_u_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 1, 0, 0},
+  {&__pyx_kp_u_i_2, __pyx_k_i_2, sizeof(__pyx_k_i_2), 0, 1, 0, 0},
+  {&__pyx_n_s_i_3, __pyx_k_i_3, sizeof(__pyx_k_i_3), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_is_core, __pyx_k_is_core, sizeof(__pyx_k_is_core), 0, 0, 1, 1},
   {&__pyx_n_s_label_num, __pyx_k_label_num, sizeof(__pyx_k_label_num), 0, 0, 1, 1},
@@ -4646,19 +4781,21 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_neighborhoods, __pyx_k_neighborhoods, sizeof(__pyx_k_neighborhoods), 0, 0, 1, 1},
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
-  {&__pyx_kp_s_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 0, 1, 0},
-  {&__pyx_kp_s_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 0, 1, 0},
+  {&__pyx_kp_u_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 1, 0, 0},
+  {&__pyx_kp_u_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 1, 0, 0},
   {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_sample, __pyx_k_sample, sizeof(__pyx_k_sample), 0, 0, 1, 1},
   {&__pyx_n_s_stack, __pyx_k_stack, sizeof(__pyx_k_stack), 0, 0, 1, 1},
-  {&__pyx_kp_s_stack_size, __pyx_k_stack_size, sizeof(__pyx_k_stack_size), 0, 0, 1, 0},
+  {&__pyx_kp_u_stack_size, __pyx_k_stack_size, sizeof(__pyx_k_stack_size), 0, 1, 0, 0},
+  {&__pyx_kp_u_stack_size_2, __pyx_k_stack_size_2, sizeof(__pyx_k_stack_size_2), 0, 1, 0, 0},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
-  {&__pyx_n_s_v, __pyx_k_v, sizeof(__pyx_k_v), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 32, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 218, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 799, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 989, __pyx_L1_error)
@@ -4678,9 +4815,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple_)) __PYX_ERR(1, 218, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple_);
-  __Pyx_GIVEREF(__pyx_tuple_);
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 218, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__2);
+  __Pyx_GIVEREF(__pyx_tuple__2);
 
   /* "../../../../../usr/local/lib/python3.5/dist-packages/Cython/Includes/numpy/__init__.pxd":222
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
@@ -4689,9 +4826,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             info.buf = PyArray_DATA(self)
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 222, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__2);
-  __Pyx_GIVEREF(__pyx_tuple__2);
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 222, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
 
   /* "../../../../../usr/local/lib/python3.5/dist-packages/Cython/Includes/numpy/__init__.pxd":259
  *                 if ((descr.byteorder == c'>' and little_endian) or
@@ -4700,9 +4837,9 @@ static int __Pyx_InitCachedConstants(void) {
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(1, 259, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__3);
-  __Pyx_GIVEREF(__pyx_tuple__3);
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 259, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__4);
+  __Pyx_GIVEREF(__pyx_tuple__4);
 
   /* "../../../../../usr/local/lib/python3.5/dist-packages/Cython/Includes/numpy/__init__.pxd":799
  * 
@@ -4711,9 +4848,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 799, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 799, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
 
   /* "../../../../../usr/local/lib/python3.5/dist-packages/Cython/Includes/numpy/__init__.pxd":803
  *         if ((child.byteorder == c'>' and little_endian) or
@@ -4722,9 +4859,9 @@ static int __Pyx_InitCachedConstants(void) {
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 803, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__5);
-  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 803, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__6);
+  __Pyx_GIVEREF(__pyx_tuple__6);
 
   /* "../../../../../usr/local/lib/python3.5/dist-packages/Cython/Includes/numpy/__init__.pxd":823
  *             t = child.type_num
@@ -4733,9 +4870,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 823, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 823, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
 
   /* "../../../../../usr/local/lib/python3.5/dist-packages/Cython/Includes/numpy/__init__.pxd":989
  *         _import_array()
@@ -4744,9 +4881,9 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 989, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 989, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
 
   /* "../../../../../usr/local/lib/python3.5/dist-packages/Cython/Includes/numpy/__init__.pxd":995
  *         _import_umath()
@@ -4755,18 +4892,18 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 995, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__8);
-  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 995, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__9);
+  __Pyx_GIVEREF(__pyx_tuple__9);
 
   /* "../../../../../usr/local/lib/python3.5/dist-packages/Cython/Includes/numpy/__init__.pxd":1001
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(1, 1001, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 1001, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
 
   /* "_dbscan_inner.pyx":23
  * @cython.wraparound(False)
@@ -4775,10 +4912,10 @@ static int __Pyx_InitCachedConstants(void) {
  *                  neighborhoods,
  *                  np.ndarray[np.npy_intp, ndim=1, mode='c'] labels):
  */
-  __pyx_tuple__10 = PyTuple_Pack(9, __pyx_n_s_is_core, __pyx_n_s_neighborhoods, __pyx_n_s_labels, __pyx_n_s_i, __pyx_n_s_label_num, __pyx_n_s_v, __pyx_n_s_cnt, __pyx_n_s_neighb, __pyx_n_s_stack); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 23, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(3, 0, 9, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_n_s_dbscan_inner, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(10, __pyx_n_s_is_core, __pyx_n_s_neighborhoods, __pyx_n_s_labels, __pyx_n_s_i_3, __pyx_n_s_label_num, __pyx_n_s_cur_sample, __pyx_n_s_sample, __pyx_n_s_cnt_2, __pyx_n_s_neighb, __pyx_n_s_stack); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_n_s_dbscan_inner, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -4904,7 +5041,7 @@ PyMODINIT_FUNC PyInit__dbscan_inner(void)
  * import h5py
  * 
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4916,7 +5053,7 @@ PyMODINIT_FUNC PyInit__dbscan_inner(void)
  * 
  * # Work around Cython bug: C++ exceptions are not caught unless thrown within
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_h5py, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_h5py, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_h5py, __pyx_t_1) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -5724,6 +5861,26 @@ static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info) {
   __Pyx_ReleaseBuffer(info);
 }
 
+/* PyObjectCall */
+  #if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
 /* GetItemInt */
   static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
     PyObject *r;
@@ -5845,26 +6002,6 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
     tstate->curexc_type = 0;
     tstate->curexc_value = 0;
     tstate->curexc_traceback = 0;
-}
-#endif
-
-/* PyObjectCall */
-  #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
-    PyObject *result;
-    ternaryfunc call = func->ob_type->tp_call;
-    if (unlikely(!call))
-        return PyObject_Call(func, arg, kw);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = (*call)(func, arg, kw);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
 }
 #endif
 
@@ -6453,112 +6590,6 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
         return (target_type) value;\
     }
 
-/* Print */
-      #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static PyObject *__Pyx_GetStdout(void) {
-    PyObject *f = PySys_GetObject((char *)"stdout");
-    if (!f) {
-        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
-    }
-    return f;
-}
-static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
-    int i;
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
-        PyObject* v;
-        if (PyFile_SoftSpace(f, 1)) {
-            if (PyFile_WriteString(" ", f) < 0)
-                goto error;
-        }
-        v = PyTuple_GET_ITEM(arg_tuple, i);
-        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
-            goto error;
-        if (PyString_Check(v)) {
-            char *s = PyString_AsString(v);
-            Py_ssize_t len = PyString_Size(v);
-            if (len > 0) {
-                switch (s[len-1]) {
-                    case ' ': break;
-                    case '\f': case '\r': case '\n': case '\t': case '\v':
-                        PyFile_SoftSpace(f, 0);
-                        break;
-                    default:  break;
-                }
-            }
-        }
-    }
-    if (newline) {
-        if (PyFile_WriteString("\n", f) < 0)
-            goto error;
-        PyFile_SoftSpace(f, 0);
-    }
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-}
-#else
-static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
-    PyObject* kwargs = 0;
-    PyObject* result = 0;
-    PyObject* end_string;
-    if (unlikely(!__pyx_print)) {
-        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
-        if (!__pyx_print)
-            return -1;
-    }
-    if (stream) {
-        kwargs = PyDict_New();
-        if (unlikely(!kwargs))
-            return -1;
-        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
-            goto bad;
-        if (!newline) {
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                goto bad;
-            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                goto bad;
-            }
-            Py_DECREF(end_string);
-        }
-    } else if (!newline) {
-        if (unlikely(!__pyx_print_kwargs)) {
-            __pyx_print_kwargs = PyDict_New();
-            if (unlikely(!__pyx_print_kwargs))
-                return -1;
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                return -1;
-            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                return -1;
-            }
-            Py_DECREF(end_string);
-        }
-        kwargs = __pyx_print_kwargs;
-    }
-    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
-    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
-        Py_DECREF(kwargs);
-    if (!result)
-        return -1;
-    Py_DECREF(result);
-    return 0;
-bad:
-    if (kwargs != __pyx_print_kwargs)
-        Py_XDECREF(kwargs);
-    return -1;
-}
-#endif
-
 /* Declarations */
       #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -7119,43 +7150,6 @@ raise_neg_overflow:
         "can't convert negative value to Py_intptr_t");
     return (Py_intptr_t) -1;
 }
-
-/* PrintOne */
-      #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
 
 /* CIntFromPy */
       static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
