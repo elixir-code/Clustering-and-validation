@@ -1,0 +1,5 @@
+cython -3 --cplus _dbscan_inner.pyx
+g++ -shared -fPIC -Wcpp -O3  -I/usr/include/python3.5m  _dbscan_inner.cpp -o _dbscan_inner.so
+
+cython -3 _hierarchy.pyx
+gcc -shared -fPIC -O3  -I/usr/include/python3.5m  _hierarchy.c -o _hierarchy.so

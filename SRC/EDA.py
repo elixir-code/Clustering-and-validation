@@ -19,7 +19,7 @@ from hdbscan import HDBSCAN
 from sklearn.cluster import KMeans
 
 from sklearn.cluster import SpectralClustering
-
+from sklearn.cluster import AgglomerativeClustering
 from math import pow,floor
 
 #downloaded source -- pip didn't work 
@@ -337,7 +337,7 @@ class EDA:
 	#TODO : needs to be corrected
 	def perform_spectral_clustering(self,no_clusters,params={}):
 		spectral_clusterer=SpectralClustering(n_clusters=no_clusters,**params)
-		spectral_clusterer.fit(self.distance_matrix)
+		spectral_clusterer.fit(self.data)
 		self.spectral_results={"parameters":spectral_clusterer.get_params(),"labels":spectral_clusterer.labels_,"n_clusters":np.unique(spectral_clusterer.labels_).max()+1,"clusters":label_cnt_dict(spectral_clusterer.labels_)}
 
 		print_dict(self.spectral_results)
@@ -354,6 +354,11 @@ class EDA:
 		self.kmeans_results={"parameters":kmeans_clusterer.get_params(),"labels":kmeans_clusterer.labels_,"n_clusters":no_clusters,'clusters':label_cnt_dict(kmeans_clusterer.labels_),"cluster_centers":kmeans_clusterer.cluster_centers_,"inertia":kmeans_clusterer.inertia_}     
 
 		print_dict(self.kmeans_results)
+
+	def perform_hierarchial(self,no_clusters):
+		hierarchial_clusterer=AgglomerativeClustering(n_clusters=no_clusters)
+		hierarchial_clusterer.fit(self.data,hdf5_file=self.hdf5_file)
+		return hierarchial_clusterer.labels_
 
 def label_cnt_dict(labels):
 	unique, counts = np.unique(labels, return_counts=True)
