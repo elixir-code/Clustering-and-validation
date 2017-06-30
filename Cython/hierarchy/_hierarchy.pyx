@@ -1,4 +1,6 @@
 # cython: boundscheck=False, wraparound=False, cdivision=True
+from __future__ import absolute_import
+
 import numpy as np
 cimport numpy as np
 from libc.math cimport sqrt
@@ -8,6 +10,8 @@ from cpython.mem cimport PyMem_Malloc, PyMem_Free
 cdef extern from "numpy/npy_math.h":
     cdef enum:
         NPY_INFINITYF
+
+ctypedef unsigned char uchar
 
 # _hierarchy_distance_update.pxi includes the definition of linkage_distance_update
 # and the distance update functions for the supported linkage methods.
@@ -902,7 +906,7 @@ def fast_linkage(double[:] dists, int n, int method):
     return Z.base
 
 
-def nn_chain(dists, int n, int method):
+def nn_chain(double[:] dists, int n, int method):
     """Perform hierarchy clustering using nearest-neighbor chain algorithm.
 
     Parameters
@@ -923,12 +927,7 @@ def nn_chain(dists, int n, int method):
     Z_arr = np.empty((n - 1, 4))
     cdef double[:, :] Z = Z_arr
 
-    # if force_file is False:
     cdef double[:] D = dists.copy()  # Distances between clusters.
-    # else:
-    #D = dists
-    #cdef DatasetID D = dists
-
     cdef int[:] size = np.ones(n, dtype=np.intc)  # Sizes of clusters.
 
     cdef linkage_distance_update new_dist = linkage_methods[method]
@@ -941,6 +940,7 @@ def nn_chain(dists, int n, int method):
     cdef double dist, current_min
 
     for k in range(n - 1):
+        #print(k)
         if chain_length == 0:
             chain_length = 1
             for i in range(n):

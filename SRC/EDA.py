@@ -128,7 +128,7 @@ class EDA:
 		self.std_scale.inverse_transform(self.data,copy=False)
 
 	#computes euclidean distance matrix (for all pairs of data points)
-	def comp_distance_matrix(self,metric='euclidean'):
+	def comp_distance_matrix(self,metric='euclidean',params={}):
 		"""TODO : Metrics to be supported:
 		sklearn native : ['cityblock', 'cosine', 'euclidean', 'l1', 'l2','manhattan']
 		scipy.spatial distances : ['braycurtis', 'canberra', 'chebyshev', 'correlation', 'dice', 'hamming', 'jaccard', 'kulsinski', 'mahalanobis',
@@ -136,7 +136,7 @@ class EDA:
 		"""
 		if self.hdf5_file is None:
 			#if force_file is True and hdf5 file was successfully opened ...
-			self.distance_matrix=pairwise_distances(self.data,metric=metric)
+			self.distance_matrix=pairwise_distances(self.data,metric=metric,**params)
 			#raise MemoryError('Just Debugging ...')
 
 		else:
@@ -158,7 +158,7 @@ class EDA:
 
 				for data_index,data_point in enumerate(self.data):
 					print(data_index)
-					self.distance_matrix[data_index] = pairwise_distances([data_point],self.data,metric=metric)
+					self.distance_matrix[data_index] = pairwise_distances([data_point],self.data,metric=metric,**params)
 
 		#self.distance_matrix = np.zeros((self.n_samples,self.n_samples),dtype=np.float32)
 		#for data1_index,data2_index in combinations(range(self.n_samples),2):
@@ -335,15 +335,15 @@ class EDA:
 		print_dict(self.hdbscan_results)
 
 	#TODO : needs to be corrected
-	def perform_spectral_clustering(self,no_clusters,params={}):
-		spectral_clusterer=SpectralClustering(n_clusters=no_clusters,**params)
+	def perform_spectral_clustering(self, no_clusters, affinity='rbf', gamma=1.0, params={}):
+		spectral_clusterer=SpectralClustering(n_clusters=no_clusters, gamma=gamma, affinity=affinity, **params)
 		spectral_clusterer.fit(self.data)
 		self.spectral_results={"parameters":spectral_clusterer.get_params(),"labels":spectral_clusterer.labels_,"n_clusters":np.unique(spectral_clusterer.labels_).max()+1,"clusters":label_cnt_dict(spectral_clusterer.labels_)}
 
 		print_dict(self.spectral_results)
 
 		#gaussian kernel affinity matrix
-		self.affinity_matrix = spectral_clusterer.affinity_matrix_
+		#self.affinity_matrix = spectral_clusterer.affinity_matrix_
 
 	def perform_kmeans(self,no_clusters,params={'n_jobs':-1}):
 		#start_time = time()

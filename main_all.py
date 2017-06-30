@@ -22,7 +22,7 @@ import numpy as np
 
 import SRC.EDA as EDA
 
-main = EDA.EDA()
+main = EDA.EDA(force_file=False)
 
 #60021 x 281
 #main.read_data("SAMPLES/STANDARD/iris.data",header=None,label_cols=-1,normalize_labels=True)
@@ -30,6 +30,7 @@ main.read_data("SAMPLES/LARGE/Relation Network (Directed).data",header=None,labe
 #main.read_data("SAMPLES/STANDARD/blogData_train.csv",header=None,label_cols=None)
 #main.read_data("SAMPLES/STANDARD/hepatitis.data",header=None,label_cols=0,normalize_labels=True,na_values="?")
 
+main.read_data("SAMPLES/STANDARD/flame.txt",sep='\s+',header=None,label_cols=-1,normalize_labels=True)
 #main.read_data("SAMPLES/STANDARD/Skin_NonSkin.csv",header=None,label_cols=-1,normalize_labels=True)
 
 #print("Finished Reading Data ...")
