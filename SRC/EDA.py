@@ -335,9 +335,9 @@ class EDA:
 		print_dict(self.hdbscan_results)
 
 	#TODO : needs to be corrected
-	def perform_spectral_clustering(self, no_clusters, affinity='rbf', gamma=1.0, params={}):
-		spectral_clusterer=SpectralClustering(n_clusters=no_clusters, gamma=gamma, affinity=affinity, **params)
-		spectral_clusterer.fit(self.data)
+	def perform_spectral_clustering(self, no_clusters, affinity='rbf', gamma=1.0, n_neighbors=10, pass_labels = False,n_init=10):
+		spectral_clusterer=SpectralClustering(n_clusters=no_clusters, gamma=gamma, affinity=affinity, n_neighbors=n_neighbors, n_init=n_init)
+		spectral_clusterer.fit(self.data,y=(self.class_labels if pass_labels is True else None))
 		self.spectral_results={"parameters":spectral_clusterer.get_params(),"labels":spectral_clusterer.labels_,"n_clusters":np.unique(spectral_clusterer.labels_).max()+1,"clusters":label_cnt_dict(spectral_clusterer.labels_)}
 
 		print_dict(self.spectral_results)

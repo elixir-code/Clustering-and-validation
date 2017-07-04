@@ -47,7 +47,7 @@ main.perform_dbscan()
 # import SRC.external_indices as extval
 
 #val_int = intval.internal_indices(main.data,main.kmeans_results['labels'])#,main.distance_matrix)
-# #val_int = intval.internal_indices(main.data,main.class_labels)
+# val_int = intval.internal_indices(main.data,main.class_labels)
 
 # print("Completed generating Internal Indices Object ...")
 

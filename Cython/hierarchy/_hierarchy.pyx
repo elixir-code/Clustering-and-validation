@@ -924,29 +924,37 @@ def nn_chain(double[:] dists, int n, int method):
     Z : ndarray, shape (n - 1, 4)
         Computed linkage matrix.
     """
+
     Z_arr = np.empty((n - 1, 4))
+    #Static initialisation of Z
     cdef double[:, :] Z = Z_arr
 
     cdef double[:] D = dists.copy()  # Distances between clusters.
+    #cdef D as a HDF5 dataset
+    #D =  dists
     cdef int[:] size = np.ones(n, dtype=np.intc)  # Sizes of clusters.
 
     cdef linkage_distance_update new_dist = linkage_methods[method]
 
     # Variables to store neighbors chain.
-    cdef int[:] cluster_chain = np.ndarray(n, dtype=np.intc)
+    cdef int[:] cluster_chain = np.ndarray(n, dtype=np.intc) #same np.empty
     cdef int chain_length = 0
 
     cdef int i, j, k, x, y, nx, ny, ni
     cdef double dist, current_min
 
+    #k th merge : TOTAL NO. OF MERGES -- (n-1)
     for k in range(n - 1):
-        #print(k)
+        #print(" k = ",k," chain_length = ",chain_length)
+
         if chain_length == 0:
             chain_length = 1
             for i in range(n):
                 if size[i] > 0:
                     cluster_chain[0] = i
                     break
+        
+        print(cluster_chain," chain_length = ",chain_length)
 
         # Go through chain of neighbors until two mutual neighbors are found.
         while True:
