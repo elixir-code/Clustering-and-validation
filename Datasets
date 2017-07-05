@@ -1,0 +1,93 @@
+Abalone Data Set
++--------------+
+
+https://archive.ics.uci.edu/ml/datasets/abalone
+Number of Instances: 4177
+Number of Attributes: 8
+Number of classes : 29
+
+Note : Includes one categorical attribute
+
+
+Wine Quality Data Set 
++-------------------+
+
+https://archive.ics.uci.edu/ml/datasets/Wine+Quality
+
+* 2 seperate databases - Red Wine and White Wine *
+
+Number of Instances: 4898
+Number of Attributes: 12
+Number of classes : 11 (0-10)
+
+Note : Feature Selection can be attempted by checking correlation between features
+
+
+Optical Recognition of Handwritten Digits Data Set ++ Selected ++
++------------------------------------------------+
+
+https://archive.ics.uci.edu/ml/datasets/Optical+Recognition+of+Handwritten+Digits
+
+Number of Instances: 5620 (Training : 3823 , Testing : 1797)
+Number of Attributes: 64 (Integers)
+Number of classes : 10 (0-9)
+
+Note : Training and testing data available (good classification results with knn- classifier)	
+
+Letter Recognition Data Set ++ Selected ++
++-------------------------+
+
+https://archive.ics.uci.edu/ml/datasets/Letter+Recognition
+
+Number of Instances: 20000
+Number of Attributes: 16 (Integers)
+Number of classes : 26 (A - Z)
+
+ISOLET Data Set (Isolated Letter Speech Recognition)
++--------------------------------------------------+
+
+https://archive.ics.uci.edu/ml/datasets/ISOLET
+
+Number of Instances: 7797
+Number of Attributes: 617 (Real)
+Number of classes : 26 (A - Z)
+
+
+Gas Sensor Array Drift Dataset Data Set
++-------------------------------------+
+
+https://archive.ics.uci.edu/ml/datasets/Gas+Sensor+Array+Drift+Dataset#
+
+Number of Instances: 13910
+Number of Attributes: 128 (Real)
+Number of classes : 6 (Ethanol, Ethylene, Ammonia, Acetaldehyde, Acetone, Toluene)
+
+HTRU2 Data Set 
++------------+
+
+https://archive.ics.uci.edu/ml/datasets/HTRU2#
+
+Number of Instances: 17898
+Number of Attributes: 9 (Real)
+Number of classes : 2 (Pulsar star, Non-pulsar)
+
+Yeast
++---+
+
+https://archive.ics.uci.edu/ml/datasets/Yeast
+
+Number of Instances : 1484
+Number of Attributes: 8 (Real)
+Number of classes : 10 (localisation site of yeast - highly inbalanced classes distribution)
+
+
+Mushroom Dataset
++--------------+
+
+https://archive.ics.uci.edu/ml/datasets/Mushroom
+
+Number of Instances : 8124 (2480 missing attribute instances)
+Number of Attributes : 22
+
+Number of classes : 2 (Edible and Poisonous)
+Note : Fairly balanced class distribution
