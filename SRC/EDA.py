@@ -25,15 +25,17 @@ from math import pow,floor
 #downloaded source -- pip didn't work 
 from GAP import gap
 
-import pandas.io.parsers as pd
+import pandas as pd
 from sklearn.preprocessing import LabelEncoder,StandardScaler
 
 from itertools import combinations
 import matplotlib.patches as mpatches
 
 import h5py
+import pickle
 
 from time import time
+import warnings
 
 class EDA:
 	def __init__(self,force_file=True,location="HOOD/"):
@@ -94,8 +96,6 @@ class EDA:
 		"""
 		data_frame = pd.read_csv(filepath_or_buffer=file_path,sep=sep,header=header,index_col=label_cols,na_values=na_values)
 		data_frame.dropna(inplace=True)
-		#May need drop na function from pandas
-
 		self.data = np.array(data_frame.values)
 		self.class_labels = data_frame.index
 
@@ -112,6 +112,37 @@ class EDA:
 
 		del data_frame
 	
+	#Dummy coding of categorical attributes
+	def dummy_coding(self, columns=None, retain_original=False):
+		
+		if retain_original:
+			self.data_original = self.data.copy()
+
+		if columns is None:
+			print("Since columns=None, All attributes will be dummy coded ...")
+
+		#convert data from np.ndarray to pd.DataFrame
+		self.data = pd.DataFrame(self.data)
+		self.data = pd.get_dummies(self.data,columns=columns).values
+		self.n_features = self.data.shape[1]
+
+	def sample_data(self,size=None,filename=None):
+		#default size of bag is 10% of sample
+		if size is None:
+			size = int(0.1*self.n_samples)
+
+		choosen_indices = np.random.choice(np.arange(self.n_samples),size=size,replace=False)
+
+		data = self.data[list(choosen_indices)]
+		labels = self.class_labels[list(choosen_indices)]
+
+		sampled_bag = {"data":data,"target":labels}
+
+		if filename is not None:
+			pickle.dump(sampled_bag,open("DATASETS/"+filename+".p","wb"))
+
+		return sampled_bag
+
 
 	def standardize_data(self):
 		"""Standardization of data
@@ -123,6 +154,7 @@ class EDA:
 		self.std_scale = StandardScaler().fit(self.data)
 		self.std_scale.transform(self.data,copy=False)
 
+	#Encoding categorical attributes by multiple columns
 	#code to destandardise the dataset for visulisation/ metric evaluation
 	def destandardize_data(self):
 		self.std_scale.inverse_transform(self.data,copy=False)
