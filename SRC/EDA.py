@@ -12,6 +12,8 @@ import numpy as np
 from sklearn.metrics.pairwise import pairwise_distances
 import matplotlib.pyplot as plt
 
+from mpl_toolkits.mplot3d import Axes3D
+
 import seaborn as sns
 
 from sklearn.cluster import DBSCAN
@@ -111,7 +113,7 @@ class EDA:
 		self.n_features=self.data.shape[1]
 
 		del data_frame
-	
+
 	#Dummy coding of categorical attributes
 	def dummy_coding(self, columns=None, retain_original=False):
 		
@@ -142,6 +144,12 @@ class EDA:
 			pickle.dump(sampled_bag,open("DATASETS/"+filename+".p","wb"))
 
 		return sampled_bag
+
+	#perform repeated sampling of the dataset with replacement and store results in file
+	def repeated_sampling(self,filename,n_iterations=10,size=None):
+		
+		for iteration in range(n_iterations):
+			self.sample_data(size=size,filename=filename+str(iteration+1))
 
 
 	def standardize_data(self):
@@ -332,6 +340,14 @@ class EDA:
 		plt.plot(np.arange(k_min,k_max+1,step),inertia_array,"k")
 		plt.show()
 
+	#TODO : determine the number of clusters by analysing the eigen-values of the Laplacian of Affinity Matrix
+	#def eigengap(self, k_max, affinity='rbf', gamma=None, n_neighbors=10):
+		"""Determine the no. of clusters by analysing the points in eigen-space
+		
+		References :	[1] Introduction to spectral clustering - Denis Hamad, Philippe Biela (Slide 29)
+		"""
+		
+
 	#find no. of clusters - gap statistics
 	def gap_statistics(self,k_max,k_min=1):
 		"""Library used : gapkmeans (downloaded source : https://github.com/minddrummer/gap)
@@ -432,6 +448,23 @@ def visualise_2D(x_values,y_values,labels=None,class_names=None):
 		
 	plt.show()
 
+
+def visualise_3D(x_values,y_values,z_values,labels=None):
+	"""Visualise clusters of selected 3 features -- plotly"""
+	fig = plt.figure()
+	ax = fig.add_subplot(111,projection='3d')
+
+	plot_kwds = {'alpha' : 0.5, 's' : 80, 'linewidths':0}
+
+	if labels is None:
+		ax.scatter(x_values,y_values,z_values,c='b',**plot_kwds)
+
+	else:
+		pallete=sns.color_palette('dark',np.unique(labels).max()+1)
+		colors=[pallete[x] if x>=0 else (0.0,0.0,0.0) for x in labels]
+		ax.scatter(x_values,y_values,z_values,c=colors,**plot_kwds)
+
+	plt.show()
 
 def euclidean_distance(vector1,vector2,squared=False):
 	"""calculates euclidean distance between two vectors

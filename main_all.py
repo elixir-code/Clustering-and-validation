@@ -23,15 +23,18 @@ import numpy as np
 import SRC.EDA as EDA
 
 main = EDA.EDA(force_file=False)
+main.read_data("SAMPLES/STANDARD/iris.data",header=None,label_cols=-1,normalize_labels=True)
+EDA.visualise_3D(main.data.T[0],main.data.T[1],main.data.T[2],main.class_labels)
+
 main.read_data("SAMPLES/agaricus-lepiota.data",header=None,label_cols=0,normalize_labels=True,na_values='?')
+main.read_data("SAMPLES/yeast.data",sep='\s+',header=None,label_cols=-1,normalize_labels=True)
 
 #60021 x 281
-#main.read_data("SAMPLES/STANDARD/iris.data",header=None,label_cols=-1,normalize_labels=True)
 main.read_data("SAMPLES/LARGE/Relation Network (Directed).data",header=None,label_cols=0,normalize_labels=True)
 #main.read_data("SAMPLES/STANDARD/blogData_train.csv",header=None,label_cols=None)
 #main.read_data("SAMPLES/STANDARD/hepatitis.data",header=None,label_cols=0,normalize_labels=True,na_values="?")
 
-main.read_data("SAMPLES/STANDARD/flame.txt",sep='\s+',header=None,label_cols=0,normalize_labels=True)
+main.read_data("SAMPLES/STANDARD/flame.txt",sep='\s+',header=None,label_cols=-1,normalize_labels=True)
 #main.read_data("SAMPLES/STANDARD/Skin_NonSkin.csv",header=None,label_cols=-1,normalize_labels=True)
 
 
@@ -124,3 +127,17 @@ main.perform_dbscan()
 # =================================================================================================
 # radius=10
 # neigh_ind_list = [np.where(d <= radius)[0] for d in main.distance_matrix]
+from sklearn.neighbors import kneighbors_graph
+main.affinity_matrix = kneighbors_graph(main.data,n_neighbors=10,include_self=False)
+
+main.comp_distance_matrix()
+main.affinity_matrix = np.exp(-0.25*main.distance_matrix**2)
+
+from scipy.sparse.csgraph import laplacian
+lap,dd = laplacian(main.affinity_matrix,normed=True,return_diag=True)
+
+E = np.linalg.eigh(lap)
+W = E[1].T[[0,1]].T
+EDA.visualise_2D(W.T[0],W.T[1],main.class_labels)
+
+np.argsort(E[0])

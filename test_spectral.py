@@ -9,7 +9,7 @@ main.load_data(X,y)
 EDA.visualise_2D(main.data.T[0],main.data.T[1],main.class_labels)
 
 main.comp_distance_matrix()
-main.affinity_matrix = np.exp(-12*main.distance_matrix**2)
+main.affinity_matrix = np.exp(-0.5*main.distance_matrix**2)
 
 
 from sklearn.neighbors import kneighbors_graph

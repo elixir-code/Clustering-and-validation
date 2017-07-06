@@ -67,7 +67,7 @@ class Classification:
         gnb = gnb.partial_fit(self.data_train, self.labels_train,np.unique(self.labels_train))
         self.GaussianNB_result ={"parameters":gnb.get_params(),"labels_test_data":gnb.predict(self.data_test)}      
         
-        #print_dict(self.GaussianNB_result)
+        print_dict(self.GaussianNB_result)
         
     def perform_DecisionTreeClassifier(self):
         DT_clf = DecisionTreeClassifier()
