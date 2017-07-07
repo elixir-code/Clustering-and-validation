@@ -49,7 +49,6 @@ from sklearn.cluster import KMeans
 class internal_indices:
 
 	def __init__(self,data,labels,distance_matrix=None):
-		#TODO: preprocess to remove noise
 
 		#normalising labels
 		le = LabelEncoder()

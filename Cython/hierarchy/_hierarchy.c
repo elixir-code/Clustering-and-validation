@@ -1064,7 +1064,7 @@ struct __pyx_obj_10_hierarchy_Heap {
 };
 
 
-/* "_hierarchy.pyx":1084
+/* "_hierarchy.pyx":1082
  * 
  * 
  * cdef class LinkageUnionFind:             # <<<<<<<<<<<<<<
@@ -1194,7 +1194,7 @@ static CYTHON_INLINE int __pyx_f_10_hierarchy_4Heap_left_child(int);
 static CYTHON_INLINE int __pyx_f_10_hierarchy_4Heap_parent(int);
 
 
-/* "_hierarchy.pyx":1084
+/* "_hierarchy.pyx":1082
  * 
  * 
  * cdef class LinkageUnionFind:             # <<<<<<<<<<<<<<
@@ -1808,17 +1808,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_npy_int64(npy_int64 value);
 static CYTHON_INLINE PyObject *__pyx_memview_get_double(const char *itemp);
 static CYTHON_INLINE int __pyx_memview_set_double(const char *itemp, PyObject *obj);
 
-/* MemviewDtypeToObject.proto */
-static CYTHON_INLINE PyObject *__pyx_memview_get_int(const char *itemp);
-static CYTHON_INLINE int __pyx_memview_set_int(const char *itemp, PyObject *obj);
-
-/* Print.proto */
-static int __Pyx_Print(PyObject*, PyObject *, int);
-#if CYTHON_COMPILING_IN_PYPY || PY_MAJOR_VERSION >= 3
-static PyObject* __pyx_print = 0;
-static PyObject* __pyx_print_kwargs = 0;
-#endif
-
 /* RealImag.proto */
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1932,9 +1921,6 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 /* CIntFromPy.proto */
 static CYTHON_INLINE npy_int64 __Pyx_PyInt_As_npy_int64(PyObject *);
-
-/* PrintOne.proto */
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o);
 
 /* CopyContentsUtility.proto */
 #define __pyx_memoryview_copy_slice_dc_double_c(slice)\
@@ -2136,7 +2122,6 @@ static const char __pyx_k_nx[] = "nx";
 static const char __pyx_k_ny[] = "ny";
 static const char __pyx_k_nz[] = "nz";
 static const char __pyx_k_rf[] = "rf";
-static const char __pyx_k_end[] = "end";
 static const char __pyx_k_key[] = "key";
 static const char __pyx_k_obj[] = "obj";
 static const char __pyx_k_base[] = "base";
@@ -2144,7 +2129,6 @@ static const char __pyx_k_d_xi[] = "d_xi";
 static const char __pyx_k_d_xy[] = "d_xy";
 static const char __pyx_k_d_yi[] = "d_yi";
 static const char __pyx_k_dist[] = "dist";
-static const char __pyx_k_file[] = "file";
 static const char __pyx_k_i_lc[] = "i_lc";
 static const char __pyx_k_i_rc[] = "i_rc";
 static const char __pyx_k_id_i[] = "id_i";
@@ -2177,7 +2161,6 @@ static const char __pyx_k_error[] = "error";
 static const char __pyx_k_flags[] = "flags";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_order[] = "order";
-static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_start[] = "start";
@@ -2247,7 +2230,7 @@ static const char __pyx_k_current_min[] = "current_min";
 static const char __pyx_k_level_count[] = "level_count";
 static const char __pyx_k_right_start[] = "right_start";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
-static const char __pyx_k_chain_length[] = " chain_length = ";
+static const char __pyx_k_chain_length[] = "chain_length";
 static const char __pyx_k_change_value[] = "change_value";
 static const char __pyx_k_cluster_dist[] = "cluster_dist";
 static const char __pyx_k_fast_linkage[] = "fast_linkage";
@@ -2258,7 +2241,6 @@ static const char __pyx_k_cluster_chain[] = "cluster_chain";
 static const char __pyx_k_level_std_sum[] = "level_std_sum";
 static const char __pyx_k_min_dist_heap[] = "min_dist_heap";
 static const char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
-static const char __pyx_k_chain_length_2[] = "chain_length";
 static const char __pyx_k_max_inconsists[] = "max_inconsists";
 static const char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static const char __pyx_k_dtype_is_object[] = "dtype_is_object";
@@ -2340,8 +2322,7 @@ static PyObject *__pyx_n_s_base;
 static PyObject *__pyx_n_s_c;
 static PyObject *__pyx_n_u_c;
 static PyObject *__pyx_n_s_cfunc_to_py;
-static PyObject *__pyx_kp_s_chain_length;
-static PyObject *__pyx_n_s_chain_length_2;
+static PyObject *__pyx_n_s_chain_length;
 static PyObject *__pyx_n_s_change_value;
 static PyObject *__pyx_n_s_cid_lc;
 static PyObject *__pyx_n_s_cid_rc;
@@ -2370,11 +2351,9 @@ static PyObject *__pyx_n_s_dtype;
 static PyObject *__pyx_n_s_dtype_is_object;
 static PyObject *__pyx_n_s_empty;
 static PyObject *__pyx_n_s_encode;
-static PyObject *__pyx_n_s_end;
 static PyObject *__pyx_n_s_enumerate;
 static PyObject *__pyx_n_s_error;
 static PyObject *__pyx_n_s_fast_linkage;
-static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_flags;
 static PyObject *__pyx_n_s_format;
 static PyObject *__pyx_n_s_fortran;
@@ -2451,7 +2430,6 @@ static PyObject *__pyx_n_s_order;
 static PyObject *__pyx_n_s_pack;
 static PyObject *__pyx_n_s_pair;
 static PyObject *__pyx_n_s_prelist;
-static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pyx_getbuffer;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
@@ -12649,7 +12627,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  *                     cluster_chain[0] = i
  *                     break             # <<<<<<<<<<<<<<
  * 
- *         print(cluster_chain," chain_length = ",chain_length)
+ *         # Go through chain of neighbors until two mutual neighbors are found.
  */
           goto __pyx_L7_break;
 
@@ -12673,32 +12651,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
     }
 
-    /* "_hierarchy.pyx":957
- *                     break
- * 
- *         print(cluster_chain," chain_length = ",chain_length)             # <<<<<<<<<<<<<<
- * 
- *         # Go through chain of neighbors until two mutual neighbors are found.
- */
-    __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_cluster_chain, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 957, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_chain_length); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 957, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 957, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_GIVEREF(__pyx_t_3);
-    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
-    __Pyx_INCREF(__pyx_kp_s_chain_length);
-    __Pyx_GIVEREF(__pyx_kp_s_chain_length);
-    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_kp_s_chain_length);
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_t_2);
-    __pyx_t_3 = 0;
-    __pyx_t_2 = 0;
-    if (__Pyx_PrintOne(0, __pyx_t_1) < 0) __PYX_ERR(1, 957, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "_hierarchy.pyx":960
+    /* "_hierarchy.pyx":958
  * 
  *         # Go through chain of neighbors until two mutual neighbors are found.
  *         while True:             # <<<<<<<<<<<<<<
@@ -12707,7 +12660,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
     while (1) {
 
-      /* "_hierarchy.pyx":961
+      /* "_hierarchy.pyx":959
  *         # Go through chain of neighbors until two mutual neighbors are found.
  *         while True:
  *             x = cluster_chain[chain_length - 1]             # <<<<<<<<<<<<<<
@@ -12717,7 +12670,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_16 = (__pyx_v_chain_length - 1);
       __pyx_v_x = (*((int *) ( /* dim=0 */ (__pyx_v_cluster_chain.data + __pyx_t_16 * __pyx_v_cluster_chain.strides[0]) )));
 
-      /* "_hierarchy.pyx":965
+      /* "_hierarchy.pyx":963
  *             # We want to prefer the previous element in the chain as the
  *             # minimum, to avoid potentially going in cycles.
  *             if chain_length > 1:             # <<<<<<<<<<<<<<
@@ -12727,7 +12680,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_11 = ((__pyx_v_chain_length > 1) != 0);
       if (__pyx_t_11) {
 
-        /* "_hierarchy.pyx":966
+        /* "_hierarchy.pyx":964
  *             # minimum, to avoid potentially going in cycles.
  *             if chain_length > 1:
  *                 y = cluster_chain[chain_length - 2]             # <<<<<<<<<<<<<<
@@ -12737,7 +12690,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
         __pyx_t_17 = (__pyx_v_chain_length - 2);
         __pyx_v_y = (*((int *) ( /* dim=0 */ (__pyx_v_cluster_chain.data + __pyx_t_17 * __pyx_v_cluster_chain.strides[0]) )));
 
-        /* "_hierarchy.pyx":967
+        /* "_hierarchy.pyx":965
  *             if chain_length > 1:
  *                 y = cluster_chain[chain_length - 2]
  *                 current_min = D[condensed_index(n, x, y)]             # <<<<<<<<<<<<<<
@@ -12747,7 +12700,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
         __pyx_t_18 = __pyx_f_10_hierarchy_condensed_index(__pyx_v_n, __pyx_v_x, __pyx_v_y);
         __pyx_v_current_min = (*((double *) ( /* dim=0 */ (__pyx_v_D.data + __pyx_t_18 * __pyx_v_D.strides[0]) )));
 
-        /* "_hierarchy.pyx":965
+        /* "_hierarchy.pyx":963
  *             # We want to prefer the previous element in the chain as the
  *             # minimum, to avoid potentially going in cycles.
  *             if chain_length > 1:             # <<<<<<<<<<<<<<
@@ -12757,7 +12710,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
         goto __pyx_L11;
       }
 
-      /* "_hierarchy.pyx":969
+      /* "_hierarchy.pyx":967
  *                 current_min = D[condensed_index(n, x, y)]
  *             else:
  *                 current_min = NPY_INFINITYF             # <<<<<<<<<<<<<<
@@ -12769,7 +12722,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       }
       __pyx_L11:;
 
-      /* "_hierarchy.pyx":971
+      /* "_hierarchy.pyx":969
  *                 current_min = NPY_INFINITYF
  * 
  *             for i in range(n):             # <<<<<<<<<<<<<<
@@ -12780,7 +12733,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
         __pyx_v_i = __pyx_t_13;
 
-        /* "_hierarchy.pyx":972
+        /* "_hierarchy.pyx":970
  * 
  *             for i in range(n):
  *                 if size[i] == 0 or x == i:             # <<<<<<<<<<<<<<
@@ -12799,7 +12752,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
         __pyx_L15_bool_binop_done:;
         if (__pyx_t_11) {
 
-          /* "_hierarchy.pyx":973
+          /* "_hierarchy.pyx":971
  *             for i in range(n):
  *                 if size[i] == 0 or x == i:
  *                     continue             # <<<<<<<<<<<<<<
@@ -12808,7 +12761,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
           goto __pyx_L12_continue;
 
-          /* "_hierarchy.pyx":972
+          /* "_hierarchy.pyx":970
  * 
  *             for i in range(n):
  *                 if size[i] == 0 or x == i:             # <<<<<<<<<<<<<<
@@ -12817,7 +12770,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
         }
 
-        /* "_hierarchy.pyx":975
+        /* "_hierarchy.pyx":973
  *                     continue
  * 
  *                 dist = D[condensed_index(n, x, i)]             # <<<<<<<<<<<<<<
@@ -12827,7 +12780,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
         __pyx_t_21 = __pyx_f_10_hierarchy_condensed_index(__pyx_v_n, __pyx_v_x, __pyx_v_i);
         __pyx_v_dist = (*((double *) ( /* dim=0 */ (__pyx_v_D.data + __pyx_t_21 * __pyx_v_D.strides[0]) )));
 
-        /* "_hierarchy.pyx":976
+        /* "_hierarchy.pyx":974
  * 
  *                 dist = D[condensed_index(n, x, i)]
  *                 if dist < current_min:             # <<<<<<<<<<<<<<
@@ -12837,7 +12790,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
         __pyx_t_11 = ((__pyx_v_dist < __pyx_v_current_min) != 0);
         if (__pyx_t_11) {
 
-          /* "_hierarchy.pyx":977
+          /* "_hierarchy.pyx":975
  *                 dist = D[condensed_index(n, x, i)]
  *                 if dist < current_min:
  *                     current_min = dist             # <<<<<<<<<<<<<<
@@ -12846,7 +12799,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
           __pyx_v_current_min = __pyx_v_dist;
 
-          /* "_hierarchy.pyx":978
+          /* "_hierarchy.pyx":976
  *                 if dist < current_min:
  *                     current_min = dist
  *                     y = i             # <<<<<<<<<<<<<<
@@ -12855,7 +12808,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
           __pyx_v_y = __pyx_v_i;
 
-          /* "_hierarchy.pyx":976
+          /* "_hierarchy.pyx":974
  * 
  *                 dist = D[condensed_index(n, x, i)]
  *                 if dist < current_min:             # <<<<<<<<<<<<<<
@@ -12866,7 +12819,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
         __pyx_L12_continue:;
       }
 
-      /* "_hierarchy.pyx":980
+      /* "_hierarchy.pyx":978
  *                     y = i
  * 
  *             if chain_length > 1 and y == cluster_chain[chain_length - 2]:             # <<<<<<<<<<<<<<
@@ -12885,7 +12838,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       __pyx_L19_bool_binop_done:;
       if (__pyx_t_11) {
 
-        /* "_hierarchy.pyx":981
+        /* "_hierarchy.pyx":979
  * 
  *             if chain_length > 1 and y == cluster_chain[chain_length - 2]:
  *                 break             # <<<<<<<<<<<<<<
@@ -12894,7 +12847,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
         goto __pyx_L10_break;
 
-        /* "_hierarchy.pyx":980
+        /* "_hierarchy.pyx":978
  *                     y = i
  * 
  *             if chain_length > 1 and y == cluster_chain[chain_length - 2]:             # <<<<<<<<<<<<<<
@@ -12903,7 +12856,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
       }
 
-      /* "_hierarchy.pyx":983
+      /* "_hierarchy.pyx":981
  *                 break
  * 
  *             cluster_chain[chain_length] = y             # <<<<<<<<<<<<<<
@@ -12913,7 +12866,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_23 = __pyx_v_chain_length;
       *((int *) ( /* dim=0 */ (__pyx_v_cluster_chain.data + __pyx_t_23 * __pyx_v_cluster_chain.strides[0]) )) = __pyx_v_y;
 
-      /* "_hierarchy.pyx":984
+      /* "_hierarchy.pyx":982
  * 
  *             cluster_chain[chain_length] = y
  *             chain_length += 1             # <<<<<<<<<<<<<<
@@ -12924,7 +12877,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     }
     __pyx_L10_break:;
 
-    /* "_hierarchy.pyx":987
+    /* "_hierarchy.pyx":985
  * 
  *         # Merge clusters x and y and pop them from stack.
  *         chain_length -= 2             # <<<<<<<<<<<<<<
@@ -12933,7 +12886,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
     __pyx_v_chain_length = (__pyx_v_chain_length - 2);
 
-    /* "_hierarchy.pyx":990
+    /* "_hierarchy.pyx":988
  * 
  *         # This is a convention used in fastcluster.
  *         if x > y:             # <<<<<<<<<<<<<<
@@ -12943,7 +12896,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_11 = ((__pyx_v_x > __pyx_v_y) != 0);
     if (__pyx_t_11) {
 
-      /* "_hierarchy.pyx":991
+      /* "_hierarchy.pyx":989
  *         # This is a convention used in fastcluster.
  *         if x > y:
  *             x, y = y, x             # <<<<<<<<<<<<<<
@@ -12955,7 +12908,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       __pyx_v_x = __pyx_t_12;
       __pyx_v_y = __pyx_t_13;
 
-      /* "_hierarchy.pyx":990
+      /* "_hierarchy.pyx":988
  * 
  *         # This is a convention used in fastcluster.
  *         if x > y:             # <<<<<<<<<<<<<<
@@ -12964,7 +12917,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
     }
 
-    /* "_hierarchy.pyx":994
+    /* "_hierarchy.pyx":992
  * 
  *         # get the original numbers of points in clusters x and y
  *         nx = size[x]             # <<<<<<<<<<<<<<
@@ -12974,7 +12927,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_24 = __pyx_v_x;
     __pyx_v_nx = (*((int *) ( /* dim=0 */ (__pyx_v_size.data + __pyx_t_24 * __pyx_v_size.strides[0]) )));
 
-    /* "_hierarchy.pyx":995
+    /* "_hierarchy.pyx":993
  *         # get the original numbers of points in clusters x and y
  *         nx = size[x]
  *         ny = size[y]             # <<<<<<<<<<<<<<
@@ -12984,7 +12937,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_25 = __pyx_v_y;
     __pyx_v_ny = (*((int *) ( /* dim=0 */ (__pyx_v_size.data + __pyx_t_25 * __pyx_v_size.strides[0]) )));
 
-    /* "_hierarchy.pyx":998
+    /* "_hierarchy.pyx":996
  * 
  *         # Record the new node.
  *         Z[k, 0] = x             # <<<<<<<<<<<<<<
@@ -12995,7 +12948,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_27 = 0;
     *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_26 * __pyx_v_Z.strides[0]) ) + __pyx_t_27 * __pyx_v_Z.strides[1]) )) = __pyx_v_x;
 
-    /* "_hierarchy.pyx":999
+    /* "_hierarchy.pyx":997
  *         # Record the new node.
  *         Z[k, 0] = x
  *         Z[k, 1] = y             # <<<<<<<<<<<<<<
@@ -13006,7 +12959,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_29 = 1;
     *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_28 * __pyx_v_Z.strides[0]) ) + __pyx_t_29 * __pyx_v_Z.strides[1]) )) = __pyx_v_y;
 
-    /* "_hierarchy.pyx":1000
+    /* "_hierarchy.pyx":998
  *         Z[k, 0] = x
  *         Z[k, 1] = y
  *         Z[k, 2] = current_min             # <<<<<<<<<<<<<<
@@ -13017,7 +12970,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_31 = 2;
     *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_30 * __pyx_v_Z.strides[0]) ) + __pyx_t_31 * __pyx_v_Z.strides[1]) )) = __pyx_v_current_min;
 
-    /* "_hierarchy.pyx":1001
+    /* "_hierarchy.pyx":999
  *         Z[k, 1] = y
  *         Z[k, 2] = current_min
  *         Z[k, 3] = nx + ny             # <<<<<<<<<<<<<<
@@ -13028,7 +12981,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_33 = 3;
     *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_32 * __pyx_v_Z.strides[0]) ) + __pyx_t_33 * __pyx_v_Z.strides[1]) )) = (__pyx_v_nx + __pyx_v_ny);
 
-    /* "_hierarchy.pyx":1002
+    /* "_hierarchy.pyx":1000
  *         Z[k, 2] = current_min
  *         Z[k, 3] = nx + ny
  *         size[x] = 0  # Cluster x will be dropped.             # <<<<<<<<<<<<<<
@@ -13038,7 +12991,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_34 = __pyx_v_x;
     *((int *) ( /* dim=0 */ (__pyx_v_size.data + __pyx_t_34 * __pyx_v_size.strides[0]) )) = 0;
 
-    /* "_hierarchy.pyx":1003
+    /* "_hierarchy.pyx":1001
  *         Z[k, 3] = nx + ny
  *         size[x] = 0  # Cluster x will be dropped.
  *         size[y] = nx + ny  # Cluster y will be replaced with the new cluster             # <<<<<<<<<<<<<<
@@ -13048,7 +13001,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     __pyx_t_35 = __pyx_v_y;
     *((int *) ( /* dim=0 */ (__pyx_v_size.data + __pyx_t_35 * __pyx_v_size.strides[0]) )) = (__pyx_v_nx + __pyx_v_ny);
 
-    /* "_hierarchy.pyx":1006
+    /* "_hierarchy.pyx":1004
  * 
  *         # Update the distance matrix.
  *         for i in range(n):             # <<<<<<<<<<<<<<
@@ -13059,7 +13012,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_13; __pyx_t_12+=1) {
       __pyx_v_i = __pyx_t_12;
 
-      /* "_hierarchy.pyx":1007
+      /* "_hierarchy.pyx":1005
  *         # Update the distance matrix.
  *         for i in range(n):
  *             ni = size[i]             # <<<<<<<<<<<<<<
@@ -13069,7 +13022,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       __pyx_t_36 = __pyx_v_i;
       __pyx_v_ni = (*((int *) ( /* dim=0 */ (__pyx_v_size.data + __pyx_t_36 * __pyx_v_size.strides[0]) )));
 
-      /* "_hierarchy.pyx":1008
+      /* "_hierarchy.pyx":1006
  *         for i in range(n):
  *             ni = size[i]
  *             if ni == 0 or i == y:             # <<<<<<<<<<<<<<
@@ -13087,7 +13040,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
       __pyx_L25_bool_binop_done:;
       if (__pyx_t_11) {
 
-        /* "_hierarchy.pyx":1009
+        /* "_hierarchy.pyx":1007
  *             ni = size[i]
  *             if ni == 0 or i == y:
  *                 continue             # <<<<<<<<<<<<<<
@@ -13096,7 +13049,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
         goto __pyx_L22_continue;
 
-        /* "_hierarchy.pyx":1008
+        /* "_hierarchy.pyx":1006
  *         for i in range(n):
  *             ni = size[i]
  *             if ni == 0 or i == y:             # <<<<<<<<<<<<<<
@@ -13105,7 +13058,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
       }
 
-      /* "_hierarchy.pyx":1012
+      /* "_hierarchy.pyx":1010
  * 
  *             D[condensed_index(n, i, y)] = new_dist(
  *                 D[condensed_index(n, i, x)],             # <<<<<<<<<<<<<<
@@ -13114,7 +13067,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
       __pyx_t_37 = __pyx_f_10_hierarchy_condensed_index(__pyx_v_n, __pyx_v_i, __pyx_v_x);
 
-      /* "_hierarchy.pyx":1013
+      /* "_hierarchy.pyx":1011
  *             D[condensed_index(n, i, y)] = new_dist(
  *                 D[condensed_index(n, i, x)],
  *                 D[condensed_index(n, i, y)],             # <<<<<<<<<<<<<<
@@ -13123,7 +13076,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  */
       __pyx_t_38 = __pyx_f_10_hierarchy_condensed_index(__pyx_v_n, __pyx_v_i, __pyx_v_y);
 
-      /* "_hierarchy.pyx":1011
+      /* "_hierarchy.pyx":1009
  *                 continue
  * 
  *             D[condensed_index(n, i, y)] = new_dist(             # <<<<<<<<<<<<<<
@@ -13136,49 +13089,49 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
     }
   }
 
-  /* "_hierarchy.pyx":1017
+  /* "_hierarchy.pyx":1015
  * 
  *     # Sort Z by cluster distances.
  *     order = np.argsort(Z_arr[:, 2], kind='mergesort')             # <<<<<<<<<<<<<<
  *     Z_arr = Z_arr[order]
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1017, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_argsort); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1017, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyObject_GetItem(__pyx_v_Z_arr, __pyx_tuple__2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1017, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1017, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1015, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
-  __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1017, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_argsort); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1015, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyObject_GetItem(__pyx_v_Z_arr, __pyx_tuple__2); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1015, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1015, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_kind, __pyx_n_s_mergesort) < 0) __PYX_ERR(1, 1017, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1017, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
+  __pyx_t_3 = 0;
+  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1015, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_kind, __pyx_n_s_mergesort) < 0) __PYX_ERR(1, 1015, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1015, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_order = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "_hierarchy.pyx":1018
+  /* "_hierarchy.pyx":1016
  *     # Sort Z by cluster distances.
  *     order = np.argsort(Z_arr[:, 2], kind='mergesort')
  *     Z_arr = Z_arr[order]             # <<<<<<<<<<<<<<
  * 
  *     # Find correct cluster labels inplace.
  */
-  __pyx_t_5 = PyObject_GetItem(__pyx_v_Z_arr, __pyx_v_order); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1018, __pyx_L1_error)
+  __pyx_t_5 = PyObject_GetItem(__pyx_v_Z_arr, __pyx_v_order); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1016, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF_SET(__pyx_v_Z_arr, __pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "_hierarchy.pyx":1021
+  /* "_hierarchy.pyx":1019
  * 
  *     # Find correct cluster labels inplace.
  *     label(Z_arr, n)             # <<<<<<<<<<<<<<
@@ -13186,15 +13139,15 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
  *     return Z_arr
  */
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_Z_arr);
-  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1021, __pyx_L1_error)
-  __pyx_t_5 = __pyx_f_10_hierarchy_label(__pyx_t_6, __pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1021, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1019, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_10_hierarchy_label(__pyx_t_6, __pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1019, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "_hierarchy.pyx":1023
+  /* "_hierarchy.pyx":1021
  *     label(Z_arr, n)
  * 
  *     return Z_arr             # <<<<<<<<<<<<<<
@@ -13239,7 +13192,7 @@ static PyObject *__pyx_pf_10_hierarchy_26nn_chain(CYTHON_UNUSED PyObject *__pyx_
   return __pyx_r;
 }
 
-/* "_hierarchy.pyx":1026
+/* "_hierarchy.pyx":1024
  * 
  * 
  * def mst_single_linkage(double[:] dists, int n):             # <<<<<<<<<<<<<<
@@ -13277,11 +13230,11 @@ static PyObject *__pyx_pw_10_hierarchy_29mst_single_linkage(PyObject *__pyx_self
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_n)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("mst_single_linkage", 1, 2, 2, 1); __PYX_ERR(1, 1026, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mst_single_linkage", 1, 2, 2, 1); __PYX_ERR(1, 1024, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "mst_single_linkage") < 0)) __PYX_ERR(1, 1026, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "mst_single_linkage") < 0)) __PYX_ERR(1, 1024, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -13289,12 +13242,12 @@ static PyObject *__pyx_pw_10_hierarchy_29mst_single_linkage(PyObject *__pyx_self
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_dists = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[0]); if (unlikely(!__pyx_v_dists.memview)) __PYX_ERR(1, 1026, __pyx_L3_error)
-    __pyx_v_n = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1026, __pyx_L3_error)
+    __pyx_v_dists = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[0]); if (unlikely(!__pyx_v_dists.memview)) __PYX_ERR(1, 1024, __pyx_L3_error)
+    __pyx_v_n = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1024, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("mst_single_linkage", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1026, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("mst_single_linkage", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1024, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("_hierarchy.mst_single_linkage", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -13349,21 +13302,21 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
   Py_ssize_t __pyx_t_26;
   __Pyx_RefNannySetupContext("mst_single_linkage", 0);
 
-  /* "_hierarchy.pyx":1041
+  /* "_hierarchy.pyx":1039
  *         Computed linkage matrix.
  *     """
  *     Z_arr = np.empty((n - 1, 4))             # <<<<<<<<<<<<<<
  *     cdef double[:, :] Z = Z_arr
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1041, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1039, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1041, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1039, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_n - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1041, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_n - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1039, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1041, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1039, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
@@ -13382,14 +13335,14 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1041, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1039, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_4};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1041, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1039, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -13398,20 +13351,20 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
       PyObject *__pyx_temp[2] = {__pyx_t_2, __pyx_t_4};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1041, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1039, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     } else
     #endif
     {
-      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1041, __pyx_L1_error)
+      __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1039, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
       __Pyx_GIVEREF(__pyx_t_4);
       PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_4);
       __pyx_t_4 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1041, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1039, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     }
@@ -13420,7 +13373,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
   __pyx_v_Z_arr = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "_hierarchy.pyx":1042
+  /* "_hierarchy.pyx":1040
  *     """
  *     Z_arr = np.empty((n - 1, 4))
  *     cdef double[:, :] Z = Z_arr             # <<<<<<<<<<<<<<
@@ -13428,64 +13381,64 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
  *     # Which nodes were already merged.
  */
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_Z_arr);
-  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1042, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1040, __pyx_L1_error)
   __pyx_v_Z = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "_hierarchy.pyx":1045
+  /* "_hierarchy.pyx":1043
  * 
  *     # Which nodes were already merged.
  *     cdef int[:] merged = np.zeros(n, dtype=np.intc)             # <<<<<<<<<<<<<<
  * 
  *     cdef double[:] D = np.empty(n)
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intc); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intc); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_2) < 0) __PYX_ERR(1, 1045, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_2) < 0) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_7 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_2);
-  if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(1, 1045, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7.memview)) __PYX_ERR(1, 1043, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_merged = __pyx_t_7;
   __pyx_t_7.memview = NULL;
   __pyx_t_7.data = NULL;
 
-  /* "_hierarchy.pyx":1047
+  /* "_hierarchy.pyx":1045
  *     cdef int[:] merged = np.zeros(n, dtype=np.intc)
  * 
  *     cdef double[:] D = np.empty(n)             # <<<<<<<<<<<<<<
  *     D[:] = NPY_INFINITYF
  * 
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1047, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1045, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1047, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1045, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1047, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1045, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -13498,14 +13451,14 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1047, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1045, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1047, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1045, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -13514,33 +13467,33 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1047, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1045, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1047, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1045, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1047, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1045, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(__pyx_t_2);
-  if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(1, 1047, __pyx_L1_error)
+  if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(1, 1045, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_D = __pyx_t_8;
   __pyx_t_8.memview = NULL;
   __pyx_t_8.data = NULL;
 
-  /* "_hierarchy.pyx":1048
+  /* "_hierarchy.pyx":1046
  * 
  *     cdef double[:] D = np.empty(n)
  *     D[:] = NPY_INFINITYF             # <<<<<<<<<<<<<<
@@ -13562,7 +13515,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
       }
   }
 
-  /* "_hierarchy.pyx":1053
+  /* "_hierarchy.pyx":1051
  *     cdef double dist, current_min
  * 
  *     x = 0             # <<<<<<<<<<<<<<
@@ -13571,7 +13524,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
  */
   __pyx_v_x = 0;
 
-  /* "_hierarchy.pyx":1054
+  /* "_hierarchy.pyx":1052
  * 
  *     x = 0
  *     for k in range(n - 1):             # <<<<<<<<<<<<<<
@@ -13582,7 +13535,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
     __pyx_v_k = __pyx_t_10;
 
-    /* "_hierarchy.pyx":1055
+    /* "_hierarchy.pyx":1053
  *     x = 0
  *     for k in range(n - 1):
  *         current_min = NPY_INFINITYF             # <<<<<<<<<<<<<<
@@ -13591,7 +13544,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
  */
     __pyx_v_current_min = NPY_INFINITYF;
 
-    /* "_hierarchy.pyx":1056
+    /* "_hierarchy.pyx":1054
  *     for k in range(n - 1):
  *         current_min = NPY_INFINITYF
  *         merged[x] = 1             # <<<<<<<<<<<<<<
@@ -13601,7 +13554,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     __pyx_t_11 = __pyx_v_x;
     *((int *) ( /* dim=0 */ (__pyx_v_merged.data + __pyx_t_11 * __pyx_v_merged.strides[0]) )) = 1;
 
-    /* "_hierarchy.pyx":1057
+    /* "_hierarchy.pyx":1055
  *         current_min = NPY_INFINITYF
  *         merged[x] = 1
  *         for i in range(n):             # <<<<<<<<<<<<<<
@@ -13612,7 +13565,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
       __pyx_v_i = __pyx_t_13;
 
-      /* "_hierarchy.pyx":1058
+      /* "_hierarchy.pyx":1056
  *         merged[x] = 1
  *         for i in range(n):
  *             if merged[i] == 1:             # <<<<<<<<<<<<<<
@@ -13623,7 +13576,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
       __pyx_t_15 = (((*((int *) ( /* dim=0 */ (__pyx_v_merged.data + __pyx_t_14 * __pyx_v_merged.strides[0]) ))) == 1) != 0);
       if (__pyx_t_15) {
 
-        /* "_hierarchy.pyx":1059
+        /* "_hierarchy.pyx":1057
  *         for i in range(n):
  *             if merged[i] == 1:
  *                 continue             # <<<<<<<<<<<<<<
@@ -13632,7 +13585,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
  */
         goto __pyx_L5_continue;
 
-        /* "_hierarchy.pyx":1058
+        /* "_hierarchy.pyx":1056
  *         merged[x] = 1
  *         for i in range(n):
  *             if merged[i] == 1:             # <<<<<<<<<<<<<<
@@ -13641,7 +13594,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
  */
       }
 
-      /* "_hierarchy.pyx":1061
+      /* "_hierarchy.pyx":1059
  *                 continue
  * 
  *             dist = dists[condensed_index(n, x, i)]             # <<<<<<<<<<<<<<
@@ -13651,7 +13604,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
       __pyx_t_16 = __pyx_f_10_hierarchy_condensed_index(__pyx_v_n, __pyx_v_x, __pyx_v_i);
       __pyx_v_dist = (*((double *) ( /* dim=0 */ (__pyx_v_dists.data + __pyx_t_16 * __pyx_v_dists.strides[0]) )));
 
-      /* "_hierarchy.pyx":1062
+      /* "_hierarchy.pyx":1060
  * 
  *             dist = dists[condensed_index(n, x, i)]
  *             if D[i] > dist:             # <<<<<<<<<<<<<<
@@ -13662,7 +13615,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
       __pyx_t_15 = (((*((double *) ( /* dim=0 */ (__pyx_v_D.data + __pyx_t_17 * __pyx_v_D.strides[0]) ))) > __pyx_v_dist) != 0);
       if (__pyx_t_15) {
 
-        /* "_hierarchy.pyx":1063
+        /* "_hierarchy.pyx":1061
  *             dist = dists[condensed_index(n, x, i)]
  *             if D[i] > dist:
  *                 D[i] = dist             # <<<<<<<<<<<<<<
@@ -13672,7 +13625,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
         __pyx_t_18 = __pyx_v_i;
         *((double *) ( /* dim=0 */ (__pyx_v_D.data + __pyx_t_18 * __pyx_v_D.strides[0]) )) = __pyx_v_dist;
 
-        /* "_hierarchy.pyx":1062
+        /* "_hierarchy.pyx":1060
  * 
  *             dist = dists[condensed_index(n, x, i)]
  *             if D[i] > dist:             # <<<<<<<<<<<<<<
@@ -13681,7 +13634,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
  */
       }
 
-      /* "_hierarchy.pyx":1065
+      /* "_hierarchy.pyx":1063
  *                 D[i] = dist
  * 
  *             if D[i] < current_min:             # <<<<<<<<<<<<<<
@@ -13692,7 +13645,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
       __pyx_t_15 = (((*((double *) ( /* dim=0 */ (__pyx_v_D.data + __pyx_t_19 * __pyx_v_D.strides[0]) ))) < __pyx_v_current_min) != 0);
       if (__pyx_t_15) {
 
-        /* "_hierarchy.pyx":1066
+        /* "_hierarchy.pyx":1064
  * 
  *             if D[i] < current_min:
  *                 y = i             # <<<<<<<<<<<<<<
@@ -13701,7 +13654,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
  */
         __pyx_v_y = __pyx_v_i;
 
-        /* "_hierarchy.pyx":1067
+        /* "_hierarchy.pyx":1065
  *             if D[i] < current_min:
  *                 y = i
  *                 current_min = D[i]             # <<<<<<<<<<<<<<
@@ -13711,7 +13664,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
         __pyx_t_20 = __pyx_v_i;
         __pyx_v_current_min = (*((double *) ( /* dim=0 */ (__pyx_v_D.data + __pyx_t_20 * __pyx_v_D.strides[0]) )));
 
-        /* "_hierarchy.pyx":1065
+        /* "_hierarchy.pyx":1063
  *                 D[i] = dist
  * 
  *             if D[i] < current_min:             # <<<<<<<<<<<<<<
@@ -13722,7 +13675,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
       __pyx_L5_continue:;
     }
 
-    /* "_hierarchy.pyx":1069
+    /* "_hierarchy.pyx":1067
  *                 current_min = D[i]
  * 
  *         Z[k, 0] = x             # <<<<<<<<<<<<<<
@@ -13733,7 +13686,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     __pyx_t_22 = 0;
     *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_21 * __pyx_v_Z.strides[0]) ) + __pyx_t_22 * __pyx_v_Z.strides[1]) )) = __pyx_v_x;
 
-    /* "_hierarchy.pyx":1070
+    /* "_hierarchy.pyx":1068
  * 
  *         Z[k, 0] = x
  *         Z[k, 1] = y             # <<<<<<<<<<<<<<
@@ -13744,7 +13697,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     __pyx_t_24 = 1;
     *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_23 * __pyx_v_Z.strides[0]) ) + __pyx_t_24 * __pyx_v_Z.strides[1]) )) = __pyx_v_y;
 
-    /* "_hierarchy.pyx":1071
+    /* "_hierarchy.pyx":1069
  *         Z[k, 0] = x
  *         Z[k, 1] = y
  *         Z[k, 2] = current_min             # <<<<<<<<<<<<<<
@@ -13755,7 +13708,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     __pyx_t_26 = 2;
     *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_25 * __pyx_v_Z.strides[0]) ) + __pyx_t_26 * __pyx_v_Z.strides[1]) )) = __pyx_v_current_min;
 
-    /* "_hierarchy.pyx":1072
+    /* "_hierarchy.pyx":1070
  *         Z[k, 1] = y
  *         Z[k, 2] = current_min
  *         x = y             # <<<<<<<<<<<<<<
@@ -13765,29 +13718,29 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
     __pyx_v_x = __pyx_v_y;
   }
 
-  /* "_hierarchy.pyx":1075
+  /* "_hierarchy.pyx":1073
  * 
  *     # Sort Z by cluster distances.
  *     order = np.argsort(Z_arr[:, 2], kind='mergesort')             # <<<<<<<<<<<<<<
  *     Z_arr = Z_arr[order]
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1075, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_argsort); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1075, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_argsort); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyObject_GetItem(__pyx_v_Z_arr, __pyx_tuple__4); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1075, __pyx_L1_error)
+  __pyx_t_2 = PyObject_GetItem(__pyx_v_Z_arr, __pyx_tuple__4); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1075, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1075, __pyx_L1_error)
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_kind, __pyx_n_s_mergesort) < 0) __PYX_ERR(1, 1075, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1075, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_kind, __pyx_n_s_mergesort) < 0) __PYX_ERR(1, 1073, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -13795,19 +13748,19 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
   __pyx_v_order = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "_hierarchy.pyx":1076
+  /* "_hierarchy.pyx":1074
  *     # Sort Z by cluster distances.
  *     order = np.argsort(Z_arr[:, 2], kind='mergesort')
  *     Z_arr = Z_arr[order]             # <<<<<<<<<<<<<<
  * 
  *     # Find correct cluster labels and compute cluster sizes inplace.
  */
-  __pyx_t_1 = PyObject_GetItem(__pyx_v_Z_arr, __pyx_v_order); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1076, __pyx_L1_error)
+  __pyx_t_1 = PyObject_GetItem(__pyx_v_Z_arr, __pyx_v_order); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1074, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_Z_arr, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_hierarchy.pyx":1079
+  /* "_hierarchy.pyx":1077
  * 
  *     # Find correct cluster labels and compute cluster sizes inplace.
  *     label(Z_arr, n)             # <<<<<<<<<<<<<<
@@ -13815,15 +13768,15 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
  *     return Z_arr
  */
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(__pyx_v_Z_arr);
-  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1079, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_10_hierarchy_label(__pyx_t_6, __pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1079, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1077, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_10_hierarchy_label(__pyx_t_6, __pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1077, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __PYX_XDEC_MEMVIEW(&__pyx_t_6, 1);
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_hierarchy.pyx":1081
+  /* "_hierarchy.pyx":1079
  *     label(Z_arr, n)
  * 
  *     return Z_arr             # <<<<<<<<<<<<<<
@@ -13835,7 +13788,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
   __pyx_r = __pyx_v_Z_arr;
   goto __pyx_L0;
 
-  /* "_hierarchy.pyx":1026
+  /* "_hierarchy.pyx":1024
  * 
  * 
  * def mst_single_linkage(double[:] dists, int n):             # <<<<<<<<<<<<<<
@@ -13867,7 +13820,7 @@ static PyObject *__pyx_pf_10_hierarchy_28mst_single_linkage(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "_hierarchy.pyx":1090
+/* "_hierarchy.pyx":1088
  *     cdef int next_label
  * 
  *     def __init__(self, int n):             # <<<<<<<<<<<<<<
@@ -13900,18 +13853,18 @@ static int __pyx_pw_10_hierarchy_16LinkageUnionFind_1__init__(PyObject *__pyx_v_
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(1, 1090, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(1, 1088, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
     }
-    __pyx_v_n = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1090, __pyx_L3_error)
+    __pyx_v_n = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1088, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1090, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1088, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("_hierarchy.LinkageUnionFind.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -13935,48 +13888,48 @@ static int __pyx_pf_10_hierarchy_16LinkageUnionFind___init__(struct __pyx_obj_10
   __Pyx_memviewslice __pyx_t_6 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "_hierarchy.pyx":1091
+  /* "_hierarchy.pyx":1089
  * 
  *     def __init__(self, int n):
  *         self.parent = np.arange(2 * n - 1, dtype=np.intc)             # <<<<<<<<<<<<<<
  *         self.next_label = n
  *         self.size = np.ones(2 * n - 1, dtype=np.intc)
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_arange); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_arange); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_long(((2 * __pyx_v_n) - 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_long(((2 * __pyx_v_n) - 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intc); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intc); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(1, 1091, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_5);
-  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1091, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1089, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->parent, 0);
   __pyx_v_self->parent = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "_hierarchy.pyx":1092
+  /* "_hierarchy.pyx":1090
  *     def __init__(self, int n):
  *         self.parent = np.arange(2 * n - 1, dtype=np.intc)
  *         self.next_label = n             # <<<<<<<<<<<<<<
@@ -13985,48 +13938,48 @@ static int __pyx_pf_10_hierarchy_16LinkageUnionFind___init__(struct __pyx_obj_10
  */
   __pyx_v_self->next_label = __pyx_v_n;
 
-  /* "_hierarchy.pyx":1093
+  /* "_hierarchy.pyx":1091
  *         self.parent = np.arange(2 * n - 1, dtype=np.intc)
  *         self.next_label = n
  *         self.size = np.ones(2 * n - 1, dtype=np.intc)             # <<<<<<<<<<<<<<
  * 
  *     cdef int merge(self, int x, int y):
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_ones); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_ones); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_long(((2 * __pyx_v_n) - 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_long(((2 * __pyx_v_n) - 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_5);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_intc); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_intc); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 1093, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_4);
-  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1093, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(1, 1091, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->size, 0);
   __pyx_v_self->size = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "_hierarchy.pyx":1090
+  /* "_hierarchy.pyx":1088
  *     cdef int next_label
  * 
  *     def __init__(self, int n):             # <<<<<<<<<<<<<<
@@ -14051,7 +14004,7 @@ static int __pyx_pf_10_hierarchy_16LinkageUnionFind___init__(struct __pyx_obj_10
   return __pyx_r;
 }
 
-/* "_hierarchy.pyx":1095
+/* "_hierarchy.pyx":1093
  *         self.size = np.ones(2 * n - 1, dtype=np.intc)
  * 
  *     cdef int merge(self, int x, int y):             # <<<<<<<<<<<<<<
@@ -14071,7 +14024,7 @@ static int __pyx_f_10_hierarchy_16LinkageUnionFind_merge(struct __pyx_obj_10_hie
   Py_ssize_t __pyx_t_6;
   __Pyx_RefNannySetupContext("merge", 0);
 
-  /* "_hierarchy.pyx":1096
+  /* "_hierarchy.pyx":1094
  * 
  *     cdef int merge(self, int x, int y):
  *         self.parent[x] = self.next_label             # <<<<<<<<<<<<<<
@@ -14079,11 +14032,11 @@ static int __pyx_f_10_hierarchy_16LinkageUnionFind_merge(struct __pyx_obj_10_hie
  *         cdef int size = self.size[x] + self.size[y]
  */
   __pyx_t_1 = __pyx_v_self->next_label;
-  if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1096, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1094, __pyx_L1_error)}
   __pyx_t_2 = __pyx_v_x;
   *((int *) ( /* dim=0 */ (__pyx_v_self->parent.data + __pyx_t_2 * __pyx_v_self->parent.strides[0]) )) = __pyx_t_1;
 
-  /* "_hierarchy.pyx":1097
+  /* "_hierarchy.pyx":1095
  *     cdef int merge(self, int x, int y):
  *         self.parent[x] = self.next_label
  *         self.parent[y] = self.next_label             # <<<<<<<<<<<<<<
@@ -14091,35 +14044,35 @@ static int __pyx_f_10_hierarchy_16LinkageUnionFind_merge(struct __pyx_obj_10_hie
  *         self.size[self.next_label] = size
  */
   __pyx_t_1 = __pyx_v_self->next_label;
-  if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1097, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1095, __pyx_L1_error)}
   __pyx_t_3 = __pyx_v_y;
   *((int *) ( /* dim=0 */ (__pyx_v_self->parent.data + __pyx_t_3 * __pyx_v_self->parent.strides[0]) )) = __pyx_t_1;
 
-  /* "_hierarchy.pyx":1098
+  /* "_hierarchy.pyx":1096
  *         self.parent[x] = self.next_label
  *         self.parent[y] = self.next_label
  *         cdef int size = self.size[x] + self.size[y]             # <<<<<<<<<<<<<<
  *         self.size[self.next_label] = size
  *         self.next_label += 1
  */
-  if (unlikely(!__pyx_v_self->size.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1098, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->size.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1096, __pyx_L1_error)}
   __pyx_t_4 = __pyx_v_x;
-  if (unlikely(!__pyx_v_self->size.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1098, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->size.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1096, __pyx_L1_error)}
   __pyx_t_5 = __pyx_v_y;
   __pyx_v_size = ((*((int *) ( /* dim=0 */ (__pyx_v_self->size.data + __pyx_t_4 * __pyx_v_self->size.strides[0]) ))) + (*((int *) ( /* dim=0 */ (__pyx_v_self->size.data + __pyx_t_5 * __pyx_v_self->size.strides[0]) ))));
 
-  /* "_hierarchy.pyx":1099
+  /* "_hierarchy.pyx":1097
  *         self.parent[y] = self.next_label
  *         cdef int size = self.size[x] + self.size[y]
  *         self.size[self.next_label] = size             # <<<<<<<<<<<<<<
  *         self.next_label += 1
  *         return size
  */
-  if (unlikely(!__pyx_v_self->size.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1099, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->size.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1097, __pyx_L1_error)}
   __pyx_t_6 = __pyx_v_self->next_label;
   *((int *) ( /* dim=0 */ (__pyx_v_self->size.data + __pyx_t_6 * __pyx_v_self->size.strides[0]) )) = __pyx_v_size;
 
-  /* "_hierarchy.pyx":1100
+  /* "_hierarchy.pyx":1098
  *         cdef int size = self.size[x] + self.size[y]
  *         self.size[self.next_label] = size
  *         self.next_label += 1             # <<<<<<<<<<<<<<
@@ -14128,7 +14081,7 @@ static int __pyx_f_10_hierarchy_16LinkageUnionFind_merge(struct __pyx_obj_10_hie
  */
   __pyx_v_self->next_label = (__pyx_v_self->next_label + 1);
 
-  /* "_hierarchy.pyx":1101
+  /* "_hierarchy.pyx":1099
  *         self.size[self.next_label] = size
  *         self.next_label += 1
  *         return size             # <<<<<<<<<<<<<<
@@ -14138,7 +14091,7 @@ static int __pyx_f_10_hierarchy_16LinkageUnionFind_merge(struct __pyx_obj_10_hie
   __pyx_r = __pyx_v_size;
   goto __pyx_L0;
 
-  /* "_hierarchy.pyx":1095
+  /* "_hierarchy.pyx":1093
  *         self.size = np.ones(2 * n - 1, dtype=np.intc)
  * 
  *     cdef int merge(self, int x, int y):             # <<<<<<<<<<<<<<
@@ -14155,7 +14108,7 @@ static int __pyx_f_10_hierarchy_16LinkageUnionFind_merge(struct __pyx_obj_10_hie
   return __pyx_r;
 }
 
-/* "_hierarchy.pyx":1103
+/* "_hierarchy.pyx":1101
  *         return size
  * 
  *     cdef find(self, int x):             # <<<<<<<<<<<<<<
@@ -14178,7 +14131,7 @@ static PyObject *__pyx_f_10_hierarchy_16LinkageUnionFind_find(struct __pyx_obj_1
   PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannySetupContext("find", 0);
 
-  /* "_hierarchy.pyx":1104
+  /* "_hierarchy.pyx":1102
  * 
  *     cdef find(self, int x):
  *         cdef int p = x             # <<<<<<<<<<<<<<
@@ -14187,7 +14140,7 @@ static PyObject *__pyx_f_10_hierarchy_16LinkageUnionFind_find(struct __pyx_obj_1
  */
   __pyx_v_p = __pyx_v_x;
 
-  /* "_hierarchy.pyx":1106
+  /* "_hierarchy.pyx":1104
  *         cdef int p = x
  * 
  *         while self.parent[x] != x:             # <<<<<<<<<<<<<<
@@ -14195,24 +14148,24 @@ static PyObject *__pyx_f_10_hierarchy_16LinkageUnionFind_find(struct __pyx_obj_1
  * 
  */
   while (1) {
-    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1106, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1104, __pyx_L1_error)}
     __pyx_t_1 = __pyx_v_x;
     __pyx_t_2 = (((*((int *) ( /* dim=0 */ (__pyx_v_self->parent.data + __pyx_t_1 * __pyx_v_self->parent.strides[0]) ))) != __pyx_v_x) != 0);
     if (!__pyx_t_2) break;
 
-    /* "_hierarchy.pyx":1107
+    /* "_hierarchy.pyx":1105
  * 
  *         while self.parent[x] != x:
  *             x = self.parent[x]             # <<<<<<<<<<<<<<
  * 
  *         while self.parent[p] != x:
  */
-    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1107, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1105, __pyx_L1_error)}
     __pyx_t_3 = __pyx_v_x;
     __pyx_v_x = (*((int *) ( /* dim=0 */ (__pyx_v_self->parent.data + __pyx_t_3 * __pyx_v_self->parent.strides[0]) )));
   }
 
-  /* "_hierarchy.pyx":1109
+  /* "_hierarchy.pyx":1107
  *             x = self.parent[x]
  * 
  *         while self.parent[p] != x:             # <<<<<<<<<<<<<<
@@ -14220,29 +14173,29 @@ static PyObject *__pyx_f_10_hierarchy_16LinkageUnionFind_find(struct __pyx_obj_1
  * 
  */
   while (1) {
-    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1109, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1107, __pyx_L1_error)}
     __pyx_t_4 = __pyx_v_p;
     __pyx_t_2 = (((*((int *) ( /* dim=0 */ (__pyx_v_self->parent.data + __pyx_t_4 * __pyx_v_self->parent.strides[0]) ))) != __pyx_v_x) != 0);
     if (!__pyx_t_2) break;
 
-    /* "_hierarchy.pyx":1110
+    /* "_hierarchy.pyx":1108
  * 
  *         while self.parent[p] != x:
  *             p, self.parent[p] = self.parent[p], x             # <<<<<<<<<<<<<<
  * 
  *         return x
  */
-    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1110, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1108, __pyx_L1_error)}
     __pyx_t_5 = __pyx_v_p;
     __pyx_t_6 = (*((int *) ( /* dim=0 */ (__pyx_v_self->parent.data + __pyx_t_5 * __pyx_v_self->parent.strides[0]) )));
     __pyx_t_7 = __pyx_v_x;
     __pyx_v_p = __pyx_t_6;
-    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1110, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->parent.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(1, 1108, __pyx_L1_error)}
     __pyx_t_8 = __pyx_v_p;
     *((int *) ( /* dim=0 */ (__pyx_v_self->parent.data + __pyx_t_8 * __pyx_v_self->parent.strides[0]) )) = __pyx_t_7;
   }
 
-  /* "_hierarchy.pyx":1112
+  /* "_hierarchy.pyx":1110
  *             p, self.parent[p] = self.parent[p], x
  * 
  *         return x             # <<<<<<<<<<<<<<
@@ -14250,13 +14203,13 @@ static PyObject *__pyx_f_10_hierarchy_16LinkageUnionFind_find(struct __pyx_obj_1
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_x); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 1112, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_int(__pyx_v_x); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 1110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_r = __pyx_t_9;
   __pyx_t_9 = 0;
   goto __pyx_L0;
 
-  /* "_hierarchy.pyx":1103
+  /* "_hierarchy.pyx":1101
  *         return size
  * 
  *     cdef find(self, int x):             # <<<<<<<<<<<<<<
@@ -14275,7 +14228,7 @@ static PyObject *__pyx_f_10_hierarchy_16LinkageUnionFind_find(struct __pyx_obj_1
   return __pyx_r;
 }
 
-/* "_hierarchy.pyx":1115
+/* "_hierarchy.pyx":1113
  * 
  * 
  * cdef label(double[:, :] Z, int n):             # <<<<<<<<<<<<<<
@@ -14315,27 +14268,27 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
   Py_ssize_t __pyx_t_21;
   __Pyx_RefNannySetupContext("label", 0);
 
-  /* "_hierarchy.pyx":1117
+  /* "_hierarchy.pyx":1115
  * cdef label(double[:, :] Z, int n):
  *     """Correctly label clusters in unsorted dendrogram."""
  *     cdef LinkageUnionFind uf = LinkageUnionFind(n)             # <<<<<<<<<<<<<<
  *     cdef int i, x, y, x_root, y_root
  *     for i in range(n - 1):
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1117, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1117, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_10_hierarchy_LinkageUnionFind), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1117, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_10_hierarchy_LinkageUnionFind), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_uf = ((struct __pyx_obj_10_hierarchy_LinkageUnionFind *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "_hierarchy.pyx":1119
+  /* "_hierarchy.pyx":1117
  *     cdef LinkageUnionFind uf = LinkageUnionFind(n)
  *     cdef int i, x, y, x_root, y_root
  *     for i in range(n - 1):             # <<<<<<<<<<<<<<
@@ -14346,7 +14299,7 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
-    /* "_hierarchy.pyx":1120
+    /* "_hierarchy.pyx":1118
  *     cdef int i, x, y, x_root, y_root
  *     for i in range(n - 1):
  *         x, y = int(Z[i, 0]), int(Z[i, 1])             # <<<<<<<<<<<<<<
@@ -14360,25 +14313,25 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
     __pyx_v_x = ((int)(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_5 * __pyx_v_Z.strides[0]) ) + __pyx_t_6 * __pyx_v_Z.strides[1]) ))));
     __pyx_v_y = ((int)(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_7 * __pyx_v_Z.strides[0]) ) + __pyx_t_8 * __pyx_v_Z.strides[1]) ))));
 
-    /* "_hierarchy.pyx":1121
+    /* "_hierarchy.pyx":1119
  *     for i in range(n - 1):
  *         x, y = int(Z[i, 0]), int(Z[i, 1])
  *         x_root, y_root = uf.find(x), uf.find(y)             # <<<<<<<<<<<<<<
  *         if x_root < y_root:
  *             Z[i, 0], Z[i, 1] = x_root, y_root
  */
-    __pyx_t_1 = ((struct __pyx_vtabstruct_10_hierarchy_LinkageUnionFind *)__pyx_v_uf->__pyx_vtab)->find(__pyx_v_uf, __pyx_v_x); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1121, __pyx_L1_error)
+    __pyx_t_1 = ((struct __pyx_vtabstruct_10_hierarchy_LinkageUnionFind *)__pyx_v_uf->__pyx_vtab)->find(__pyx_v_uf, __pyx_v_x); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1121, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_9 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1119, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = ((struct __pyx_vtabstruct_10_hierarchy_LinkageUnionFind *)__pyx_v_uf->__pyx_vtab)->find(__pyx_v_uf, __pyx_v_y); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1121, __pyx_L1_error)
+    __pyx_t_1 = ((struct __pyx_vtabstruct_10_hierarchy_LinkageUnionFind *)__pyx_v_uf->__pyx_vtab)->find(__pyx_v_uf, __pyx_v_y); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1119, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1121, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_10 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1119, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_x_root = __pyx_t_9;
     __pyx_v_y_root = __pyx_t_10;
 
-    /* "_hierarchy.pyx":1122
+    /* "_hierarchy.pyx":1120
  *         x, y = int(Z[i, 0]), int(Z[i, 1])
  *         x_root, y_root = uf.find(x), uf.find(y)
  *         if x_root < y_root:             # <<<<<<<<<<<<<<
@@ -14388,7 +14341,7 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
     __pyx_t_11 = ((__pyx_v_x_root < __pyx_v_y_root) != 0);
     if (__pyx_t_11) {
 
-      /* "_hierarchy.pyx":1123
+      /* "_hierarchy.pyx":1121
  *         x_root, y_root = uf.find(x), uf.find(y)
  *         if x_root < y_root:
  *             Z[i, 0], Z[i, 1] = x_root, y_root             # <<<<<<<<<<<<<<
@@ -14404,7 +14357,7 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
       __pyx_t_15 = 1;
       *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_14 * __pyx_v_Z.strides[0]) ) + __pyx_t_15 * __pyx_v_Z.strides[1]) )) = __pyx_t_9;
 
-      /* "_hierarchy.pyx":1122
+      /* "_hierarchy.pyx":1120
  *         x, y = int(Z[i, 0]), int(Z[i, 1])
  *         x_root, y_root = uf.find(x), uf.find(y)
  *         if x_root < y_root:             # <<<<<<<<<<<<<<
@@ -14414,7 +14367,7 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
       goto __pyx_L5;
     }
 
-    /* "_hierarchy.pyx":1125
+    /* "_hierarchy.pyx":1123
  *             Z[i, 0], Z[i, 1] = x_root, y_root
  *         else:
  *             Z[i, 0], Z[i, 1] = y_root, x_root             # <<<<<<<<<<<<<<
@@ -14433,7 +14386,7 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
     }
     __pyx_L5:;
 
-    /* "_hierarchy.pyx":1126
+    /* "_hierarchy.pyx":1124
  *         else:
  *             Z[i, 0], Z[i, 1] = y_root, x_root
  *         Z[i, 3] = uf.merge(x_root, y_root)             # <<<<<<<<<<<<<<
@@ -14445,7 +14398,7 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
     *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_20 * __pyx_v_Z.strides[0]) ) + __pyx_t_21 * __pyx_v_Z.strides[1]) )) = ((struct __pyx_vtabstruct_10_hierarchy_LinkageUnionFind *)__pyx_v_uf->__pyx_vtab)->merge(__pyx_v_uf, __pyx_v_x_root, __pyx_v_y_root);
   }
 
-  /* "_hierarchy.pyx":1115
+  /* "_hierarchy.pyx":1113
  * 
  * 
  * cdef label(double[:, :] Z, int n):             # <<<<<<<<<<<<<<
@@ -14468,7 +14421,7 @@ static PyObject *__pyx_f_10_hierarchy_label(__Pyx_memviewslice __pyx_v_Z, int __
   return __pyx_r;
 }
 
-/* "_hierarchy.pyx":1129
+/* "_hierarchy.pyx":1127
  * 
  * 
  * def prelist(double[:, :] Z, int[:] members, int n):             # <<<<<<<<<<<<<<
@@ -14508,16 +14461,16 @@ static PyObject *__pyx_pw_10_hierarchy_31prelist(PyObject *__pyx_self, PyObject 
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_members)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("prelist", 1, 3, 3, 1); __PYX_ERR(1, 1129, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("prelist", 1, 3, 3, 1); __PYX_ERR(1, 1127, __pyx_L3_error)
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_n)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("prelist", 1, 3, 3, 2); __PYX_ERR(1, 1129, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("prelist", 1, 3, 3, 2); __PYX_ERR(1, 1127, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "prelist") < 0)) __PYX_ERR(1, 1129, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "prelist") < 0)) __PYX_ERR(1, 1127, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -14526,13 +14479,13 @@ static PyObject *__pyx_pw_10_hierarchy_31prelist(PyObject *__pyx_self, PyObject 
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_Z = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0]); if (unlikely(!__pyx_v_Z.memview)) __PYX_ERR(1, 1129, __pyx_L3_error)
-    __pyx_v_members = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[1]); if (unlikely(!__pyx_v_members.memview)) __PYX_ERR(1, 1129, __pyx_L3_error)
-    __pyx_v_n = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1129, __pyx_L3_error)
+    __pyx_v_Z = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0]); if (unlikely(!__pyx_v_Z.memview)) __PYX_ERR(1, 1127, __pyx_L3_error)
+    __pyx_v_members = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[1]); if (unlikely(!__pyx_v_members.memview)) __PYX_ERR(1, 1127, __pyx_L3_error)
+    __pyx_v_n = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_n == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 1127, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("prelist", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1129, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("prelist", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1127, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("_hierarchy.prelist", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -14574,41 +14527,41 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
   Py_ssize_t __pyx_t_16;
   __Pyx_RefNannySetupContext("prelist", 0);
 
-  /* "_hierarchy.pyx":1144
+  /* "_hierarchy.pyx":1142
  *     """
  *     cdef int k, i_lc, i_rc, root, mem_idx
  *     cdef int[:] curr_node = np.ndarray(n, dtype=np.intc)             # <<<<<<<<<<<<<<
  * 
  *     cdef int visited_size = (((n * 2) - 1) >> 3) + 1
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1144, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_n); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1144, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1144, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1144, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_intc); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1144, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_intc); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 1144, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(1, 1142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5numpy_ndarray), __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1144, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5numpy_ndarray), __pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 1142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_int(__pyx_t_4);
-  if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(1, 1144, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(1, 1142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_curr_node = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "_hierarchy.pyx":1146
+  /* "_hierarchy.pyx":1144
  *     cdef int[:] curr_node = np.ndarray(n, dtype=np.intc)
  * 
  *     cdef int visited_size = (((n * 2) - 1) >> 3) + 1             # <<<<<<<<<<<<<<
@@ -14617,7 +14570,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
   __pyx_v_visited_size = ((((__pyx_v_n * 2) - 1) >> 3) + 1);
 
-  /* "_hierarchy.pyx":1147
+  /* "_hierarchy.pyx":1145
  * 
  *     cdef int visited_size = (((n * 2) - 1) >> 3) + 1
  *     cdef uchar *visited = <uchar *>PyMem_Malloc(visited_size)             # <<<<<<<<<<<<<<
@@ -14626,7 +14579,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
   __pyx_v_visited = ((__pyx_t_10_hierarchy_uchar *)PyMem_Malloc(__pyx_v_visited_size));
 
-  /* "_hierarchy.pyx":1148
+  /* "_hierarchy.pyx":1146
  *     cdef int visited_size = (((n * 2) - 1) >> 3) + 1
  *     cdef uchar *visited = <uchar *>PyMem_Malloc(visited_size)
  *     if not visited:             # <<<<<<<<<<<<<<
@@ -14636,16 +14589,16 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_t_6 = ((!(__pyx_v_visited != 0)) != 0);
   if (__pyx_t_6) {
 
-    /* "_hierarchy.pyx":1149
+    /* "_hierarchy.pyx":1147
  *     cdef uchar *visited = <uchar *>PyMem_Malloc(visited_size)
  *     if not visited:
  *         raise MemoryError             # <<<<<<<<<<<<<<
  *     memset(visited, 0, visited_size)
  * 
  */
-    PyErr_NoMemory(); __PYX_ERR(1, 1149, __pyx_L1_error)
+    PyErr_NoMemory(); __PYX_ERR(1, 1147, __pyx_L1_error)
 
-    /* "_hierarchy.pyx":1148
+    /* "_hierarchy.pyx":1146
  *     cdef int visited_size = (((n * 2) - 1) >> 3) + 1
  *     cdef uchar *visited = <uchar *>PyMem_Malloc(visited_size)
  *     if not visited:             # <<<<<<<<<<<<<<
@@ -14654,7 +14607,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
   }
 
-  /* "_hierarchy.pyx":1150
+  /* "_hierarchy.pyx":1148
  *     if not visited:
  *         raise MemoryError
  *     memset(visited, 0, visited_size)             # <<<<<<<<<<<<<<
@@ -14663,7 +14616,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
   memset(__pyx_v_visited, 0, __pyx_v_visited_size);
 
-  /* "_hierarchy.pyx":1152
+  /* "_hierarchy.pyx":1150
  *     memset(visited, 0, visited_size)
  * 
  *     mem_idx = 0             # <<<<<<<<<<<<<<
@@ -14672,7 +14625,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
   __pyx_v_mem_idx = 0;
 
-  /* "_hierarchy.pyx":1153
+  /* "_hierarchy.pyx":1151
  * 
  *     mem_idx = 0
  *     k = 0             # <<<<<<<<<<<<<<
@@ -14681,7 +14634,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
   __pyx_v_k = 0;
 
-  /* "_hierarchy.pyx":1154
+  /* "_hierarchy.pyx":1152
  *     mem_idx = 0
  *     k = 0
  *     curr_node[0] = 2 * n - 2             # <<<<<<<<<<<<<<
@@ -14691,7 +14644,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
   __pyx_t_7 = 0;
   *((int *) ( /* dim=0 */ (__pyx_v_curr_node.data + __pyx_t_7 * __pyx_v_curr_node.strides[0]) )) = ((2 * __pyx_v_n) - 2);
 
-  /* "_hierarchy.pyx":1155
+  /* "_hierarchy.pyx":1153
  *     k = 0
  *     curr_node[0] = 2 * n - 2
  *     while k >= 0:             # <<<<<<<<<<<<<<
@@ -14702,7 +14655,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_6 = ((__pyx_v_k >= 0) != 0);
     if (!__pyx_t_6) break;
 
-    /* "_hierarchy.pyx":1156
+    /* "_hierarchy.pyx":1154
  *     curr_node[0] = 2 * n - 2
  *     while k >= 0:
  *         root = curr_node[k] - n             # <<<<<<<<<<<<<<
@@ -14712,7 +14665,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_8 = __pyx_v_k;
     __pyx_v_root = ((*((int *) ( /* dim=0 */ (__pyx_v_curr_node.data + __pyx_t_8 * __pyx_v_curr_node.strides[0]) ))) - __pyx_v_n);
 
-    /* "_hierarchy.pyx":1158
+    /* "_hierarchy.pyx":1156
  *         root = curr_node[k] - n
  * 
  *         i_lc = <int>Z[root, 0]             # <<<<<<<<<<<<<<
@@ -14723,7 +14676,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_10 = 0;
     __pyx_v_i_lc = ((int)(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_9 * __pyx_v_Z.strides[0]) ) + __pyx_t_10 * __pyx_v_Z.strides[1]) ))));
 
-    /* "_hierarchy.pyx":1159
+    /* "_hierarchy.pyx":1157
  * 
  *         i_lc = <int>Z[root, 0]
  *         if not is_visited(visited, i_lc):             # <<<<<<<<<<<<<<
@@ -14733,7 +14686,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_6 = ((!(__pyx_f_10_hierarchy_is_visited(__pyx_v_visited, __pyx_v_i_lc) != 0)) != 0);
     if (__pyx_t_6) {
 
-      /* "_hierarchy.pyx":1160
+      /* "_hierarchy.pyx":1158
  *         i_lc = <int>Z[root, 0]
  *         if not is_visited(visited, i_lc):
  *             set_visited(visited, i_lc)             # <<<<<<<<<<<<<<
@@ -14742,7 +14695,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
       __pyx_f_10_hierarchy_set_visited(__pyx_v_visited, __pyx_v_i_lc);
 
-      /* "_hierarchy.pyx":1161
+      /* "_hierarchy.pyx":1159
  *         if not is_visited(visited, i_lc):
  *             set_visited(visited, i_lc)
  *             if i_lc >= n:             # <<<<<<<<<<<<<<
@@ -14752,7 +14705,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_6 = ((__pyx_v_i_lc >= __pyx_v_n) != 0);
       if (__pyx_t_6) {
 
-        /* "_hierarchy.pyx":1162
+        /* "_hierarchy.pyx":1160
  *             set_visited(visited, i_lc)
  *             if i_lc >= n:
  *                 k += 1             # <<<<<<<<<<<<<<
@@ -14761,7 +14714,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
         __pyx_v_k = (__pyx_v_k + 1);
 
-        /* "_hierarchy.pyx":1163
+        /* "_hierarchy.pyx":1161
  *             if i_lc >= n:
  *                 k += 1
  *                 curr_node[k] = i_lc             # <<<<<<<<<<<<<<
@@ -14771,7 +14724,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_11 = __pyx_v_k;
         *((int *) ( /* dim=0 */ (__pyx_v_curr_node.data + __pyx_t_11 * __pyx_v_curr_node.strides[0]) )) = __pyx_v_i_lc;
 
-        /* "_hierarchy.pyx":1164
+        /* "_hierarchy.pyx":1162
  *                 k += 1
  *                 curr_node[k] = i_lc
  *                 continue             # <<<<<<<<<<<<<<
@@ -14780,7 +14733,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
         goto __pyx_L4_continue;
 
-        /* "_hierarchy.pyx":1161
+        /* "_hierarchy.pyx":1159
  *         if not is_visited(visited, i_lc):
  *             set_visited(visited, i_lc)
  *             if i_lc >= n:             # <<<<<<<<<<<<<<
@@ -14789,7 +14742,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
       }
 
-      /* "_hierarchy.pyx":1166
+      /* "_hierarchy.pyx":1164
  *                 continue
  *             else:
  *                 members[mem_idx] = i_lc             # <<<<<<<<<<<<<<
@@ -14800,7 +14753,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_12 = __pyx_v_mem_idx;
         *((int *) ( /* dim=0 */ (__pyx_v_members.data + __pyx_t_12 * __pyx_v_members.strides[0]) )) = __pyx_v_i_lc;
 
-        /* "_hierarchy.pyx":1167
+        /* "_hierarchy.pyx":1165
  *             else:
  *                 members[mem_idx] = i_lc
  *                 mem_idx += 1             # <<<<<<<<<<<<<<
@@ -14810,7 +14763,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_v_mem_idx = (__pyx_v_mem_idx + 1);
       }
 
-      /* "_hierarchy.pyx":1159
+      /* "_hierarchy.pyx":1157
  * 
  *         i_lc = <int>Z[root, 0]
  *         if not is_visited(visited, i_lc):             # <<<<<<<<<<<<<<
@@ -14819,7 +14772,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
     }
 
-    /* "_hierarchy.pyx":1169
+    /* "_hierarchy.pyx":1167
  *                 mem_idx += 1
  * 
  *         i_rc = <int>Z[root, 1]             # <<<<<<<<<<<<<<
@@ -14830,7 +14783,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_14 = 1;
     __pyx_v_i_rc = ((int)(*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_Z.data + __pyx_t_13 * __pyx_v_Z.strides[0]) ) + __pyx_t_14 * __pyx_v_Z.strides[1]) ))));
 
-    /* "_hierarchy.pyx":1170
+    /* "_hierarchy.pyx":1168
  * 
  *         i_rc = <int>Z[root, 1]
  *         if not is_visited(visited, i_rc):             # <<<<<<<<<<<<<<
@@ -14840,7 +14793,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_t_6 = ((!(__pyx_f_10_hierarchy_is_visited(__pyx_v_visited, __pyx_v_i_rc) != 0)) != 0);
     if (__pyx_t_6) {
 
-      /* "_hierarchy.pyx":1171
+      /* "_hierarchy.pyx":1169
  *         i_rc = <int>Z[root, 1]
  *         if not is_visited(visited, i_rc):
  *             set_visited(visited, i_rc)             # <<<<<<<<<<<<<<
@@ -14849,7 +14802,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
       __pyx_f_10_hierarchy_set_visited(__pyx_v_visited, __pyx_v_i_rc);
 
-      /* "_hierarchy.pyx":1172
+      /* "_hierarchy.pyx":1170
  *         if not is_visited(visited, i_rc):
  *             set_visited(visited, i_rc)
  *             if i_rc >= n:             # <<<<<<<<<<<<<<
@@ -14859,7 +14812,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
       __pyx_t_6 = ((__pyx_v_i_rc >= __pyx_v_n) != 0);
       if (__pyx_t_6) {
 
-        /* "_hierarchy.pyx":1173
+        /* "_hierarchy.pyx":1171
  *             set_visited(visited, i_rc)
  *             if i_rc >= n:
  *                 k += 1             # <<<<<<<<<<<<<<
@@ -14868,7 +14821,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
         __pyx_v_k = (__pyx_v_k + 1);
 
-        /* "_hierarchy.pyx":1174
+        /* "_hierarchy.pyx":1172
  *             if i_rc >= n:
  *                 k += 1
  *                 curr_node[k] = i_rc             # <<<<<<<<<<<<<<
@@ -14878,7 +14831,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_15 = __pyx_v_k;
         *((int *) ( /* dim=0 */ (__pyx_v_curr_node.data + __pyx_t_15 * __pyx_v_curr_node.strides[0]) )) = __pyx_v_i_rc;
 
-        /* "_hierarchy.pyx":1175
+        /* "_hierarchy.pyx":1173
  *                 k += 1
  *                 curr_node[k] = i_rc
  *                 continue             # <<<<<<<<<<<<<<
@@ -14887,7 +14840,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
         goto __pyx_L4_continue;
 
-        /* "_hierarchy.pyx":1172
+        /* "_hierarchy.pyx":1170
  *         if not is_visited(visited, i_rc):
  *             set_visited(visited, i_rc)
  *             if i_rc >= n:             # <<<<<<<<<<<<<<
@@ -14896,7 +14849,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
       }
 
-      /* "_hierarchy.pyx":1177
+      /* "_hierarchy.pyx":1175
  *                 continue
  *             else:
  *                 members[mem_idx] = i_rc             # <<<<<<<<<<<<<<
@@ -14907,7 +14860,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_t_16 = __pyx_v_mem_idx;
         *((int *) ( /* dim=0 */ (__pyx_v_members.data + __pyx_t_16 * __pyx_v_members.strides[0]) )) = __pyx_v_i_rc;
 
-        /* "_hierarchy.pyx":1178
+        /* "_hierarchy.pyx":1176
  *             else:
  *                 members[mem_idx] = i_rc
  *                 mem_idx += 1             # <<<<<<<<<<<<<<
@@ -14917,7 +14870,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
         __pyx_v_mem_idx = (__pyx_v_mem_idx + 1);
       }
 
-      /* "_hierarchy.pyx":1170
+      /* "_hierarchy.pyx":1168
  * 
  *         i_rc = <int>Z[root, 1]
  *         if not is_visited(visited, i_rc):             # <<<<<<<<<<<<<<
@@ -14926,7 +14879,7 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
  */
     }
 
-    /* "_hierarchy.pyx":1180
+    /* "_hierarchy.pyx":1178
  *                 mem_idx += 1
  * 
  *         k -= 1             # <<<<<<<<<<<<<<
@@ -14937,14 +14890,14 @@ static PyObject *__pyx_pf_10_hierarchy_30prelist(CYTHON_UNUSED PyObject *__pyx_s
     __pyx_L4_continue:;
   }
 
-  /* "_hierarchy.pyx":1182
+  /* "_hierarchy.pyx":1180
  *         k -= 1
  * 
  *     PyMem_Free(visited)             # <<<<<<<<<<<<<<
  */
   PyMem_Free(__pyx_v_visited);
 
-  /* "_hierarchy.pyx":1129
+  /* "_hierarchy.pyx":1127
  * 
  * 
  * def prelist(double[:, :] Z, int[:] members, int n):             # <<<<<<<<<<<<<<
@@ -30660,8 +30613,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 0, 1, 1},
   {&__pyx_n_u_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 1, 0, 1},
   {&__pyx_n_s_cfunc_to_py, __pyx_k_cfunc_to_py, sizeof(__pyx_k_cfunc_to_py), 0, 0, 1, 1},
-  {&__pyx_kp_s_chain_length, __pyx_k_chain_length, sizeof(__pyx_k_chain_length), 0, 0, 1, 0},
-  {&__pyx_n_s_chain_length_2, __pyx_k_chain_length_2, sizeof(__pyx_k_chain_length_2), 0, 0, 1, 1},
+  {&__pyx_n_s_chain_length, __pyx_k_chain_length, sizeof(__pyx_k_chain_length), 0, 0, 1, 1},
   {&__pyx_n_s_change_value, __pyx_k_change_value, sizeof(__pyx_k_change_value), 0, 0, 1, 1},
   {&__pyx_n_s_cid_lc, __pyx_k_cid_lc, sizeof(__pyx_k_cid_lc), 0, 0, 1, 1},
   {&__pyx_n_s_cid_rc, __pyx_k_cid_rc, sizeof(__pyx_k_cid_rc), 0, 0, 1, 1},
@@ -30690,11 +30642,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
-  {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
   {&__pyx_n_s_enumerate, __pyx_k_enumerate, sizeof(__pyx_k_enumerate), 0, 0, 1, 1},
   {&__pyx_n_s_error, __pyx_k_error, sizeof(__pyx_k_error), 0, 0, 1, 1},
   {&__pyx_n_s_fast_linkage, __pyx_k_fast_linkage, sizeof(__pyx_k_fast_linkage), 0, 0, 1, 1},
-  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
   {&__pyx_n_s_format, __pyx_k_format, sizeof(__pyx_k_format), 0, 0, 1, 1},
   {&__pyx_n_s_fortran, __pyx_k_fortran, sizeof(__pyx_k_fortran), 0, 0, 1, 1},
@@ -30771,7 +30721,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pack, __pyx_k_pack, sizeof(__pyx_k_pack), 0, 0, 1, 1},
   {&__pyx_n_s_pair, __pyx_k_pair, sizeof(__pyx_k_pair), 0, 0, 1, 1},
   {&__pyx_n_s_prelist, __pyx_k_prelist, sizeof(__pyx_k_prelist), 0, 0, 1, 1},
-  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_getbuffer, __pyx_k_pyx_getbuffer, sizeof(__pyx_k_pyx_getbuffer), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
@@ -30832,31 +30781,31 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "_hierarchy.pyx":1017
+  /* "_hierarchy.pyx":1015
  * 
  *     # Sort Z by cluster distances.
  *     order = np.argsort(Z_arr[:, 2], kind='mergesort')             # <<<<<<<<<<<<<<
  *     Z_arr = Z_arr[order]
  * 
  */
-  __pyx_slice_ = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice_)) __PYX_ERR(1, 1017, __pyx_L1_error)
+  __pyx_slice_ = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice_)) __PYX_ERR(1, 1015, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice_);
   __Pyx_GIVEREF(__pyx_slice_);
-  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_slice_, __pyx_int_2); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 1017, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(2, __pyx_slice_, __pyx_int_2); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(1, 1015, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "_hierarchy.pyx":1075
+  /* "_hierarchy.pyx":1073
  * 
  *     # Sort Z by cluster distances.
  *     order = np.argsort(Z_arr[:, 2], kind='mergesort')             # <<<<<<<<<<<<<<
  *     Z_arr = Z_arr[order]
  * 
  */
-  __pyx_slice__3 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__3)) __PYX_ERR(1, 1075, __pyx_L1_error)
+  __pyx_slice__3 = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice__3)) __PYX_ERR(1, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice__3);
   __Pyx_GIVEREF(__pyx_slice__3);
-  __pyx_tuple__4 = PyTuple_Pack(2, __pyx_slice__3, __pyx_int_2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 1075, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(2, __pyx_slice__3, __pyx_int_2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(1, 1073, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
@@ -31240,34 +31189,34 @@ static int __Pyx_InitCachedConstants(void) {
  *     """Perform hierarchy clustering using nearest-neighbor chain algorithm.
  * 
  */
-  __pyx_tuple__47 = PyTuple_Pack(21, __pyx_n_s_dists, __pyx_n_s_n, __pyx_n_s_method, __pyx_n_s_Z_arr, __pyx_n_s_Z, __pyx_n_s_D, __pyx_n_s_size, __pyx_n_s_new_dist, __pyx_n_s_cluster_chain, __pyx_n_s_chain_length_2, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_nx, __pyx_n_s_ny, __pyx_n_s_ni, __pyx_n_s_dist, __pyx_n_s_current_min, __pyx_n_s_order); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(1, 909, __pyx_L1_error)
+  __pyx_tuple__47 = PyTuple_Pack(21, __pyx_n_s_dists, __pyx_n_s_n, __pyx_n_s_method, __pyx_n_s_Z_arr, __pyx_n_s_Z, __pyx_n_s_D, __pyx_n_s_size, __pyx_n_s_new_dist, __pyx_n_s_cluster_chain, __pyx_n_s_chain_length, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_nx, __pyx_n_s_ny, __pyx_n_s_ni, __pyx_n_s_dist, __pyx_n_s_current_min, __pyx_n_s_order); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(1, 909, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__47);
   __Pyx_GIVEREF(__pyx_tuple__47);
   __pyx_codeobj__48 = (PyObject*)__Pyx_PyCode_New(3, 0, 21, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__47, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_n_s_nn_chain, 909, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__48)) __PYX_ERR(1, 909, __pyx_L1_error)
 
-  /* "_hierarchy.pyx":1026
+  /* "_hierarchy.pyx":1024
  * 
  * 
  * def mst_single_linkage(double[:] dists, int n):             # <<<<<<<<<<<<<<
  *     """Perform hierarchy clustering using MST algorithm for single linkage.
  * 
  */
-  __pyx_tuple__49 = PyTuple_Pack(13, __pyx_n_s_dists, __pyx_n_s_n, __pyx_n_s_Z_arr, __pyx_n_s_Z, __pyx_n_s_merged, __pyx_n_s_D, __pyx_n_s_i, __pyx_n_s_k, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_dist, __pyx_n_s_current_min, __pyx_n_s_order); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(1, 1026, __pyx_L1_error)
+  __pyx_tuple__49 = PyTuple_Pack(13, __pyx_n_s_dists, __pyx_n_s_n, __pyx_n_s_Z_arr, __pyx_n_s_Z, __pyx_n_s_merged, __pyx_n_s_D, __pyx_n_s_i, __pyx_n_s_k, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_dist, __pyx_n_s_current_min, __pyx_n_s_order); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(1, 1024, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__49);
   __Pyx_GIVEREF(__pyx_tuple__49);
-  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_n_s_mst_single_linkage, 1026, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(1, 1026, __pyx_L1_error)
+  __pyx_codeobj__50 = (PyObject*)__Pyx_PyCode_New(2, 0, 13, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__49, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_n_s_mst_single_linkage, 1024, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__50)) __PYX_ERR(1, 1024, __pyx_L1_error)
 
-  /* "_hierarchy.pyx":1129
+  /* "_hierarchy.pyx":1127
  * 
  * 
  * def prelist(double[:, :] Z, int[:] members, int n):             # <<<<<<<<<<<<<<
  *     """
  *     Perform a pre-order traversal on the linkage tree and get a list of ids
  */
-  __pyx_tuple__51 = PyTuple_Pack(11, __pyx_n_s_Z, __pyx_n_s_members, __pyx_n_s_n, __pyx_n_s_k, __pyx_n_s_i_lc, __pyx_n_s_i_rc, __pyx_n_s_root, __pyx_n_s_mem_idx, __pyx_n_s_curr_node, __pyx_n_s_visited_size, __pyx_n_s_visited); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(1, 1129, __pyx_L1_error)
+  __pyx_tuple__51 = PyTuple_Pack(11, __pyx_n_s_Z, __pyx_n_s_members, __pyx_n_s_n, __pyx_n_s_k, __pyx_n_s_i_lc, __pyx_n_s_i_rc, __pyx_n_s_root, __pyx_n_s_mem_idx, __pyx_n_s_curr_node, __pyx_n_s_visited_size, __pyx_n_s_visited); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(1, 1127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__51);
   __Pyx_GIVEREF(__pyx_tuple__51);
-  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(3, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_n_s_prelist, 1129, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(1, 1129, __pyx_L1_error)
+  __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(3, 0, 11, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_mukesh_Documents_Clusterin, __pyx_n_s_prelist, 1127, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(1, 1127, __pyx_L1_error)
 
   /* "View.MemoryView":282
  *         return self.name
@@ -31450,10 +31399,10 @@ PyMODINIT_FUNC PyInit__hierarchy(void)
   __pyx_vtabptr_10_hierarchy_LinkageUnionFind = &__pyx_vtable_10_hierarchy_LinkageUnionFind;
   __pyx_vtable_10_hierarchy_LinkageUnionFind.merge = (int (*)(struct __pyx_obj_10_hierarchy_LinkageUnionFind *, int, int))__pyx_f_10_hierarchy_16LinkageUnionFind_merge;
   __pyx_vtable_10_hierarchy_LinkageUnionFind.find = (PyObject *(*)(struct __pyx_obj_10_hierarchy_LinkageUnionFind *, int))__pyx_f_10_hierarchy_16LinkageUnionFind_find;
-  if (PyType_Ready(&__pyx_type_10_hierarchy_LinkageUnionFind) < 0) __PYX_ERR(1, 1084, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_10_hierarchy_LinkageUnionFind) < 0) __PYX_ERR(1, 1082, __pyx_L1_error)
   __pyx_type_10_hierarchy_LinkageUnionFind.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_10_hierarchy_LinkageUnionFind.tp_dict, __pyx_vtabptr_10_hierarchy_LinkageUnionFind) < 0) __PYX_ERR(1, 1084, __pyx_L1_error)
-  if (PyObject_SetAttrString(__pyx_m, "LinkageUnionFind", (PyObject *)&__pyx_type_10_hierarchy_LinkageUnionFind) < 0) __PYX_ERR(1, 1084, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_10_hierarchy_LinkageUnionFind.tp_dict, __pyx_vtabptr_10_hierarchy_LinkageUnionFind) < 0) __PYX_ERR(1, 1082, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "LinkageUnionFind", (PyObject *)&__pyx_type_10_hierarchy_LinkageUnionFind) < 0) __PYX_ERR(1, 1082, __pyx_L1_error)
   __pyx_ptype_10_hierarchy_LinkageUnionFind = &__pyx_type_10_hierarchy_LinkageUnionFind;
   if (PyType_Ready(&__pyx_scope_struct____Pyx_CFunc_double____double____double____double____int____int____int___to_py) < 0) __PYX_ERR(3, 64, __pyx_L1_error)
   __pyx_scope_struct____Pyx_CFunc_double____double____double____double____int____int____int___to_py.tp_print = 0;
@@ -31655,28 +31604,28 @@ PyMODINIT_FUNC PyInit__hierarchy(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_nn_chain, __pyx_t_1) < 0) __PYX_ERR(1, 909, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_hierarchy.pyx":1026
+  /* "_hierarchy.pyx":1024
  * 
  * 
  * def mst_single_linkage(double[:] dists, int n):             # <<<<<<<<<<<<<<
  *     """Perform hierarchy clustering using MST algorithm for single linkage.
  * 
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_10_hierarchy_29mst_single_linkage, NULL, __pyx_n_s_hierarchy); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1026, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_10_hierarchy_29mst_single_linkage, NULL, __pyx_n_s_hierarchy); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1024, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mst_single_linkage, __pyx_t_1) < 0) __PYX_ERR(1, 1026, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mst_single_linkage, __pyx_t_1) < 0) __PYX_ERR(1, 1024, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_hierarchy.pyx":1129
+  /* "_hierarchy.pyx":1127
  * 
  * 
  * def prelist(double[:, :] Z, int[:] members, int n):             # <<<<<<<<<<<<<<
  *     """
  *     Perform a pre-order traversal on the linkage tree and get a list of ids
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_10_hierarchy_31prelist, NULL, __pyx_n_s_hierarchy); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1129, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_10_hierarchy_31prelist, NULL, __pyx_n_s_hierarchy); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 1127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_prelist, __pyx_t_1) < 0) __PYX_ERR(1, 1129, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_prelist, __pyx_t_1) < 0) __PYX_ERR(1, 1127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "_hierarchy.pyx":1
@@ -35156,124 +35105,6 @@ static CYTHON_INLINE int __pyx_memview_set_double(const char *itemp, PyObject *o
     return 1;
 }
 
-/* MemviewDtypeToObject */
-                static CYTHON_INLINE PyObject *__pyx_memview_get_int(const char *itemp) {
-    return (PyObject *) __Pyx_PyInt_From_int(*(int *) itemp);
-}
-static CYTHON_INLINE int __pyx_memview_set_int(const char *itemp, PyObject *obj) {
-    int value = __Pyx_PyInt_As_int(obj);
-    if ((value == (int)-1) && PyErr_Occurred())
-        return 0;
-    *(int *) itemp = value;
-    return 1;
-}
-
-/* Print */
-                #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static PyObject *__Pyx_GetStdout(void) {
-    PyObject *f = PySys_GetObject((char *)"stdout");
-    if (!f) {
-        PyErr_SetString(PyExc_RuntimeError, "lost sys.stdout");
-    }
-    return f;
-}
-static int __Pyx_Print(PyObject* f, PyObject *arg_tuple, int newline) {
-    int i;
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    for (i=0; i < PyTuple_GET_SIZE(arg_tuple); i++) {
-        PyObject* v;
-        if (PyFile_SoftSpace(f, 1)) {
-            if (PyFile_WriteString(" ", f) < 0)
-                goto error;
-        }
-        v = PyTuple_GET_ITEM(arg_tuple, i);
-        if (PyFile_WriteObject(v, f, Py_PRINT_RAW) < 0)
-            goto error;
-        if (PyString_Check(v)) {
-            char *s = PyString_AsString(v);
-            Py_ssize_t len = PyString_Size(v);
-            if (len > 0) {
-                switch (s[len-1]) {
-                    case ' ': break;
-                    case '\f': case '\r': case '\n': case '\t': case '\v':
-                        PyFile_SoftSpace(f, 0);
-                        break;
-                    default:  break;
-                }
-            }
-        }
-    }
-    if (newline) {
-        if (PyFile_WriteString("\n", f) < 0)
-            goto error;
-        PyFile_SoftSpace(f, 0);
-    }
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-}
-#else
-static int __Pyx_Print(PyObject* stream, PyObject *arg_tuple, int newline) {
-    PyObject* kwargs = 0;
-    PyObject* result = 0;
-    PyObject* end_string;
-    if (unlikely(!__pyx_print)) {
-        __pyx_print = PyObject_GetAttr(__pyx_b, __pyx_n_s_print);
-        if (!__pyx_print)
-            return -1;
-    }
-    if (stream) {
-        kwargs = PyDict_New();
-        if (unlikely(!kwargs))
-            return -1;
-        if (unlikely(PyDict_SetItem(kwargs, __pyx_n_s_file, stream) < 0))
-            goto bad;
-        if (!newline) {
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                goto bad;
-            if (PyDict_SetItem(kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                goto bad;
-            }
-            Py_DECREF(end_string);
-        }
-    } else if (!newline) {
-        if (unlikely(!__pyx_print_kwargs)) {
-            __pyx_print_kwargs = PyDict_New();
-            if (unlikely(!__pyx_print_kwargs))
-                return -1;
-            end_string = PyUnicode_FromStringAndSize(" ", 1);
-            if (unlikely(!end_string))
-                return -1;
-            if (PyDict_SetItem(__pyx_print_kwargs, __pyx_n_s_end, end_string) < 0) {
-                Py_DECREF(end_string);
-                return -1;
-            }
-            Py_DECREF(end_string);
-        }
-        kwargs = __pyx_print_kwargs;
-    }
-    result = PyObject_Call(__pyx_print, arg_tuple, kwargs);
-    if (unlikely(kwargs) && (kwargs != __pyx_print_kwargs))
-        Py_DECREF(kwargs);
-    if (!result)
-        return -1;
-    Py_DECREF(result);
-    return 0;
-bad:
-    if (kwargs != __pyx_print_kwargs)
-        Py_XDECREF(kwargs);
-    return -1;
-}
-#endif
-
 /* Declarations */
                 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -36059,43 +35890,6 @@ raise_neg_overflow:
         "can't convert negative value to npy_int64");
     return (npy_int64) -1;
 }
-
-/* PrintOne */
-                #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION < 3
-static int __Pyx_PrintOne(PyObject* f, PyObject *o) {
-    if (!f) {
-        if (!(f = __Pyx_GetStdout()))
-            return -1;
-    }
-    Py_INCREF(f);
-    if (PyFile_SoftSpace(f, 0)) {
-        if (PyFile_WriteString(" ", f) < 0)
-            goto error;
-    }
-    if (PyFile_WriteObject(o, f, Py_PRINT_RAW) < 0)
-        goto error;
-    if (PyFile_WriteString("\n", f) < 0)
-        goto error;
-    Py_DECREF(f);
-    return 0;
-error:
-    Py_DECREF(f);
-    return -1;
-    /* the line below is just to avoid C compiler
-     * warnings about unused functions */
-    return __Pyx_Print(f, NULL, 0);
-}
-#else
-static int __Pyx_PrintOne(PyObject* stream, PyObject *o) {
-    int res;
-    PyObject* arg_tuple = PyTuple_Pack(1, o);
-    if (unlikely(!arg_tuple))
-        return -1;
-    res = __Pyx_Print(stream, arg_tuple, 1);
-    Py_DECREF(arg_tuple);
-    return res;
-}
-#endif
 
 /* CIntFromPy */
                 static CYTHON_INLINE char __Pyx_PyInt_As_char(PyObject *x) {

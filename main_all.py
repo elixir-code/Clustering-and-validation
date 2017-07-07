@@ -23,6 +23,8 @@ import numpy as np
 import SRC.EDA as EDA
 
 main = EDA.EDA(force_file=False)
+main.read_data("SAMPLES/LARGE/HTRU_2.csv",label_cols=-1,normalize_labels=True)
+
 main.read_data("SAMPLES/STANDARD/iris.data",header=None,label_cols=-1,normalize_labels=True)
 EDA.visualise_3D(main.data.T[0],main.data.T[1],main.data.T[2],main.class_labels)
 
@@ -37,6 +39,7 @@ main.read_data("SAMPLES/LARGE/Relation Network (Directed).data",header=None,labe
 main.read_data("SAMPLES/STANDARD/flame.txt",sep='\s+',header=None,label_cols=-1,normalize_labels=True)
 #main.read_data("SAMPLES/STANDARD/Skin_NonSkin.csv",header=None,label_cols=-1,normalize_labels=True)
 
+main.read_data("SAMPLES/Classification/data_banknote_authentication.txt",label_cols=-1,normalize_labels=True)
 
 #print("Finished Reading Data ...")
 
@@ -131,7 +134,7 @@ from sklearn.neighbors import kneighbors_graph
 main.affinity_matrix = kneighbors_graph(main.data,n_neighbors=10,include_self=False)
 
 main.comp_distance_matrix()
-main.affinity_matrix = np.exp(-0.25*main.distance_matrix**2)
+main.affinity_matrix = np.exp(-50*main.distance_matrix**2)
 
 from scipy.sparse.csgraph import laplacian
 lap,dd = laplacian(main.affinity_matrix,normed=True,return_diag=True)

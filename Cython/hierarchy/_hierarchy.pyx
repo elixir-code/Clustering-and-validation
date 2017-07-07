@@ -954,8 +954,6 @@ def nn_chain(double[:] dists, int n, int method):
                     cluster_chain[0] = i
                     break
         
-        print(cluster_chain," chain_length = ",chain_length)
-
         # Go through chain of neighbors until two mutual neighbors are found.
         while True:
             x = cluster_chain[chain_length - 1]

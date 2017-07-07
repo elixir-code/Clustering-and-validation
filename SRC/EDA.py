@@ -39,6 +39,9 @@ import pickle
 from time import time
 import warnings
 
+from sklearn.neighbors import kneighbors_graph
+from scipy.sparse.csgraph import laplacian
+
 class EDA:
 	def __init__(self,force_file=True,location="HOOD/"):
 		"""
@@ -383,10 +386,56 @@ class EDA:
 		print_dict(self.hdbscan_results)
 
 	#TODO : needs to be corrected
-	def perform_spectral_clustering(self, no_clusters, affinity='rbf', gamma=1.0, n_neighbors=10, pass_labels = False,n_init=10):
-		spectral_clusterer=SpectralClustering(n_clusters=no_clusters, gamma=gamma, affinity=affinity, n_neighbors=n_neighbors, n_init=n_init)
-		spectral_clusterer.fit(self.data,y=(self.class_labels if pass_labels is True else None))
-		self.spectral_results={"parameters":spectral_clusterer.get_params(),"labels":spectral_clusterer.labels_,"n_clusters":np.unique(spectral_clusterer.labels_).max()+1,"clusters":label_cnt_dict(spectral_clusterer.labels_)}
+	def perform_spectral_clustering(self, no_clusters, affinity='rbf', gamma=1.0, n_neighbors=10, pass_labels = False, n_init=10, force_manual=False):
+
+		if force_manual:
+			if not hasattr(self,"distance_matrix"):
+				self.comp_distance_matrix()
+
+			if affinity == 'rbf':
+				self.affinity_matrix = np.exp(-gamma * self.distance_matrix**2)
+
+			elif affinity == 'nearest_neighbors':
+				self.affinity_matrix = kneighbors_graph(self.data,n_neighbors=n_neighbors,include_self=True)
+
+			else:
+				raise Exception("Affinity is NOT recognised as VALID ...")
+
+			print("Computed Affinity Matrix ...")
+
+			#laplacian matrix of graph
+			lap, dd = laplacian(self.affinity_matrix, normed=True, return_diag=True)
+			lap *= -1
+			print("Computed Graph Laplacian ...")
+
+			lambdas, diffusion_map = np.linalg.eigh(lap)
+			print("Performed Eigen-decomposition ...")
+
+			embedding = diffusion_map.T[(self.n_samples-no_clusters):] * dd
+
+			#deterministic vector flip
+			sign = np.sign(embedding[range(embedding.shape[0]),np.argmax(np.abs(embedding),axis=1)])
+			embedding = embedding.T * sign
+
+			if no_clusters == 2:
+				visualise_2D(embedding.T[0],embedding.T[1],(self.class_labels) if pass_labels==True else None)
+			
+			elif no_clusters == 3:
+				visualise_3D(embedding.T[0],embedding.T[1],embedding.T[2],(self.class_labels) if pass_labels==True else None)
+
+			print("Performing K-Means clustering in eigen-space")
+			kmeans_clusterer = KMeans(n_clusters=no_clusters,n_jobs=-1)
+			kmeans_clusterer.fit(self.data)
+
+			spectral_params = {"affinity":affinity, "gamma":gamma, "n_neighbors":n_neighbors, "n_init":n_init}
+
+			self.spectral_results = {"parameters":spectral_params, "labels":kmeans_clusterer.labels_,"n_clusters":np.unique(kmeans_clusterer.labels_).max()+1,"clusters":label_cnt_dict(kmeans_clusterer.labels_)}
+
+
+		else: 
+			spectral_clusterer=SpectralClustering(n_clusters=no_clusters, gamma=gamma, affinity=affinity, n_neighbors=n_neighbors, n_init=n_init)
+			spectral_clusterer.fit(self.data,y=(self.class_labels if pass_labels is True else None))
+			self.spectral_results={"parameters":spectral_clusterer.get_params(),"labels":spectral_clusterer.labels_,"n_clusters":np.unique(spectral_clusterer.labels_).max()+1,"clusters":label_cnt_dict(spectral_clusterer.labels_)}
 
 		print_dict(self.spectral_results)
 
@@ -406,7 +455,10 @@ class EDA:
 	def perform_hierarchial(self,no_clusters):
 		hierarchial_clusterer=AgglomerativeClustering(n_clusters=no_clusters)
 		hierarchial_clusterer.fit(self.data,hdf5_file=self.hdf5_file)
-		return hierarchial_clusterer.labels_
+		
+		self.hierarchial_results={"parameters":hierarchial_clusterer.get_params(),"labels":hierarchial_clusterer.labels_,"n_clusters":no_clusters,'clusters':label_cnt_dict(hierarchial_clusterer.labels_)}     
+
+		print_dict(self.hierarchial_results)
 
 def label_cnt_dict(labels):
 	unique, counts = np.unique(labels, return_counts=True)
