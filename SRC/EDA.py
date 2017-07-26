@@ -396,7 +396,8 @@ class EDA:
 				self.affinity_matrix = np.exp(-gamma * self.distance_matrix**2)
 
 			elif affinity == 'nearest_neighbors':
-				self.affinity_matrix = kneighbors_graph(self.data,n_neighbors=n_neighbors,include_self=True)
+				self.affinity_matrix = kneighbors_graph(self.data,n_neighbors=n_neighbors,include_self=True).toarray()
+
 
 			else:
 				raise Exception("Affinity is NOT recognised as VALID ...")
@@ -425,7 +426,7 @@ class EDA:
 
 			print("Performing K-Means clustering in eigen-space")
 			kmeans_clusterer = KMeans(n_clusters=no_clusters,n_jobs=-1)
-			kmeans_clusterer.fit(self.data)
+			kmeans_clusterer.fit(embedding)
 
 			spectral_params = {"affinity":affinity, "gamma":gamma, "n_neighbors":n_neighbors, "n_init":n_init}
 
@@ -452,8 +453,8 @@ class EDA:
 
 		print_dict(self.kmeans_results)
 
-	def perform_hierarchial(self,no_clusters):
-		hierarchial_clusterer=AgglomerativeClustering(n_clusters=no_clusters)
+	def perform_hierarchial(self,no_clusters,params={}):
+		hierarchial_clusterer=AgglomerativeClustering(n_clusters=no_clusters,**params)
 		hierarchial_clusterer.fit(self.data,hdf5_file=self.hdf5_file)
 		
 		self.hierarchial_results={"parameters":hierarchial_clusterer.get_params(),"labels":hierarchial_clusterer.labels_,"n_clusters":no_clusters,'clusters':label_cnt_dict(hierarchial_clusterer.labels_)}     
@@ -475,7 +476,7 @@ def visualise_2D(x_values,y_values,labels=None,class_names=None):
 	sns.set_context('poster')
 	sns.set_color_codes()
 
-	plot_kwds = {'alpha' : 0.5, 's' : 30, 'linewidths':0}
+	plot_kwds = {'alpha' : 0.5, 's' : 50, 'linewidths':0}
 
 	frame = plt.gca()
 	frame.axes.get_xaxis().set_visible(False)
@@ -506,7 +507,7 @@ def visualise_3D(x_values,y_values,z_values,labels=None):
 	fig = plt.figure()
 	ax = fig.add_subplot(111,projection='3d')
 
-	plot_kwds = {'alpha' : 0.5, 's' : 80, 'linewidths':0}
+	plot_kwds = {'alpha' : 0.5, 's' : 50, 'linewidths':0}
 
 	if labels is None:
 		ax.scatter(x_values,y_values,z_values,c='b',**plot_kwds)

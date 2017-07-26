@@ -46,6 +46,11 @@ from itertools import combinations
 
 from sklearn.cluster import KMeans
 
+from sklearn.metrics.pairwise import euclidean_distances
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 class internal_indices:
 
 	def __init__(self,data,labels,distance_matrix=None):
@@ -56,6 +61,10 @@ class internal_indices:
 
 		#initialise class memebers
 		self.data=np.array(data)
+		'''Note: Treats noise as a seperate (K + 1 th) partition
+		
+		References :	[1]	https://stats.stackexchange.com/questions/291566/cluster-validation-of-incomplete-clustering-algorithms-esp-density-based-db
+		'''
 		self.labels=le.transform(labels)
 
 		self.n_samples=self.data.shape[0]
@@ -183,24 +192,66 @@ class internal_indices:
 		"""
 		return np.trace(np.linalg.inv(self.WG).dot(self.BG))
 
-	def silhouette_score(self):
+	def silhouette_score(self, threshold=-1, return_indices=False):
 		"""Silhouette score (sklearn)
 
 		Reference: [1] http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score	
 		"""
-		return metrics.silhouette_score(self.data,self.labels, metric='euclidean')
+		
+		#Experiments on silhoutte score -- Partitional Algorithms
+		cluster_data_indices = np.empty((self.n_clusters,),dtype='O')
+
+		for cluster_index in range(self.n_clusters):
+			cluster_data_indices[cluster_index] = list(np.where(self.labels==cluster_index))
+
+		silhouette_coefs = np.zeros((self.n_samples,),dtype='d')
+		for data_index in range(self.n_samples):
+			avg_intra_dist = euclidean_distances(self.data[[data_index]],self.data[cluster_data_indices[self.labels[data_index]]])[0]
+			ai = np.sum(avg_intra_dist)/(self.clusters_size[self.labels[data_index]]-1)
+
+			bi = np.float64('inf')
+			for cluster_index in range(self.n_clusters):
+				if cluster_index == self.labels[data_index]:
+					continue
+
+				avg_inter_dist = euclidean_distances(self.data[[data_index]],self.data[cluster_data_indices[cluster_index]])[0]
+				current_bi = np.mean(avg_inter_dist)
+
+				if current_bi < bi:
+					bi = current_bi
+
+			silhouette_coefs[data_index] = (bi - ai)/max(ai,bi)
+		
+		choosen_indices = list(np.where(silhouette_coefs > threshold))
+		data = self.data[choosen_indices]
+
+		cmap = sns.cubehelix_palette(as_cmap=True)
+
+		f, ax = plt.subplots()
+		points = ax.scatter(data.T[0], data.T[1], c=silhouette_coefs[choosen_indices], s=50, cmap=cmap)
+		f.colorbar(points)
+		plt.show()
+
+		if return_indices:
+			return silhouette_coefs, choosen_indices
+		
+		return silhouette_coefs
+		
+		#return np.mean(silhouette_coefs)
+		
+		#return metrics.silhouette_score(self.data,self.labels, metric='euclidean')
 
 
 	def calinski_harabaz_score(self) :
 		"""Calinski-Harabasz index (sklearn)
+		rule : max
 
-		References:	[1] http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html#sklearn.metrics.silhouette_score	
+		References:	[1] http://scikit-learn.org/stable/modules/generated/sklearn.metrics
 					[2] Clustering Indices, Bernard Desgraupes (April 2013)
 		"""
 		return ((self.n_samples - self.n_clusters)/(self.n_clusters - 1)) * (self.BGSS/self.WGSS)
 		#return metrics.calinski_harabaz_score(self.data,self.labels)
 
-	#C-index
 	def c_index(self):
 		"""C-index : 	range [0,1]
 						rule : min
@@ -369,7 +420,6 @@ class internal_indices:
 		wcd = np.sum(clusters_dispersion / self.clusters_size)
 		#print(wcd)
 		return (1 - 1/np.exp(np.exp(bcd - wcd)))
-
 
 	# internal indices -- end
 

@@ -1,0 +1,65 @@
+Re-test Internal Indices
+Objective : Check admittance for NOISE
+
+1. Silhoutte Index ~ (Tested Against User written version)
+2. Calinski Index ~ (Tested the components - SCATTER MATRICES)
+3. C-Index
+4. Davies-Bouldin Index
+5. Gamma Index
+
+6. Adjusted Rand Index
+
++==============================================================================================================+
+
+Silhouette Index (Sklearn):
+
+Flame Dataset -- HDBSCAN ALGORITHM
++-----------+
+
+Silhouette Score (Direct API Call) : 0.21311205854615017
+Silhouette Score ( New Partition ) : 0.21311205854615017
+Silhouette Score ( Remove Noise )  : 0.45689554581082858
+
+Synthetic 2D Dataset -- HDBSCAN ALGORITHM
++------------------+
+
+Silhouette Score (Direct API Call) : 0.67053161065028011
+Silhouette Score ( New Partition ) : 0.67053161065028011
+Silhouette Score ( Remove Noise )  : 0.73809924990298847
+
+Bank Note Authentication -- HDBSCAN ALGORITHM
++----------------------+
+
+Silhouette Score (Direct API Call) : 0.25273886728263556 (K-Means : 0.43228842682083957)
+Silhouette Score ( New Partition ) : 0.25273886728263556
+Silhouette Score ( Remove Noise )  : 0.50914963397874313
+
+
++===============================================================================================================+
+
+Adjusted Rand Index (Sklearn):
+
+Flame Datset -- DBSCAN ALGORITHM
++----------+
+
+Adjusted Rand Index (Direct API Call) : 0.92798645259551138
+Adjusted Rand Index ( New Partition ) :	0.92798645259551138
+Adjusted Rand Index ( Remove Noise  ) :	0.98261872862039734
+
+Synthetic 2D Dataset -- DBSCAN ALGORITHM
++------------------+
+
+Adjusted Rand Index (Direct API Call) : 0.0
+Adjusted Rand Index ( New Partition ) :	0.0
+Adjusted Rand Index ( Remove Noise  ) :	0.0
+
++================================================================================================================+
+
+Within-Cluster Scatter and Between-Cluster Scatter
++------------------------------------------------+
+
+'WGSS' and 'BGSS' values checked by manually calculating Within-class scatter and Between-class scatter (By Formula).
+
+WG and BG matrices validated
+1. Reference : http://sebastianraschka.com/Articles/2014_python_lda.html
+2. Manually cross-verified by computing the co-variance matrix for pairs of features
